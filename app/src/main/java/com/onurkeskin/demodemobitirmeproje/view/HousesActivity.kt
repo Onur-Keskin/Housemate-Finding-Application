@@ -1,0 +1,126 @@
+package com.onurkeskin.demodemobitirmeproje.view
+
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.onurkeskin.demobitirmeproje.R
+import com.onurkeskin.demodemobitirmeproje.adapter.HousesRecyclerViewAdapter
+import com.onurkeskin.demodemobitirmeproje.model.HouseModel
+import com.onurkeskin.demodemobitirmeproje.service.HouseAPI
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_houses.*
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+
+class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
+
+    private val BASE_URL = "http://192.168.1.21:8080/"
+    private var houseModels : ArrayList<HouseModel>? = null
+    private var housesRecyclerViewAdapter : HousesRecyclerViewAdapter? = null
+
+    //Disposable -> Tek kullanımlık-Kullan At
+    private var compositeDisposable : CompositeDisposable? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_houses)
+
+        compositeDisposable = CompositeDisposable()
+
+        //RecyclerView bağlama
+        val layoutManager : RecyclerView.LayoutManager = LinearLayoutManager(this)
+        housesRecyclerView.layoutManager = layoutManager
+
+        loadData()
+
+    }
+
+    private fun loadData(){
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build().create(HouseAPI::class.java)
+
+
+
+        compositeDisposable?.add(retrofit.getHouses()
+            .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
+            .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
+            .subscribe(this::handleResponse))
+
+
+
+
+    }
+
+    private fun handleResponse(houseList: List<HouseModel>){
+        houseModels = ArrayList(houseList)
+
+        houseModels?.let {
+            housesRecyclerViewAdapter = HousesRecyclerViewAdapter(it,this@HousesActivity)
+            housesRecyclerView.adapter = housesRecyclerViewAdapter
+        }
+    }
+
+    override fun onHouseItemClick(houseModel: HouseModel) {
+        Toast.makeText(this,"Clicked : ${houseModel.houseId}", Toast.LENGTH_LONG).show()
+        val intent = Intent(this@HousesActivity,HouseSingleProfileActivity::class.java) //Evin detay bilgilerinin görüntüleneceği sayfaya yönlenecek.
+        intent.putExtra("houseId",houseModel.houseId)
+        startActivity(intent)
+    }
+
+    override fun onHouseOwnerItemClick(houseModel: HouseModel) {
+        val intent = Intent(this@HousesActivity,SingleProfileActivity::class.java)
+        intent.putExtra("fromHouseOwner","houseOwnerProfile")
+        println("HouseOwnerId : " + houseModel.ownerId[0].get("ownerId"))
+        intent.putExtra("houseOwnerId", houseModel.ownerId[0].get("ownerId").asInt)
+        startActivity(intent)
+    }
+
+    override fun onCustomerItemClick(houseModel: HouseModel) {
+        val intent = Intent(this@HousesActivity,SingleProfileActivity::class.java)
+        intent.putExtra("fromCustomer","customerProfile")
+        println("CustomerId : "+ houseModel.customerId[0].get("customerId"))
+        intent.putExtra("customerId", houseModel.customerId[0].get("customerId").asInt)
+        startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable?.clear()
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        //inflater xml ilemkodu bağlama
+        val menuInflater = menuInflater
+        menuInflater.inflate(R.menu.category_menu,menu)
+
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.settings){
+            val xD = "Ayalarlar sayfasına gider"
+        }
+        else if(item.itemId == R.id.logout){
+            val intent = Intent(this@HousesActivity,finish()::class.java)
+            startActivity(intent)
+            //onDestroy()
+        }
+        else{
+            Toast.makeText(this@HousesActivity,"Some Errors Happened", Toast.LENGTH_LONG).show()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+}

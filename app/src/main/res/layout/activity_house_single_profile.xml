@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/backgroundhouse"
+        >
+
+        <ImageView
+            android:id="@+id/singleHouseImageView"
+            android:layout_width="113dp"
+            android:layout_height="77dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/house" />
+
+        <TextView
+            android:id="@+id/singleHouseId"
+            android:layout_width="247dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="25dp"
+            android:text="HouseId"
+            android:textColor="@color/purple_200"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/singleHouseAddress"
+            android:layout_width="247dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="25dp"
+            android:text="houseAddress"
+            android:textColor="@color/purple_200"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/singleHouseId" />
+
+
+
+        <TextView
+            android:id="@+id/singleHouseCountOfBathroom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="5dp"
+            android:text="countOfBathroom"
+            android:textColor="@color/purple_200"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/singleHouseAddress" />
+
+        <TextView
+            android:id="@+id/singleHouseCountOfBedroom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="countOfBedroom"
+            android:textColor="@color/purple_200"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/singleHouseCountOfBathroom" />
+
+        <TextView
+            android:id="@+id/singleHouseCountOfSalon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="countOfSalon"
+            android:textColor="@color/purple_200"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/singleHouseCountOfBedroom" />
+
+
+        <TextView
+            android:id="@+id/singleHouseCountOfOwner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="countOfOwner"
+            android:textColor="@color/purple_200"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/singleHouseCountOfSalon" />
+
+        <TextView
+            android:id="@+id/singleHouseHeatResource"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="heatResource"
+            android:textColor="@color/purple_200"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/singleHouseCountOfOwner" />
+
+        <TextView
+            android:id="@+id/singleHouseInternetPaved"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="internetPaved"
+            android:textColor="@color/purple_200"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/singleHouseHeatResource" />
+
+        <TextView
+            android:id="@+id/singleHouseFloor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="floor"
+            android:textColor="@color/purple_200"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/singleHouseInternetPaved" />
+
+
+        <TextView
+            android:id="@+id/singleHouseRent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="rent"
+            android:textColor="@color/purple_200"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/singleHouseFloor" />
+
+        <!--
+        <TextView
+            android:id="@+id/singleHouseRecyclerViewOwnerId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="OwnerInfo"
+            android:textColor="@color/purple_200"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/singleHouseRecyclerViewRent" />
+
+        <TextView
+            android:id="@+id/singleHouseRecyclerViewCustomerId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="CustomerInfo"
+            android:textColor="@color/purple_200"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/singleHouseRecyclerViewOwnerId" />
+
+        <Button
+            android:id="@+id/applyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="68dp"
+            android:layout_marginEnd="100dp"
+            android:onClick="signIn"
+            android:text="Apply"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/singleProfileRecyclerViewGender" /> -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
