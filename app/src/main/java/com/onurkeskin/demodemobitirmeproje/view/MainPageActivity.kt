@@ -8,10 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.onurkeskin.demobitirmeproje.R
-import com.onurkeskin.demodemobitirmeproje.view.CustomerProfilesActivity
-import com.onurkeskin.demodemobitirmeproje.view.HouseOwnersProfilesActivity
-import com.onurkeskin.demodemobitirmeproje.view.HousesActivity
-import com.onurkeskin.demodemobitirmeproje.view.SingleProfileActivity
+import com.onurkeskin.demodemobitirmeproje.view.*
 import kotlinx.android.synthetic.main.activity_main_page.*
 import kotlinx.android.synthetic.main.activity_main_page.view.*
 
@@ -37,9 +34,9 @@ class MainPageActivity : AppCompatActivity() {
             val xD = "Ayalarlar sayfasına gider"
         }
         else if(item.itemId == R.id.logout){
-            val intent = Intent(this@MainPageActivity,finish()::class.java)
+            val intent = Intent(this@MainPageActivity,MainActivity::class.java)
             startActivity(intent)
-            //onDestroy()
+            finish()
         }
         else{
             Toast.makeText(this@MainPageActivity,"Some Errors Happened",Toast.LENGTH_LONG).show()
