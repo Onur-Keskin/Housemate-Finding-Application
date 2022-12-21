@@ -1,8 +1,11 @@
 package com.onurkeskin.demodemobitirmeproje.service
 
+import com.google.gson.JsonObject
 import com.onurkeskin.demodemobitirmeproje.model.CustomerModel
 import io.reactivex.Observable
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface CustomerAPI {
@@ -18,4 +21,7 @@ interface CustomerAPI {
     fun getUserByUsername(
         @Path(value = "userName", encoded = true) userName: String?
     ): Observable<CustomerModel>
+
+    @POST("save2")
+    fun addCustomer(@Body requestBody: JsonObject):Observable<CustomerModel>//henüz backend de bir dönüş body si yok
 }
