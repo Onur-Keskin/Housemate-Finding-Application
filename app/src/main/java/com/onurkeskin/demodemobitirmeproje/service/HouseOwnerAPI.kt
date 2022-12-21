@@ -1,8 +1,12 @@
 package com.onurkeskin.demodemobitirmeproje.service
 
+import com.google.gson.JsonObject
+import com.onurkeskin.demodemobitirmeproje.model.CustomerModel
 import com.onurkeskin.demodemobitirmeproje.model.HouseOwnerModel
 import io.reactivex.Observable
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface HouseOwnerAPI {

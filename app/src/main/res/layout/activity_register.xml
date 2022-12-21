@@ -62,9 +62,9 @@
                         android:layout_marginTop="@dimen/loginViewsMargin">
 
                         <EditText
-                            android:id="@+id/editTextCustomerId"
+                            android:id="@+id/editTextId"
                             style="@style/modifiedEditText"
-                            android:hint="CustomerId"
+                            android:hint="Id"
                             android:inputType="textPersonName"
                             android:maxLines="1"/>
 
@@ -213,14 +213,99 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputGender"
                         style="@style/parent"
-                        android:layout_marginTop="@dimen/loginViewsMargin">
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="10dp">
 
-                        <EditText
-                            android:id="@+id/editTextGender"
+                        <TextView
+                            android:id="@+id/gender"
                             style="@style/modifiedEditText"
-                            android:hint="Gender"
-                            android:inputType="textPersonName"
-                            android:maxLines="1"/>
+                            android:text="Gender"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.118"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <RadioGroup
+                            android:id="@+id/radioGroup"
+                            android:layout_width="205dp"
+                            android:layout_height="32dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.834"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+                            <RadioButton
+                                android:id="@+id/radioMaleButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="33dp"
+                                android:text="Male"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:onClick="radioButtonHandler"/>
+                            <RadioButton
+                                android:id="@+id/radioFemaleButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="33dp"
+                                android:text="Female"
+                                android:layout_marginLeft="@dimen/loginViewsMargin"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.655"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:onClick="radioButtonHandler"/>
+
+                        </RadioGroup>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/customerHouseOwnerLayout"
+                        style="@style/parent"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:id="@+id/customerHouseOwner"
+                            style="@style/modifiedEditText"
+                            android:text="Customer or HouseOwner ? "
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.118"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <RadioGroup
+                            android:id="@+id/radioCustomerHouseOwnerGroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.834"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+                            <RadioButton
+                                android:id="@+id/radioCustomerButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="33dp"
+                                android:text="Customer"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:onClick="customerHouseOwnerRadioButtonHandler"/>
+                            <RadioButton
+                                android:id="@+id/radioHouseOwnerButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="33dp"
+                                android:text="HouseOwner"
+                                android:layout_marginLeft="@dimen/loginViewsMargin"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.655"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:onClick="customerHouseOwnerRadioButtonHandler"/>
+
+                        </RadioGroup>
 
                     </com.google.android.material.textfield.TextInputLayout>
 
