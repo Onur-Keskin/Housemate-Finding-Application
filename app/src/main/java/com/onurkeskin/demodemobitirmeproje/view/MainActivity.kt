@@ -21,6 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
     private val BASE_URL = "http://192.168.1.21:8080/"
     private var userLoginModel : CustomerModel? = null
+    private var fromRegister = ""
     //private var userLoginRecyclerViewAdapter : UserLoginRecyclerViewAdapter? = null
 
     //Disposable -> Tek kullanımlık-Kullan At
@@ -72,13 +73,24 @@ class MainActivity : AppCompatActivity() {
     private fun handleResponse(userLogin: CustomerModel){
         userLoginModel = userLogin
         if(userLoginModel != null && userLoginModel!!.customerName != null){
+
             if(userLoginModel!!.customerUserName == userNameText.text.toString()){//password de kontrol edilecek ama önce api de olması şart
-                val intent = Intent(this@MainActivity , MainPageActivity::class.java)
-                intent.putExtra("userId", userLoginModel!!.customerId)
-                startActivity(intent)
+
+                fromRegister = intent.getStringExtra("fromRegisterPage").toString()//değeri "firstLogin" olmalı
+
+                if(fromRegister == "firstLogin"){
+                    val intent = Intent(this@MainActivity,PropertiesFormActivity::class.java)
+                    intent.putExtra("firstLoginCustomerId",userLoginModel!!.customerId)
+                    startActivity(intent)
+                }else{
+                    intent = Intent(this@MainActivity , MainPageActivity::class.java)
+                    intent.putExtra("userId", userLoginModel!!.customerId)
+                    startActivity(intent)
+                    //finish()
+                }
                 userNameText.text.clear()
                 passwordText.text.clear()
-                //finish()
+
 
             } else{
                 Toast.makeText(this,"Error Happened", Toast.LENGTH_LONG).show()

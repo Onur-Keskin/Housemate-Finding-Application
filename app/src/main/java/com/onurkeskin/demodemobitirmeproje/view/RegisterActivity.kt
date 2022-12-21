@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RegisterActivity : AppCompatActivity() {
 
-    private val BASE_URL = "http://192.168.1.21:8080/customers/"
+    private val BASE_URL = "http://192.168.1.21:8080/"
     private var compositeDisposable : CompositeDisposable? = null
     private var userRegisterModel : CustomerModel? = null
     private var userRegisterResponseModel: CustomerModel? = null
@@ -84,7 +84,7 @@ class RegisterActivity : AppCompatActivity() {
 
         if(userRegisterResponseModel != null && userRegisterResponseModel!!.customerName != null){
             if(userRegisterResponseModel!!.customerUserName == userNameText.text.toString()){//password de kontrol edilecek ama önce api de olması şart
-                val intent = Intent(this@RegisterActivity , MainPageActivity::class.java)
+                val intent = Intent(this@RegisterActivity , MainActivity::class.java)
                 intent.putExtra("userId", userRegisterResponseModel!!.customerId)
                 intent.putExtra("fromRegisterPage","firstLogin")
                 startActivity(intent)
