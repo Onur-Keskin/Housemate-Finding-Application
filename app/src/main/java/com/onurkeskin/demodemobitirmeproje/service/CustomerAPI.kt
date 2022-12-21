@@ -22,6 +22,6 @@ interface CustomerAPI {
         @Path(value = "userName", encoded = true) userName: String?
     ): Observable<CustomerModel>
 
-    @POST("save2")
+    @POST("customers/save2")
     fun addCustomer(@Body requestBody: JsonObject):Observable<CustomerModel>//henüz backend de bir dönüş body si yok
 }

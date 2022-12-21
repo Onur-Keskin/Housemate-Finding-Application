@@ -3,4 +3,9 @@
     <string name="login_email_hint">Email</string>
     <string name="login_username_hint">Username</string>
     <string name="login_password_hint">Password</string>
+    <string name="mobno">Mobile No.</string>
+    <string name="reg_no">Reg</string>
+    <string name="name">Name</string>
+    <string name="message">Message</string>
+    <string name="send">Send</string>
 </resources>
