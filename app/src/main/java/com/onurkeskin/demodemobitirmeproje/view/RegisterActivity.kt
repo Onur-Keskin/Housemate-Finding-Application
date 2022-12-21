@@ -17,6 +17,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.activity_register.view.*
 import kotlinx.android.synthetic.main.activity_single_profile.*
 import org.json.JSONObject
 import retrofit2.Retrofit
@@ -29,6 +30,9 @@ class RegisterActivity : AppCompatActivity() {
     private var compositeDisposable : CompositeDisposable? = null
     private var userRegisterModel : CustomerModel? = null
     private var userRegisterResponseModel: CustomerModel? = null
+    private lateinit var isCustomerOrHouseOwner:String
+    private val customerObject = JsonObject()
+    private val houseOwnerObject = JsonObject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -50,32 +54,75 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    fun registerUser(view: View){
+    fun customerHouseOwnerRadioButtonHandler(view:View){
+        if(radioCustomerHouseOwnerGroup.radioCustomerButton.isChecked){
+            isCustomerOrHouseOwner = "customer"
+        }else if(radioCustomerHouseOwnerGroup.radioHouseOwnerButton.isChecked){
+            isCustomerOrHouseOwner = "houseOwner"
+        }else{
+            println("Hata")
+        }
+    }
 
-        val jsonObject = JsonObject()
-        jsonObject.addProperty("customerId",editTextCustomerId.editableText.toString().toInt())
-        jsonObject.addProperty("customerName",editTextName.text.toString())
-        jsonObject.addProperty("customerUserName",editTextUsername.text.toString())
-        jsonObject.addProperty("customerSurname",editTextSurname.text.toString())
-        jsonObject.addProperty("customerAge",editTextAge.editableText.toString().toInt())
-        jsonObject.addProperty("customerHometown",editTextHomeTown.text.toString())
-        jsonObject.addProperty("customerDepartment",editTextDepartment.text.toString())
-        jsonObject.addProperty("customerGrade",editTextGrade.editableText.toString().toInt())
-        jsonObject.addProperty("customerPhone",editTextMobile.text.toString())
-        jsonObject.addProperty("customerEmail",editTextEmail.text.toString())
-        jsonObject.addProperty("customerGender",editTextGender.text.toString())
+    fun radioButtonHandler(view: View){
+        if(radioGroup.radioMaleButton.isChecked){
+            if(isCustomerOrHouseOwner == "customer"){
+                customerObject.addProperty("customerGender",radioGroup.radioMaleButton.text.toString())
+            }else{
+                houseOwnerObject.addProperty("ownerGender",radioGroup.radioMaleButton.text.toString())
+            }
+        }else if(radioGroup.radioFemaleButton.isChecked){
+            if(isCustomerOrHouseOwner == "customer"){
+                customerObject.addProperty("customerGender",radioGroup.radioMaleButton.text.toString())
+            }else{
+                houseOwnerObject.addProperty("ownerGender",radioGroup.radioMaleButton.text.toString())
+            }
+        }else{
+            println("hata")
+        }
+    }
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build().create(CustomerAPI::class.java)
 
-        compositeDisposable?.add(retrofit.addCustomer(jsonObject)
-            .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
-            .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
-            .subscribe(this::handleResponse))
 
+    fun registerUser(view:View){
+
+        if(isCustomerOrHouseOwner == "customer"){
+            customerObject.addProperty("customerId",editTextId.editableText.toString().toInt())
+            customerObject.addProperty("customerName",editTextName.text.toString())
+            customerObject.addProperty("customerUserName",editTextUsername.text.toString())
+            customerObject.addProperty("customerSurname",editTextSurname.text.toString())
+            customerObject.addProperty("customerAge",editTextAge.editableText.toString().toInt())
+            customerObject.addProperty("customerHometown",editTextHomeTown.text.toString())
+            customerObject.addProperty("customerDepartment",editTextDepartment.text.toString())
+            customerObject.addProperty("customerGrade",editTextGrade.editableText.toString().toInt())
+            customerObject.addProperty("customerPhone",editTextMobile.text.toString())
+            customerObject.addProperty("customerEmail",editTextEmail.text.toString())
+            //jsonObject.addProperty("customerGender",radioGroup.)
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build().create(CustomerAPI::class.java)
+
+            compositeDisposable?.add(retrofit.addCustomer(customerObject)
+                .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
+                .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
+                .subscribe(this::handleResponse))
+        }
+        else{//HosueOwner Kaydedilecek
+            houseOwnerObject.addProperty("ownerId",editTextId.editableText.toString().toInt())
+            customerObject.addProperty("ownerAge",editTextAge.editableText.toString().toInt())
+            customerObject.addProperty("ownerDepartment",editTextDepartment.text.toString())
+            customerObject.addProperty("ownerGrade",editTextGrade.editableText.toString().toInt())
+            customerObject.addProperty("ownerHometown",editTextHomeTown.text.toString())
+            customerObject.addProperty("ownerMail",editTextDepartment.text.toString())
+            customerObject.addProperty("ownerName",editTextName.editableText.toString())
+            customerObject.addProperty("ownerPhone",editTextMobile.text.toString())
+            customerObject.addProperty("ownerSurname",editTextSurname.text.toString())
+            //customerObject.addProperty("houseId",editTextEmail.text.toString())
+            //customerObject.addProperty("ownerPassword",editTextEmail.text.toString())
+        }
 
     }
 
