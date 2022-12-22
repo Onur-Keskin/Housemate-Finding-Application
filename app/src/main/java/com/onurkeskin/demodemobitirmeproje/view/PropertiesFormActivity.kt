@@ -105,4 +105,6 @@ class PropertiesFormActivity : AppCompatActivity() {
         }
     }
 
+    //Gerekli Endpointe Post Request Yaptıktan sonra houseOwner olup olmama durumuna göre de ev ilanı eklemesini isteyeceksin
+
 }

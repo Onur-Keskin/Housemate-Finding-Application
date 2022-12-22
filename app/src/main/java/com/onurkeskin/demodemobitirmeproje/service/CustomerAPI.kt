@@ -6,6 +6,7 @@ import io.reactivex.Observable
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface CustomerAPI {
@@ -23,5 +24,8 @@ interface CustomerAPI {
     ): Observable<CustomerModel>
 
     @POST("customers/saveOneCustomer")
-    fun saveOneCustomer(@Body requestBody: JsonObject):Observable<JsonObject>//henüz backend de bir dönüş body si yok
+    fun saveOneCustomer(@Body requestBody: JsonObject):Observable<JsonObject>
+
+    @PUT("customers/updateOneCustomer")
+    fun updateOneCustomer(@Body requestBody: JsonObject):Observable<JsonObject>
 }
