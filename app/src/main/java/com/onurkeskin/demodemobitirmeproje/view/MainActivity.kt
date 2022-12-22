@@ -72,33 +72,31 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleResponse(userLogin: CustomerModel){
         userLoginModel = userLogin
-        println(userLoginModel)
-        if(userLoginModel!!.customerName != null){
-
-            if(userLoginModel!!.customerUsername == userNameText.text.toString()){//password de kontrol edilecek ama önce api de olması şart
-
-                //fromRegister = intent.getStringExtra("fromRegisterPage").toString()//değeri "firstLogin" olmalı
-
-                if(fromRegister == "firstLogin"){
-                    val intent = Intent(this@MainActivity,PropertiesFormActivity::class.java)
-                    intent.putExtra("firstLoginCustomerId",userLoginModel!!.customerId)
-                    startActivity(intent)
-                }else{
-                    intent = Intent(this@MainActivity , MainPageActivity::class.java)
-                    intent.putExtra("userId", userLoginModel!!.customerId)
-                    startActivity(intent)
-                    //finish()
-                }
-                userNameText.text.clear()
-                passwordText.text.clear()
+        //println(userLoginModel)
 
 
-            } else{
-                Toast.makeText(this,"Error Happened", Toast.LENGTH_LONG).show()
-                val intent = Intent(this@MainActivity , MainActivity::class.java)
+        if(userLoginModel!!.customerUsername == userNameText.text.toString()){//password de kontrol edilecek ama önce api de olması şart
+
+            if(fromRegister == "firstLogin"){
+                val intent = Intent(this@MainActivity,PropertiesFormActivity::class.java)
+                intent.putExtra("firstLoginCustomerId",userLoginModel!!.customerId)
                 startActivity(intent)
+            }else{
+                intent = Intent(this@MainActivity , MainPageActivity::class.java)
+                intent.putExtra("userId", userLoginModel!!.customerId)
+                startActivity(intent)
+                //finish()
             }
+            userNameText.text.clear()
+            passwordText.text.clear()
+
+
+        } else{
+            Toast.makeText(this,"Error Happened", Toast.LENGTH_LONG).show()
+            val intent = Intent(this@MainActivity , MainActivity::class.java)
+            startActivity(intent)
         }
+
 
 
 

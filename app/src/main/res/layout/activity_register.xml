@@ -56,7 +56,7 @@
                     android:layout_margin="10dp"
                     android:orientation="vertical">
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <!--<com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputCustomerId"
                         style="@style/parent"
                         android:layout_marginTop="@dimen/loginViewsMargin">
@@ -68,7 +68,7 @@
                             android:inputType="textPersonName"
                             android:maxLines="1"/>
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>-->
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputName"
