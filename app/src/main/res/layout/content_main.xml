@@ -33,10 +33,17 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/txtName"
-                    style="@style/modifiedEditText"
-                    android:hint="@string/name"
-                    android:singleLine="true" />
+                    android:id="@+id/current_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ems="5"
+                    android:hint="Weight"
+                    android:inputType="number"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.151"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

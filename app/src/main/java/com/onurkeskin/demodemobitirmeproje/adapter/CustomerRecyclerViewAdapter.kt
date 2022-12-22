@@ -31,7 +31,7 @@ class CustomerRecyclerViewAdapter(private val customerList:ArrayList<CustomerMod
             itemView.setBackgroundColor(Color.parseColor(colors[position%2]))
 
             itemView.customerRecyclerViewNameSurname.text = customerModel.customerName +" "+customerModel.customerSurname
-            itemView.customerRecyclerViewUserName.text =  customerModel.customerUserName
+            itemView.customerRecyclerViewUserName.text =  customerModel.customerUsername
             itemView.customerRecyclerViewDepartment.text = customerModel.customerDepartment
 
         }
@@ -47,7 +47,7 @@ class CustomerRecyclerViewAdapter(private val customerList:ArrayList<CustomerMod
                     for (row in customerList) {
                         //println(row)
                         //2 tane customer geliyor hangisi olacak
-                        if (row.customerUserName.lowercase().contains(constraint.toString().lowercase())) {
+                        if (row.customerUsername.lowercase().contains(constraint.toString().lowercase())) {
                             //println(row.customerUserName)
                             //println(row.customerUserName.lowercase().contains(constraint.toString().lowercase()))
                             resultList.add(row)
