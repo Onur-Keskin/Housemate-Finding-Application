@@ -126,7 +126,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <RadioGroup
-                        android:id="@+id/radioHavePetLayoutGroup"
+                        android:id="@+id/radioHavePetGroup"
                         android:layout_width="wrap_content"
                         android:layout_height="32dp"
                         android:orientation="horizontal"
@@ -227,7 +227,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <Spinner
-                        android:id="@+id/spinnerLPriceRange"
+                        android:id="@+id/spinnerPriceRange"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:spinnerMode="dropdown"
