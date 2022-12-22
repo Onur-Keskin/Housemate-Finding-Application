@@ -23,5 +23,5 @@ interface CustomerAPI {
     ): Observable<CustomerModel>
 
     @POST("customers/saveOneCustomer")
-    fun saveOneCustomer(@Body requestBody: JsonObject):Observable<CustomerModel>//henüz backend de bir dönüş body si yok
+    fun saveOneCustomer(@Body requestBody: JsonObject):Observable<JsonObject>//henüz backend de bir dönüş body si yok
 }

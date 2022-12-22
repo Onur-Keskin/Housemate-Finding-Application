@@ -111,7 +111,8 @@
                 android:layout_gravity="right"
                 android:background="@drawable/centre_button"
                 android:text="@string/send"
-                android:textColor="@color/whiteTextColor" />
+                android:textColor="@color/whiteTextColor"
+                android:onClick="sendForm"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.core.widget.NestedScrollView>
