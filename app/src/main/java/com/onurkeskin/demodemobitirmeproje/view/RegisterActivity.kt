@@ -89,11 +89,12 @@ class RegisterActivity : AppCompatActivity() {
         if(isCustomerOrHouseOwner == "customer"){
             customerObject.addProperty("customerId",editTextId.editableText.toString().toInt())
             customerObject.addProperty("customerName",editTextName.text.toString())
-            customerObject.addProperty("customerUserName",editTextUsername.text.toString())
+            customerObject.addProperty("customerUsername",editTextUsername.text.toString())
             customerObject.addProperty("customerSurname",editTextSurname.text.toString())
             customerObject.addProperty("customerAge",editTextAge.editableText.toString().toInt())
             customerObject.addProperty("customerHometown",editTextHomeTown.text.toString())
             customerObject.addProperty("customerDepartment",editTextDepartment.text.toString())
+            customerObject.addProperty("customerPassword",editTextPassword.text.toString())
             customerObject.addProperty("customerGrade",editTextGrade.editableText.toString().toInt())
             customerObject.addProperty("customerPhone",editTextMobile.text.toString())
             customerObject.addProperty("customerEmail",editTextEmail.text.toString())
@@ -105,7 +106,7 @@ class RegisterActivity : AppCompatActivity() {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(CustomerAPI::class.java)
 
-            compositeDisposable?.add(retrofit.addCustomer(customerObject)
+            compositeDisposable?.add(retrofit.saveOneCustomer(customerObject)
                 .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
                 .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
                 .subscribe(this::handleResponse))
@@ -130,7 +131,7 @@ class RegisterActivity : AppCompatActivity() {
         userRegisterResponseModel = userRegister
 
         if(userRegisterResponseModel != null && userRegisterResponseModel!!.customerName != null){
-            if(userRegisterResponseModel!!.customerUserName == userNameText.text.toString()){//password de kontrol edilecek ama önce api de olması şart
+            if(userRegisterResponseModel!!.customerUsername == userNameText.text.toString()){//password de kontrol edilecek ama önce api de olması şart
                 val intent = Intent(this@RegisterActivity , MainActivity::class.java)
                 intent.putExtra("userId", userRegisterResponseModel!!.customerId)
                 intent.putExtra("fromRegisterPage","firstLogin")

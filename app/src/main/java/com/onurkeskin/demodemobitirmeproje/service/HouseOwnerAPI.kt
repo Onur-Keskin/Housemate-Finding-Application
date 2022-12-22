@@ -10,11 +10,14 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface HouseOwnerAPI {
-    @GET("houseOwners")//todos http://192.168.1.21:8080/houseOwners
+    @GET("houseOwners/getAllHouseOwners")//todos http://192.168.1.21:8080/houseOwners
     fun getOwners() : Observable<List<HouseOwnerModel>>
 
-    @GET("houseOwners/{ownerId}")//http:192.168.1.21:8080/customers/{id}
+    @GET("houseOwners/getOneHouseOwnerById/{ownerId}")//http:192.168.1.21:8080/customers/{id}
     fun getOwnerById(
         @Path(value = "ownerId", encoded = true) ownerId: String?
     ): Observable<HouseOwnerModel>
+
+    @POST("houseOwner/saveOneHouseOwner")
+    fun saveOneHouseOwner(@Body requestBody: JsonObject):Observable<HouseOwnerModel>
 }

@@ -178,7 +178,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
 
         if(customerModel != null){
             singleProfileNameSurnameAge.text = customerModel!!.customerName + customer!!.customerSurname +  " , " + customer!!.customerAge.toString()
-            singleProfileUsername.text = customerModel!!.customerUserName
+            singleProfileUsername.text = customerModel!!.customerUsername
             singleProfileHometown.text = customerModel!!.customerHometown
             singleProfileDepartmentGrade.text = customerModel!!.customerDepartment + " , " +customerModel!!.customerGrade.toString()
             singleProfilePhone.text = customerModel!!.customerPhone

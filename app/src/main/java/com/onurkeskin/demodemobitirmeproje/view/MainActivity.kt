@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             .build().create(CustomerAPI::class.java)
 
 
-        compositeDisposable?.add(retrofit.getUserByUsername(userName)
+        compositeDisposable?.add(retrofit.getCustomerByUsername(userName)
             .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
             .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
             .subscribe(this::handleResponse))
@@ -72,11 +72,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleResponse(userLogin: CustomerModel){
         userLoginModel = userLogin
-        if(userLoginModel != null && userLoginModel!!.customerName != null){
+        println(userLoginModel)
+        if(userLoginModel!!.customerName != null){
 
-            if(userLoginModel!!.customerUserName == userNameText.text.toString()){//password de kontrol edilecek ama önce api de olması şart
+            if(userLoginModel!!.customerUsername == userNameText.text.toString()){//password de kontrol edilecek ama önce api de olması şart
 
-                fromRegister = intent.getStringExtra("fromRegisterPage").toString()//değeri "firstLogin" olmalı
+                //fromRegister = intent.getStringExtra("fromRegisterPage").toString()//değeri "firstLogin" olmalı
 
                 if(fromRegister == "firstLogin"){
                     val intent = Intent(this@MainActivity,PropertiesFormActivity::class.java)

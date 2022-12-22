@@ -3,11 +3,12 @@ package com.onurkeskin.demodemobitirmeproje.model
 data class CustomerModel(
     val customerId:Int,
     val customerName:String,
-    val customerUserName:String,
+    val customerUsername:String,
     val customerSurname:String,
     val customerAge:Int,
     val customerHometown:String,
     val customerDepartment:String,
+    val customerPassword:String,
     val customerGrade:Int,
     val customerPhone:String,
     val customerEmail:String,
