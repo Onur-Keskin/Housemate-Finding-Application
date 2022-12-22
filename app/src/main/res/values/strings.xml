@@ -8,4 +8,18 @@
     <string name="name">Name</string>
     <string name="message">Message</string>
     <string name="send">Send</string>
+
+    <string-array name="luxuryImportance">
+        <item>Çok</item>
+        <item>Orta</item>
+        <item>Az</item>
+        <item>Farketmez</item>
+    </string-array>
+
+    <string-array name="priceRange">
+        <item>2000-3000</item>
+        <item>3000-4000</item>
+        <item>4000-5000</item>
+        <item>5000+</item>
+    </string-array>
 </resources>

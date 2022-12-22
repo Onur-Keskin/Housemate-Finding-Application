@@ -131,6 +131,7 @@ class RegisterActivity : AppCompatActivity() {
             val intent = Intent(this@RegisterActivity , PropertiesFormActivity::class.java)
             intent.putExtra("userId", userRegisterResponseModel!!.get("customerId").asInt)
             intent.putExtra("fromRegisterPage","firstLogin")
+            intent.putExtra("registeredUser-Name",userRegisterResponseModel!!.get("customerName").toString())
             startActivity(intent)
             //finish()
 
