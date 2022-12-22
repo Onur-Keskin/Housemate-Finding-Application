@@ -73,20 +73,16 @@ class MainActivity : AppCompatActivity() {
     private fun handleResponse(userLogin: CustomerModel){
         userLoginModel = userLogin
         //println(userLoginModel)
+        //println(userNameText.text)
+        //println(userLoginModel!!.customerUsername == userNameText.text.toString())
+        //!!!!!!!!!!! kayıt olan username ler bir rakam içerince login olunamıyor
+        if(userLoginModel!!.customerUsername == userNameText.editableText.toString()){//password de kontrol edilecek ama önce api de olması şart
+            println("Doğru Yerdeyiz")
+            intent = Intent(this@MainActivity , MainPageActivity::class.java)
+            intent.putExtra("userId", userLoginModel!!.customerId)
+            startActivity(intent)
+            //finish()
 
-
-        if(userLoginModel!!.customerUsername == userNameText.text.toString()){//password de kontrol edilecek ama önce api de olması şart
-
-            if(fromRegister == "firstLogin"){
-                val intent = Intent(this@MainActivity,PropertiesFormActivity::class.java)
-                intent.putExtra("firstLoginCustomerId",userLoginModel!!.customerId)
-                startActivity(intent)
-            }else{
-                intent = Intent(this@MainActivity , MainPageActivity::class.java)
-                intent.putExtra("userId", userLoginModel!!.customerId)
-                startActivity(intent)
-                //finish()
-            }
             userNameText.text.clear()
             passwordText.text.clear()
 
@@ -96,8 +92,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity , MainActivity::class.java)
             startActivity(intent)
         }
-
-
 
 
     }
