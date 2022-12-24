@@ -10,6 +10,7 @@ import com.google.gson.JsonObject
 import com.onurkeskin.demobitirmeproje.R
 import com.onurkeskin.demodemobitirmeproje.model.CustomerModel
 import com.onurkeskin.demodemobitirmeproje.service.CustomerAPI
+import com.onurkeskin.demodemobitirmeproje.service.HouseOwnerAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -25,7 +26,8 @@ class RegisterActivity : AppCompatActivity() {
     private val BASE_URL = "http://192.168.1.21:8080/"
     private var compositeDisposable : CompositeDisposable? = null
     private var userRegisterModel : CustomerModel? = null
-    private var userRegisterResponseModel: JsonObject? = null
+    private var customerRegisterResponseModel: JsonObject? = null
+    private var houseOwnerRegisterResponseModel: JsonObject? = null
     private lateinit var isCustomerOrHouseOwner:String
     private val customerObject = JsonObject()
     private val houseOwnerObject = JsonObject()
@@ -60,6 +62,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    /*
     fun radioButtonHandler(view: View){
         if(radioGroup.radioMaleButton.isChecked){
             if(isCustomerOrHouseOwner == "customer"){
@@ -78,6 +81,8 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+     */
+
 
 
     fun registerUser(view:View){
@@ -87,14 +92,8 @@ class RegisterActivity : AppCompatActivity() {
             customerObject.addProperty("customerName",editTextName.text.toString())
             customerObject.addProperty("customerUsername",editTextUsername.text.toString())
             customerObject.addProperty("customerSurname",editTextSurname.text.toString())
-            customerObject.addProperty("customerAge",editTextAge.editableText.toString().toInt())
-            customerObject.addProperty("customerHometown",editTextHomeTown.text.toString())
-            customerObject.addProperty("customerDepartment",editTextDepartment.text.toString())
             customerObject.addProperty("customerPassword",editTextPassword.text.toString())
-            customerObject.addProperty("customerGrade",editTextGrade.editableText.toString().toInt())
-            customerObject.addProperty("customerPhone",editTextMobile.text.toString())
             customerObject.addProperty("customerEmail",editTextEmail.text.toString())
-            //jsonObject.addProperty("customerGender",radioGroup.)
 
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -105,33 +104,60 @@ class RegisterActivity : AppCompatActivity() {
             compositeDisposable?.add(retrofit.saveOneCustomer(customerObject)
                 .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
                 .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
-                .subscribe(this::handleResponse))
+                .subscribe(this::handleCustomerRegisterResponse))
         }
         else{//HosueOwner Kaydedilecek
             //houseOwnerObject.addProperty("ownerId",editTextId.editableText.toString().toInt())
-            customerObject.addProperty("ownerAge",editTextAge.editableText.toString().toInt())
-            customerObject.addProperty("ownerDepartment",editTextDepartment.text.toString())
-            customerObject.addProperty("ownerGrade",editTextGrade.editableText.toString().toInt())
-            customerObject.addProperty("ownerHometown",editTextHomeTown.text.toString())
-            customerObject.addProperty("ownerMail",editTextDepartment.text.toString())
-            customerObject.addProperty("ownerName",editTextName.editableText.toString())
-            customerObject.addProperty("ownerPhone",editTextMobile.text.toString())
-            customerObject.addProperty("ownerSurname",editTextSurname.text.toString())
-            //customerObject.addProperty("houseId",editTextEmail.text.toString())
-            //customerObject.addProperty("ownerPassword",editTextEmail.text.toString())
+            houseOwnerObject.addProperty("houseOwnerName",editTextName.editableText.toString())
+            houseOwnerObject.addProperty("houseOwnerSurname",editTextSurname.text.toString())
+            houseOwnerObject.addProperty("houseOwnerEmail",editTextEmail.text.toString())
+            houseOwnerObject.addProperty("houseOwnerPassword",editTextPassword.text.toString())
+            houseOwnerObject.addProperty("houseOwnerUsername",editTextUsername.text.toString())
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build().create(HouseOwnerAPI::class.java)
+
+            compositeDisposable?.add(retrofit.saveOneHouseOwner(houseOwnerObject)
+                .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
+                .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
+                .subscribe(this::handleHouseOwnerRegisterResponse))
+
         }
 
     }
 
-    private fun handleResponse(userRegister: JsonObject){
-        userRegisterResponseModel = userRegister
-        println(userRegisterResponseModel)
+    private fun handleCustomerRegisterResponse(customerRegister: JsonObject){ //customer için post request handle eder
+        customerRegisterResponseModel = customerRegister
+        //println(customerRegisterResponseModel)
 
-        if(userRegisterResponseModel!!.get("customerId").asInt != null ){//password de kontrol edilecek ama önce api de olması şart
+        if(customerRegisterResponseModel!!.get("customerId").asInt != null ){//password de kontrol edilecek ama önce api de olması şart
             val intent = Intent(this@RegisterActivity , PropertiesFormActivity::class.java)
-            intent.putExtra("userId", userRegisterResponseModel!!.get("customerId").asInt)
-            intent.putExtra("fromRegisterPage","firstLogin")
-            intent.putExtra("registeredUser-Name",userRegisterResponseModel!!.get("customerName").toString())
+            intent.putExtra("customerId", customerRegisterResponseModel!!.get("customerId").asInt)
+            intent.putExtra("fromRegisterPage","customer")
+            intent.putExtra("registeredUser-Name",customerRegisterResponseModel!!.get("customerName").toString())
+            startActivity(intent)
+            //finish()
+
+        } else{
+            Toast.makeText(this,"Error Happened", Toast.LENGTH_LONG).show()
+            val intent = Intent(this@RegisterActivity , MainActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
+
+    private fun handleHouseOwnerRegisterResponse(houseOwnerRegister: JsonObject){ //houseOwner için post request handle eder
+        houseOwnerRegisterResponseModel = houseOwnerRegister
+        println(houseOwnerRegisterResponseModel)
+
+        if(houseOwnerRegisterResponseModel!!.get("ownerId").asInt != null ){//password de kontrol edilecek ama önce api de olması şart
+            val intent = Intent(this@RegisterActivity , PropertiesFormActivity::class.java)
+            intent.putExtra("houseOwnerId", houseOwnerRegisterResponseModel!!.get("ownerId").asInt)
+            intent.putExtra("fromRegisterPage","houseOwner")
+            intent.putExtra("registeredUser-Name",houseOwnerRegisterResponseModel!!.get("ownerName").toString())
             startActivity(intent)
             //finish()
 
