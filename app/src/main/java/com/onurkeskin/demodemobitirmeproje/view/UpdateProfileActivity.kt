@@ -104,17 +104,17 @@ class UpdateProfileActivity : AppCompatActivity() {
         houseOwnerModel = houseOwner
         if(houseOwnerModel != null){
             updateTextCustomerOrHouseOwner.text = "House Owner"
-            updateEditTextName.hint = houseOwnerModel!!.ownerName
-            updateEditTextSurname.hint = houseOwnerModel!!.ownerSurname
-            updateEditTextUsername.hint = houseOwnerModel!!.ownerUserName
-            updateEditTextAge.hint = houseOwnerModel!!.ownerAge.toString()
-            updateEditTextHomeTown.hint = houseOwnerModel!!.ownerHometown
-            updateEditTextDepartment.hint = houseOwnerModel!!.ownerDepatment
+            updateEditTextName.setText(houseOwnerModel!!.ownerName)
+            updateEditTextSurname.setText(houseOwnerModel!!.ownerSurname)
+            updateEditTextUsername.setText(houseOwnerModel!!.ownerUserName)
+            updateEditTextAge.setText(houseOwnerModel!!.ownerAge.toString())
+            updateEditTextHomeTown.setText(houseOwnerModel!!.ownerHometown)
+            updateEditTextDepartment.setText(houseOwnerModel!!.ownerDepatment)
             //updateEditTextPassword.hint = houseOwnerModel!!.customerPassword //burayı modelime eklicem
-            updateEditTextGrade.hint = houseOwnerModel!!.ownerGrade.toString()
-            updateEditTextPhone.hint = houseOwnerModel!!.ownerPhone
-            updateEditTextEmail.hint = houseOwnerModel!!.ownerMail
-            updateEditTextGender.hint = houseOwnerModel!!.ownerGender //Burası radio button yapılacak
+            updateEditTextGrade.setText(houseOwnerModel!!.ownerGrade.toString())
+            updateEditTextPhone.setText(houseOwnerModel!!.ownerPhone)
+            updateEditTextEmail.setText(houseOwnerModel!!.ownerMail)
+            updateEditTextGender.setText(houseOwnerModel!!.ownerGender)  //Burası radio button yapılacak
         }else{
             Toast.makeText(this,"Error happened" , Toast.LENGTH_LONG).show()
         }
