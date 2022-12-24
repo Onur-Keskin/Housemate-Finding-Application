@@ -32,17 +32,17 @@
                     android:src="@drawable/envervalencia" />
             </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/singleProfileNameSurnameAge"
+            <EditText
+                android:id="@+id/updateEditTextNameSurnameAge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:text="Name Surname , Age"
+                android:hint="Name Surname , Age"
+                android:textSize="23sp"
                 android:textColor="#fff"
-                android:textSize="23dp"
-                android:textStyle="bold" />
-
+                android:textStyle="bold"
+                android:inputType="textPersonName"
+                android:maxLines="1"/>
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
@@ -142,26 +142,6 @@
         android:orientation="vertical"
         android:gravity="center"
         android:layout_marginTop="5dp">
-        <!--<LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="25dp">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_baseline_verified_user_24"/>
-
-                <EditText
-                    android:id="@+id/editTextName"
-                    style="@style/modifiedUpdateEditText"
-                    android:hint="Name"
-                    android:inputType="textPersonName"
-                    android:maxLines="1"/>
-
-        </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -174,15 +154,14 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_baseline_person_pin_24"/>
-            <TextView
-                android:id="@+id/singleProfileCustomerOrHouseOwner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Customer or HouseOwner"
-                android:textColor="#000"
-                android:textSize="18dp"
-                android:paddingLeft="15dp"
-                android:layout_gravity="center_vertical"/>
+
+            <EditText
+                android:id="@+id/updateEditTextCustomerOrHouseOwner"
+                style="@style/modifiedUpdateEditText"
+                android:hint="Customer or HouseOwner"
+                android:inputType="textPersonName"
+                android:maxLines="1"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -196,15 +175,14 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_baseline_verified_user_24"/>
-            <TextView
-                android:id="@+id/singleProfileUsername"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Username(Verified User)"
-                android:textColor="#000"
-                android:textSize="18dp"
-                android:paddingLeft="15dp"
-                android:layout_gravity="center_vertical"/>
+
+                <EditText
+                    android:id="@+id/updateEditTextUsername"
+                    style="@style/modifiedUpdateEditText"
+                    android:hint="Username"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -217,17 +195,15 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_baseline_home_24"/>
-            <TextView
-                android:id="@+id/singleProfileHometown"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="HomeTown"
-                android:textColor="#000"
-                android:textSize="18dp"
-                android:paddingLeft="15dp"
-                android:layout_gravity="center_vertical"/>
+            <EditText
+                android:id="@+id/updateEditTextHomeTown"
+                style="@style/modifiedUpdateEditText"
+                android:hint="HomeTown"
+                android:inputType="textPersonName"
+                android:maxLines="1"/>
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -238,15 +214,12 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_baseline_school_24"/>
-            <TextView
-                android:id="@+id/singleProfileDepartmentGrade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Department , Grade"
-                android:textColor="#000"
-                android:textSize="18dp"
-                android:paddingLeft="15dp"
-                android:layout_gravity="center_vertical"/>
+            <EditText
+                android:id="@+id/updateEditTextDepartmentGrade"
+                style="@style/modifiedUpdateEditText"
+                android:hint="Department, Grade"
+                android:inputType="textPersonName"
+                android:maxLines="1"/>
 
         </LinearLayout>
 
@@ -260,16 +233,12 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_baseline_passwordblue_24"/>
-            <TextView
-                android:id="@+id/singleProfilePassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Password"
-                android:textColor="#000"
-                android:textSize="18dp"
+            <EditText
+                android:id="@+id/updateEditTextPassword"
+                style="@style/modifiedUpdateEditText"
+                android:hint="Password"
                 android:inputType="textPassword"
-                android:paddingLeft="15dp"
-                android:layout_gravity="center_vertical"/>
+                android:maxLines="1"/>
 
         </LinearLayout>
 
@@ -283,17 +252,15 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_baseline_phone_android_24"/>
-            <TextView
-                android:id="@+id/singleProfilePhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Phone"
-                android:textColor="#000"
-                android:textSize="18dp"
-                android:paddingLeft="15dp"
-                android:layout_gravity="center_vertical"/>
+            <EditText
+                android:id="@+id/updateEditTextPhone"
+                style="@style/modifiedUpdateEditText"
+                android:hint="Phone"
+                android:inputType="phone"
+                android:maxLines="1"/>
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -303,15 +270,12 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_baseline_email_24"/>
-            <TextView
-                android:id="@+id/singleProfileEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="kgofficial@gmail.com"
-                android:textColor="#000"
-                android:textSize="18dp"
-                android:paddingLeft="15dp"
-                android:layout_gravity="center_vertical"/>
+            <EditText
+                android:id="@+id/updateEditTextEmail"
+                style="@style/modifiedUpdateEditText"
+                android:hint="Email"
+                android:inputType="textPersonName"
+                android:maxLines="1"/>
 
         </LinearLayout>
         <LinearLayout
@@ -324,15 +288,12 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_baseline_transgender_24"/>
-            <TextView
-                android:id="@+id/singleProfileGender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Gender"
-                android:textColor="#000"
-                android:textSize="18dp"
-                android:paddingLeft="15dp"
-                android:layout_gravity="center_vertical"/>
+            <EditText
+                android:id="@+id/updateEditTextGender"
+                style="@style/modifiedUpdateEditText"
+                android:hint="Gender"
+                android:inputType="textPersonName"
+                android:maxLines="1"/>
 
         </LinearLayout>
         <LinearLayout
@@ -346,19 +307,21 @@
                 android:layout_height="30dp"
                 android:src="@drawable/ic_baseline_transgender_24"/>-->
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/singleProfileUpdateInfoButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="100dp"
-                android:layout_marginEnd="30dp"
+                android:id="@+id/circularLoginButton"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:onClick="onUpdateClick"
-                android:paddingLeft="15dp"
-                android:text="Update Infos"
-                android:outlineAmbientShadowColor="@color/white"
-                android:backgroundTint="@color/design_default_color_primary_variant"
-                />
+                android:backgroundTint="@color/blue"
+                android:onClick="signIn"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="0dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="0dp"
+                android:text="Update"
+                app:cornerRadius="26dp" />
             <!--
             <TextView
                 android:id="@+id/singleProfileUpdateInfoButton"
