@@ -28,4 +28,7 @@ interface CustomerAPI {
 
     @PUT("customers/updateOneCustomer")
     fun updateOneCustomer(@Body requestBody: JsonObject):Observable<JsonObject>
+
+    @POST("/models/saveOrUpdateOneModelAttrOfCustomer")
+    fun saveOneCustomerProperties(@Body requestBody: JsonObject):Observable<JsonObject>
 }
