@@ -20,9 +20,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name="com.onurkeskin.demodemobitirmeproje.view.UpdateProfileActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name="com.onurkeskin.demodemobitirmeproje.view.PropertiesFormActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.onurkeskin.demodemobitirmeproje.view.RegisterActivity"
             android:exported="false"

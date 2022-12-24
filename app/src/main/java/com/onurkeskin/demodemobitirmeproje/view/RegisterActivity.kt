@@ -143,5 +143,10 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable?.clear()
+    }
+
 
 }

@@ -1,10 +1,13 @@
 package com.onurkeskin.demodemobitirmeproje.view
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.onurkeskin.demobitirmeproje.R
@@ -15,6 +18,7 @@ import com.onurkeskin.demodemobitirmeproje.service.HouseOwnerAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.activity_single_profile.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -36,20 +40,41 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
 
         compositeDisposable = CompositeDisposable()
 
+        changeStatusBarColor()
 
         loadData()
 
     }
-    /*
-    private fun bindRecyclerView()
-    {
-        //RecyclerView bağlama
-        val layoutManager : RecyclerView.LayoutManager = LinearLayoutManager(this)
-        userLoginRecyclerView.layoutManager = layoutManager
 
+    fun onUpdateClick(view: View){
+        //customer mı yoksa house owner mı profil bilgilerini güncelleyecek bunun bilgisini alıp göndermek lazım
+        val customerOrHouseOwner = singleProfileCustomerOrHouseOwner.text.toString()
+
+        if(customerOrHouseOwner == "Customer"){ //Customer ise
+            val intent = Intent(this@SingleProfileActivity,UpdateProfileActivity::class.java)
+            intent.putExtra("customerId",customerModel!!.customerId)
+            startActivity(intent)
+        }else{ //HouseOwner ise
+            val intent = Intent(this@SingleProfileActivity,UpdateProfileActivity::class.java)
+            intent.putExtra("ownerId",houseOwnerModel!!.ownerId)
+            startActivity(intent)
+        }
+        /*
+        val intent = Intent(this@SingleProfileActivity,MainActivity::class.java)
+        intent.putExtra("userId",customerModel!!.customerId)
+        startActivity(intent)//updateProfileInfosSayfasınaGidecek
+
+         */
+        overridePendingTransition(R.anim.slide_in_left,android.R.anim.slide_out_right)
     }
 
-     */
+    private fun changeStatusBarColor(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            val window = window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = resources.getColor(R.color.register_bk_color)
+        }
+    }
 
     private fun loadData(){
         val intent = intent
@@ -57,7 +82,8 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
         isCustomer = intent.getStringExtra("fromCustomer")
         isHouseOwner = intent.getStringExtra("fromHouseOwner")
         isLoginUser = intent.getStringExtra("fromMainPage")
-        if (isCustomer.equals("customerProfile")){//eğer customer kısmından profile gidilecekse
+
+        if (isCustomer.equals("customerProfile")){//eğer customerProfiles kısmından profile gidilecekse
             val id = intent.getIntExtra("customerId",1)
             val customerId : String? = "$id"
             singleProfileUpdateInfoButton.isVisible = false
@@ -77,7 +103,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
                     .subscribe(this::handleResponse))
             }
         }
-        else if(isHouseOwner.equals("houseOwnerProfile")){
+        else if(isHouseOwner.equals("houseOwnerProfile")){ //eğer houseOwnerProfiles kısmından profile gidilecekse
             val id = intent.getIntExtra("houseOwnerId",1)
             val houseOwnerId : String? = "$id"
             singleProfileUpdateInfoButton.isVisible = false
@@ -90,15 +116,15 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
 
             if(houseOwnerId!=null){
                 compositeDisposable?.add(retrofit.getOwnerById(houseOwnerId)
-                    .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
-                    .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(this::handleResponse))
             }
 
         }
 
 
-        else if(isLoginUser.equals("userLoginProfile")){
+        else if(isLoginUser.equals("userLoginProfile")){ //eğer kullanıcı kendi profiline gidecekse
             val id = intent.getIntExtra("userLoginId",1)
             val customerId : String? = "$id"
 
@@ -177,7 +203,8 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
         customerModel = customer
 
         if(customerModel != null){
-            singleProfileNameSurnameAge.text = customerModel!!.customerName + customer!!.customerSurname +  " , " + customer!!.customerAge.toString()
+            singleProfileCustomerOrHouseOwner.text = "Customer"
+            singleProfileNameSurnameAge.text = customerModel!!.customerName + " " +customer!!.customerSurname +  " , " + customer!!.customerAge.toString()
             singleProfileUsername.text = customerModel!!.customerUsername
             singleProfileHometown.text = customerModel!!.customerHometown
             singleProfileDepartmentGrade.text = customerModel!!.customerDepartment + " , " +customerModel!!.customerGrade.toString()
@@ -188,21 +215,12 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
             Toast.makeText(this,"Error happened" , Toast.LENGTH_LONG).show()
         }
 
-
-        /*
-        customerModel?.let {
-            customerSingleProfileRecyclerViewAdapter = CustomerSingleProfileRecyclerViewAdapter(it)
-            userLoginRecyclerView.adapter = customerSingleProfileRecyclerViewAdapter
-        }
-
-         */
-
-
     }
 
     private fun handleResponse(houseOwner: HouseOwnerModel){
         houseOwnerModel = houseOwner
         if(houseOwnerModel != null){
+            singleProfileCustomerOrHouseOwner.text = "HouseOwner"
             singleProfileNameSurnameAge.text = houseOwnerModel!!.ownerName + houseOwnerModel!!.ownerSurname + " , " + houseOwnerModel!!.ownerAge.toString()
             singleProfileUsername.text = houseOwnerModel!!.ownerUserName
             singleProfileHometown.text = houseOwnerModel!!.ownerHometown
@@ -213,13 +231,6 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
         }else{
             Toast.makeText(this,"Error happened" , Toast.LENGTH_LONG).show()
         }
-        /*
-        houseOwnerModel?.let {
-            houseOwnerSingleProfileRecyclerViewAdapter = HouseOwnerSingleProfileRecyclerViewAdapter(it)
-            userLoginRecyclerView.adapter = houseOwnerSingleProfileRecyclerViewAdapter
-        }
-
-         */
 
     }
 
