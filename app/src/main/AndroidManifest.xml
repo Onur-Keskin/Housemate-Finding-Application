@@ -20,18 +20,25 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name="com.onurkeskin.demodemobitirmeproje.view.UpdateProfileActivity"
+            android:name=".SaveHouseActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="com.onurkeskin.demodemobitirmeproje.view.PropertiesFormActivity"
+            android:name=".UpdateProfileActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".PropertiesFormActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.onurkeskin.demodemobitirmeproje.view.RegisterActivity"
+            android:name=".RegisterActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -39,35 +46,35 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.onurkeskin.demodemobitirmeproje.view.HouseSingleProfileActivity"
+            android:name=".HouseSingleProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="com.onurkeskin.demodemobitirmeproje.view.HousesActivity"
+            android:name=".HousesActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="com.onurkeskin.demodemobitirmeproje.view.HouseOwnersProfilesActivity"
+            android:name=".HouseOwnersProfilesActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="com.onurkeskin.demodemobitirmeproje.view.SingleProfileActivity"
+            android:name=".SingleProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="com.onurkeskin.demodemobitirmeproje.view.CustomerProfilesActivity"
+            android:name=".CustomerProfilesActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -81,7 +88,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.onurkeskin.demodemobitirmeproje.view.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

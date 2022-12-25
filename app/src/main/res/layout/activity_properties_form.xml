@@ -52,7 +52,9 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <include layout="@layout/content_properties_form" />
+
+   <!-- <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollFeed"
@@ -95,7 +97,7 @@
 
                         <EditText
                             android:id="@+id/sleepTime"
-                            style="@style/modifiedEditText"
+                            style="@style/modifiedUpdateEditText"
                             android:ems="10"
                             android:hint="Genelde Kaçta Uyursun? (22.00 gibi)"
                             android:inputType="textEmailAddress" />
@@ -109,7 +111,7 @@
 
                         <EditText
                             android:id="@+id/gpa"
-                            style="@style/modifiedEditText"
+                            style="@style/modifiedUpdateEditText"
                             android:ems="10"
                             android:hint="Ortalaman Kaç?"
                             android:inputType="textEmailAddress" />
@@ -242,15 +244,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
 
-                        <!--<AutoCompleteTextView
-                            android:id="@+id/luxryImportance"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_weight="1"
-                            android:inputType="none"
-                            android:text="Evinizin lüks olması ne kadar önemli?"
-                            android:textSize="12sp"/>-->
+
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -261,7 +255,7 @@
 
                         <EditText
                             android:id="@+id/rentingDuration"
-                            style="@style/modifiedEditText"
+                            style="@style/modifiedUpdateEditText"
                             android:inputType="number"
                             android:hint="Evi kaç aylığına kiralamak istiyorsunuz ?" />
 
@@ -312,7 +306,7 @@
 
 
 
-                    <!--<com.google.android.material.textfield.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/txtInputFeedback"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -324,12 +318,12 @@
                             android:inputType="textMultiLine"
                             android:minLines="2" />
 
-                    </com.google.android.material.textfield.TextInputLayout>-->
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-    </androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>-->
 
     <!--<include layout="@layout/content_properties_form" />-->
 

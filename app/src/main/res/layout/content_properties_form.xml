@@ -8,9 +8,10 @@
     android:id="@+id/scrollFeed"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.onurkeskin.demodemobitirmeproje.view.PropertiesFormActivity"
-    tools:showIn="@layout/activity_properties_form"
     android:background="@drawable/centre_background"
     android:focusableInTouchMode="true">
+
+    <!--tools:showIn="@layout/activity_properties_form"-->
 
     <androidx.cardview.widget.CardView
         android:id="@+id/personalDetailsCard"
@@ -18,267 +19,270 @@
         android:layout_marginTop="10dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="10dp">
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true">
 
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:focusableInTouchMode="false"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/welcomeText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="Hoşgeldin! Seni biraz tanıyalım!"
+                    android:textColor="@color/black"/>
+
+            </RelativeLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputSleepTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/sleepTime"
+                    style="@style/modifiedUpdateEditText"
+                    android:ems="10"
+                    android:hint="Genelde Kaçta Uyursun? (22.00 gibi)"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputGpa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/gpa"
+                    style="@style/modifiedUpdateEditText"
+                    android:ems="10"
+                    android:hint="Ortalaman Kaç?"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/useSmokeLayout"
+                style="@style/parent"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/useSmokeText"
+                    style="@style/modifiedEditText"
+                    android:text="Sigara kullanıyor musun?"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.118"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioGroup
+                    android:id="@+id/radioUseSmokeGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.834"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/radioYesSmokeButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        android:onClick="useSmokeHandler"
+                        android:text="Evet"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <RadioButton
+                        android:id="@+id/radioNoSmokeButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        android:layout_marginLeft="100dp"
+                        android:onClick="useSmokeHandler"
+                        android:text="Hayır"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.655"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </RadioGroup>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/havePetLayout"
+                style="@style/parent"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/havePetLayoutText"
+                    style="@style/modifiedEditText"
+                    android:text="Evcil hayvanın var mı?"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.118"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioGroup
+                    android:id="@+id/radioHavePetGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.834"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/radioYesPetButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        android:onClick="havePetHandler"
+                        android:text="Evet"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <RadioButton
+                        android:id="@+id/radioNoPetButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        android:layout_marginLeft="100dp"
+                        android:onClick="havePetHandler"
+                        android:text="Hayır"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.655"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </RadioGroup>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputMob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:focusableInTouchMode="false"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:layout_marginTop="10dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/importanceLuxuryText"
+                    style="@style/modifiedEditText"
+                    android:text="Evinizin lüks olması ne kadar önemli?"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.118"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/welcomeText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:text="Hoşgeldin! Seni biraz tanıyalım!"
-                        android:textColor="@color/black"/>
-
-                </RelativeLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txtInputSleepTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/sleepTime"
-                        style="@style/modifiedEditText"
-                        android:ems="10"
-                        android:hint="Genelde Kaçta Uyursun? (22.00 gibi)"
-                        android:inputType="textEmailAddress" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txtInputGpa"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/gpa"
-                        style="@style/modifiedEditText"
-                        android:ems="10"
-                        android:hint="Ortalaman Kaç?"
-                        android:inputType="textEmailAddress" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/useSmokeLayout"
-                    style="@style/parent"
-                    android:layout_marginTop="10dp">
-
-                    <TextView
-                        android:id="@+id/useSmokeText"
-                        style="@style/modifiedEditText"
-                        android:text="Sigara kullanıyor musun?"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.118"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <RadioGroup
-                        android:id="@+id/radioUseSmokeGroup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.834"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <RadioButton
-                            android:id="@+id/radioYesSmokeButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="33dp"
-                            android:onClick="useSmokeHandler"
-                            android:text="Evet"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <RadioButton
-                            android:id="@+id/radioNoSmokeButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="33dp"
-                            android:layout_marginLeft="100dp"
-                            android:onClick="useSmokeHandler"
-                            android:text="Hayır"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.655"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </RadioGroup>
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/havePetLayout"
-                    style="@style/parent"
-                    android:layout_marginTop="10dp">
-
-                    <TextView
-                        android:id="@+id/havePetLayoutText"
-                        style="@style/modifiedEditText"
-                        android:text="Evcil hayvanın var mı?"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.118"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <RadioGroup
-                        android:id="@+id/radioHavePetGroup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.834"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <RadioButton
-                            android:id="@+id/radioYesPetButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="33dp"
-                            android:onClick="havePetHandler"
-                            android:text="Evet"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <RadioButton
-                            android:id="@+id/radioNoPetButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="33dp"
-                            android:layout_marginLeft="100dp"
-                            android:onClick="havePetHandler"
-                            android:text="Hayır"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.655"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </RadioGroup>
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txtInputMob"
+                <Spinner
+                    android:id="@+id/spinnerLuxuryImportance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-                    <TextView
-                        android:id="@+id/importanceLuxuryText"
-                        style="@style/modifiedEditText"
-                        android:text="Evinizin lüks olması ne kadar önemli?"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.118"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <Spinner
-                        android:id="@+id/spinnerLuxuryImportance"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:spinnerMode="dropdown"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <!--<AutoCompleteTextView
-                        android:id="@+id/luxryImportance"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:inputType="none"
-                        android:text="Evinizin lüks olması ne kadar önemli?"
-                        android:textSize="12sp"/>-->
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txtInputRentingDuration"
+                <!--<AutoCompleteTextView
+                    android:id="@+id/luxryImportance"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/rentingDuration"
-                        style="@style/modifiedEditText"
-                        android:inputType="number"
-                        android:hint="Evi kaç aylığına kiralamak istiyorsunuz ?" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/priceRangeTextLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/priceRangeText"
-                        style="@style/modifiedEditText"
-                        android:text="Fiyat aralığınız nedir ? "
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.118"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <Spinner
-                        android:id="@+id/spinnerPriceRange"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:spinnerMode="dropdown"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <Button
-                    android:id="@+id/btnSend"
-                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:background="@drawable/centre_button"
-                    android:text="@string/send"
-                    android:textColor="@color/whiteTextColor"
-                    android:onClick="sendForm"/>
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:inputType="none"
+                    android:text="Evinizin lüks olması ne kadar önemli?"
+                    android:textSize="12sp"/>-->
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <!--<com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txtInputFeedback"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputRentingDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/rentingDuration"
+                    style="@style/modifiedUpdateEditText"
+                    android:inputType="number"
+                    android:hint="Evi kaç aylığına kiralamak istiyorsunuz ?" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/priceRangeTextLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/priceRangeText"
+                    style="@style/modifiedEditText"
+                    android:text="Fiyat aralığınız nedir ? "
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.118"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Spinner
+                    android:id="@+id/spinnerPriceRange"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-                    <EditText
-                        android:id="@+id/txtFeed"
-                        style="@style/modifiedEditText"
-                        android:hint="@string/message"
-                        android:inputType="textMultiLine"
-                        android:minLines="2" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sendFormLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            </LinearLayout>
+                <androidx.constraintlayout.utils.widget.MotionButton
+                    android:id="@+id/circleRegisterButton"
+                    style="@style/loginButton"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/loginViewsMargin"
+                    android:text="SEND"
+                    android:onClick="sendForm"
+                    />
 
-        </ScrollView>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+            <!--<com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputFeedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/txtFeed"
+                    style="@style/modifiedEditText"
+                    android:hint="@string/message"
+                    android:inputType="textMultiLine"
+                    android:minLines="2" />
+
+            </com.google.android.material.textfield.TextInputLayout>-->
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 </androidx.core.widget.NestedScrollView>
+
