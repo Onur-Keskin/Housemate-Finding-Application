@@ -153,13 +153,12 @@ class RegisterActivity : AppCompatActivity() {
         houseOwnerRegisterResponseModel = houseOwnerRegister
         println(houseOwnerRegisterResponseModel)
 
-        if(houseOwnerRegisterResponseModel!!.get("ownerId").asInt != null ){//password de kontrol edilecek ama önce api de olması şart
-            val intent = Intent(this@RegisterActivity , PropertiesFormActivity::class.java)
-            intent.putExtra("houseOwnerId", houseOwnerRegisterResponseModel!!.get("ownerId").asInt)
-            intent.putExtra("fromRegisterPage","houseOwner")
+        if(houseOwnerRegisterResponseModel!!.get("ownerId").asInt != null ){//önce ev kaydetme sayfasına gidecek sonra form sayfasına
+
+            val intent = Intent(this@RegisterActivity,SaveHouseActivity::class.java)
+            intent.putExtra("houseOwnerId",houseOwnerRegisterResponseModel!!.get("ownerId").asInt)
             intent.putExtra("registeredUser-Name",houseOwnerRegisterResponseModel!!.get("ownerName").toString())
             startActivity(intent)
-            //finish()
 
         } else{
             Toast.makeText(this,"Error Happened", Toast.LENGTH_LONG).show()
