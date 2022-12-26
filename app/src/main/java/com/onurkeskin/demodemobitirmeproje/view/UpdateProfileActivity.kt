@@ -106,7 +106,7 @@ class UpdateProfileActivity : AppCompatActivity() {
             updateTextCustomerOrHouseOwner.text = "House Owner"
             updateEditTextName.setText(houseOwnerModel!!.ownerName)
             updateEditTextSurname.setText(houseOwnerModel!!.ownerSurname)
-            updateEditTextUsername.setText(houseOwnerModel!!.ownerUserName)
+            updateEditTextUsername.setText(houseOwnerModel!!.ownerUsername)
             updateEditTextAge.setText(houseOwnerModel!!.ownerAge.toString())
             updateEditTextHomeTown.setText(houseOwnerModel!!.ownerHometown)
             updateEditTextDepartment.setText(houseOwnerModel!!.ownerDepatment)

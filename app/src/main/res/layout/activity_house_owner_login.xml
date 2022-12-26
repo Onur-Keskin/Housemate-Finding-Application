@@ -30,7 +30,7 @@
                     style="@style/viewParent.headerText.NoMode"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:text="Customer\nLogin\nPage" />
+                    android:text="House Owner\nLogin Page" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -42,12 +42,12 @@
             </RelativeLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputUsername"
+                android:id="@+id/textInputOwnerUsername"
                 style="@style/parent"
                 android:layout_marginTop="@dimen/loginViewsMargin">
 
                 <EditText
-                    android:id="@+id/userNameText"
+                    android:id="@+id/ownerUsernameText"
                     style="@style/modifiedEditText"
                     android:hint="@string/login_username_hint"
                     android:inputType="textEmailAddress"
@@ -61,10 +61,10 @@
                 android:layout_marginTop="@dimen/loginViewsMargin">
 
                 <EditText
-                    android:id="@+id/passwordText"
+                    android:id="@+id/ownerPasswordText"
                     style="@style/modifiedEditText"
                     android:hint="@string/login_password_hint"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textPassword"
                     android:maxLines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -83,7 +83,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:backgroundTint="@color/primaryTextColor"
-                android:onClick="signIn"
+                android:onClick="ownerSignIn"
                 android:paddingLeft="10dp"
                 android:paddingTop="0dp"
                 android:paddingRight="0dp"
@@ -94,18 +94,8 @@
             <TextView
                 style="@style/parent"
                 android:layout_marginTop="@dimen/loginViewsMargin"
-                android:onClick="onLoginClick"
+                android:onClick="onOwnerLoginClick"
                 android:text="New User? Register Now"
-                android:textAlignment="center"
-                android:textColor="@color/themeColor"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <TextView
-                style="@style/parent"
-                android:layout_marginTop="@dimen/loginViewsMargin"
-                android:onClick="onHouseOwnerLoginPageClick"
-                android:text="House Owner Login"
                 android:textAlignment="center"
                 android:textColor="@color/themeColor"
                 android:textSize="17sp"
