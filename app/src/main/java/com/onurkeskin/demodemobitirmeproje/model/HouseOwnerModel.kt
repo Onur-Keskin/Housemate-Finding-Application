@@ -3,7 +3,7 @@ package com.onurkeskin.demodemobitirmeproje.model
 data class HouseOwnerModel(
     val ownerId:Int,
     val ownerName: String,
-    val ownerUserName: String,
+    val ownerUsername: String,
     val ownerSurname: String,
     val ownerAge:Int,
     val ownerHometown: String,

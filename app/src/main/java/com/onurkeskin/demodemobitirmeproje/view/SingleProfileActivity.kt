@@ -28,7 +28,8 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
     private val BASE_URL = "http://192.168.1.21:8080/"
     private var isCustomer: String?=null
     private var isHouseOwner: String?=null
-    private var isLoginUser : String? = null
+    private var isLoginCustomer : String? = null
+    private var isLoginHouseOwner : String? = null
     private var customerModel : CustomerModel? = null
     private var houseOwnerModel : HouseOwnerModel?=null
     private var compositeDisposable : CompositeDisposable? = null
@@ -81,7 +82,8 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
 
         isCustomer = intent.getStringExtra("fromCustomer")
         isHouseOwner = intent.getStringExtra("fromHouseOwner")
-        isLoginUser = intent.getStringExtra("fromMainPage")
+        isLoginCustomer = intent.getStringExtra("fromMainPageCustomer")
+        isLoginHouseOwner = intent.getStringExtra("fromMainPageHouseOwner")
 
         if (isCustomer.equals("customerProfile")){//eğer customerProfiles kısmından profile gidilecekse
             val id = intent.getIntExtra("customerId",1)
@@ -124,9 +126,8 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
         }
 
 
-        else if(isLoginUser.equals("userLoginProfile")){ //eğer kullanıcı kendi profiline gidecekse
-            val id = intent.getIntExtra("userLoginId",1)
-            val customerId : String? = "$id"
+        else if(isLoginCustomer.equals("customerLoginProfile")){ //eğer customer kendi profiline gidecekse
+            val customerId = intent.getIntExtra("customerLoginId",0)
 
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -135,11 +136,31 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
                 .build().create(CustomerAPI::class.java)
 
 
-            if (customerId != null){
+            if (customerId != 0){
 
-                compositeDisposable?.add(retrofit.getCustomerById(customerId)
+                compositeDisposable?.add(retrofit.getCustomerById(customerId.toString())
                     .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
                     .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
+                    .subscribe(this::handleResponse))
+            }
+
+        }
+
+        else if(isLoginHouseOwner.equals("houseOwnerLoginProfile")){ //eğer customer kendi profiline gidecekse
+            val ownerId = intent.getIntExtra("houseOwnerLoginId",0)
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build().create(HouseOwnerAPI::class.java)
+
+
+            if (ownerId != 0){
+
+                compositeDisposable?.add(retrofit.getOwnerById(ownerId.toString())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(this::handleResponse))
             }
 
@@ -222,6 +243,23 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
         if(houseOwnerModel != null){
             singleProfileCustomerOrHouseOwner.text = "HouseOwner"
             singleProfileNameSurnameAge.text = houseOwnerModel!!.ownerName + houseOwnerModel!!.ownerSurname + " , " + houseOwnerModel!!.ownerAge.toString()
+            singleProfileUsername.text = houseOwnerModel!!.ownerUsername
+            singleProfileHometown.text = houseOwnerModel!!.ownerHometown
+            singleProfileDepartmentGrade.text = houseOwnerModel!!.ownerDepatment + houseOwnerModel!!.ownerGrade
+            singleProfilePhone.text = houseOwnerModel!!.ownerPhone
+            singleProfileEmail.text = houseOwnerModel!!.ownerMail
+            singleProfileGender.text = houseOwnerModel!!.ownerGender
+        }else{
+            Toast.makeText(this,"Error happened" , Toast.LENGTH_LONG).show()
+        }
+
+    }
+    /*
+    private fun handleLoginHouseOwnerResponse(houseOwner: HouseOwnerModel){
+        houseOwnerModel = houseOwner
+        if(houseOwnerModel != null){
+            singleProfileCustomerOrHouseOwner.text = "HouseOwner"
+            singleProfileNameSurnameAge.text = houseOwnerModel!!.ownerName + houseOwnerModel!!.ownerSurname + " , " + houseOwnerModel!!.ownerAge.toString()
             singleProfileUsername.text = houseOwnerModel!!.ownerUserName
             singleProfileHometown.text = houseOwnerModel!!.ownerHometown
             singleProfileDepartmentGrade.text = houseOwnerModel!!.ownerDepatment + houseOwnerModel!!.ownerGrade
@@ -233,6 +271,8 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
         }
 
     }
+
+     */
 
 
 

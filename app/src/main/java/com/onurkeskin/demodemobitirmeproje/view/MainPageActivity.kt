@@ -63,11 +63,25 @@ class MainPageActivity : AppCompatActivity() {
         startActivity(intent)
     }
     fun gotoMyProfile(view:View){
-        val userId = intent.getIntExtra("userId",1)
-        intent = Intent(this@MainPageActivity, SingleProfileActivity::class.java)//Şuanlık boş safyaya gider. username e göre unique kullanıcıyı alacak olan bir endpoint lazım
-        intent.putExtra("fromMainPage","userLoginProfile")
-        intent.putExtra("userLoginId",userId)
-        startActivity(intent)
+
+        val customerOrOwner = intent.getStringExtra("customerOrOwner")
+        if(customerOrOwner == "houseOwner"){
+            val houseOwnerId = intent.getIntExtra("ownerId",0)
+            if(houseOwnerId != 0){
+                intent = Intent(this@MainPageActivity, SingleProfileActivity::class.java)
+                intent.putExtra("fromMainPageHouseOwner","houseOwnerLoginProfile")
+                intent.putExtra("houseOwnerLoginId",houseOwnerId)
+                startActivity(intent)
+            }
+
+        }else{
+            val userId = intent.getIntExtra("userId",1)
+            intent = Intent(this@MainPageActivity, SingleProfileActivity::class.java)//Şuanlık boş safyaya gider. username e göre unique kullanıcıyı alacak olan bir endpoint lazım
+            intent.putExtra("fromMainPageCustomer","customerLoginProfile")
+            intent.putExtra("customerLoginId",userId)
+            startActivity(intent)
+        }
+
     }
 
 
