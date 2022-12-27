@@ -30,7 +30,8 @@ class UpdateProfileActivity : AppCompatActivity() {
 
     private val BASE_URL = "http://192.168.1.21:8080/"
     private var compositeDisposable : CompositeDisposable? = null
-    private var userUpdateProfileResponseModel: JsonObject? = null
+    private var customerUpdateProfileResponseModel: JsonObject? = null
+    private var houseOwnerUpdateProfileResponseModel: JsonObject? = null
     private val customerObject = JsonObject()
     private val houseOwnerObject = JsonObject()
     private var customerModel : CustomerModel? = null
@@ -102,6 +103,7 @@ class UpdateProfileActivity : AppCompatActivity() {
 
     private fun bringHouseOwnerHandleResponse(houseOwner: HouseOwnerModel){ //Update sayfasına houseOwner'ın bilgisini getirecek
         houseOwnerModel = houseOwner
+        //println(houseOwnerModel)
         if(houseOwnerModel != null){
             updateTextCustomerOrHouseOwner.text = "House Owner"
             updateEditTextName.setText(houseOwnerModel!!.ownerName)
@@ -109,7 +111,7 @@ class UpdateProfileActivity : AppCompatActivity() {
             updateEditTextUsername.setText(houseOwnerModel!!.ownerUsername)
             updateEditTextAge.setText(houseOwnerModel!!.ownerAge.toString())
             updateEditTextHomeTown.setText(houseOwnerModel!!.ownerHometown)
-            updateEditTextDepartment.setText(houseOwnerModel!!.ownerDepatment)
+            updateEditTextDepartment.setText(houseOwnerModel!!.ownerDepartment)
             //updateEditTextPassword.hint = houseOwnerModel!!.customerPassword //burayı modelime eklicem
             updateEditTextGrade.setText(houseOwnerModel!!.ownerGrade.toString())
             updateEditTextPhone.setText(houseOwnerModel!!.ownerPhone)
@@ -157,17 +159,30 @@ class UpdateProfileActivity : AppCompatActivity() {
         }
         else if(houseOwnerId != 0){ //houseOwner bilgilerini güncelle
             updateTextCustomerOrHouseOwner.text = "HouseOwner"
-            houseOwnerObject.addProperty("ownerId",houseOwnerId)
-            houseOwnerObject.addProperty("ownerName",updateEditTextName.text.toString())
-            houseOwnerObject.addProperty("ownerSurname",updateEditTextSurname.text.toString())
-            houseOwnerObject.addProperty("ownerUsername",updateEditTextUsername.text.toString())
-            houseOwnerObject.addProperty("ownerAge",updateEditTextAge.editableText.toString().toInt())
-            houseOwnerObject.addProperty("ownerHometown",updateEditTextHomeTown.text.toString())
-            houseOwnerObject.addProperty("ownerDepartment",updateEditTextDepartment.text.toString())
-            houseOwnerObject.addProperty("ownerPassword",updateEditTextPassword.text.toString())
-            houseOwnerObject.addProperty("ownerGrade",updateEditTextGrade.editableText.toString().toInt())
-            houseOwnerObject.addProperty("ownerPhone",updateEditTextPhone.text.toString())
-            houseOwnerObject.addProperty("ownerEmail",updateEditTextEmail.text.toString()) //burası ownermail olabilir
+            houseOwnerObject.addProperty("houseOwnerId",houseOwnerId)
+            houseOwnerObject.addProperty("houseOwnerName",updateEditTextName.text.toString())
+            houseOwnerObject.addProperty("houseOwnerSurname",updateEditTextSurname.text.toString())
+            houseOwnerObject.addProperty("houseOwnerUsername",updateEditTextUsername.text.toString())
+            houseOwnerObject.addProperty("houseOwnerAge",updateEditTextAge.editableText.toString().toInt())
+            houseOwnerObject.addProperty("houseOwnerHometown",updateEditTextHomeTown.text.toString())
+            houseOwnerObject.addProperty("houseOwnerDepartment",updateEditTextDepartment.text.toString())
+            //houseOwnerObject.addProperty("ownerPassword",updateEditTextPassword.text.toString())
+            houseOwnerObject.addProperty("houseOwnerGrade",updateEditTextGrade.editableText.toString().toInt())
+            houseOwnerObject.addProperty("houseOwnerPhone",updateEditTextPhone.text.toString())
+            houseOwnerObject.addProperty("houseOwnerEmail",updateEditTextEmail.text.toString()) //burası ownermail olabilir
+            houseOwnerObject.addProperty("houseOwnerGender",updateEditTextGender.text.toString())
+            houseOwnerObject.addProperty("houseId",1)//burası güncellenecek
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build().create(HouseOwnerAPI::class.java)
+
+            compositeDisposable?.add(retrofit.updateOneHouseOwner(houseOwnerObject)
+                .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
+                .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
+                .subscribe(this::handleHouseOwnerUpdateClickResponse))
 
 
         }
@@ -177,12 +192,34 @@ class UpdateProfileActivity : AppCompatActivity() {
     }
 
     private fun handleCustomerUpdateClickResponse(userUpdate: JsonObject){
-        userUpdateProfileResponseModel = userUpdate
+        customerUpdateProfileResponseModel = userUpdate
         //println(userUpdateProfileResponseModel)
 
-        if(userUpdateProfileResponseModel!!.get("customerId").asInt != null ){//password de kontrol edilecek ama önce api de olması şart
+        if(customerUpdateProfileResponseModel!!.get("customerId").asInt != null ){//password de kontrol edilecek ama önce api de olması şart
             val intent = Intent(this@UpdateProfileActivity , MainPageActivity::class.java)
-            intent.putExtra("userId", userUpdateProfileResponseModel!!.get("customerId").asInt)
+            intent.putExtra("userId", customerUpdateProfileResponseModel!!.get("customerId").asInt)
+            //intent.putExtra("fromRegisterPage","firstLogin")
+            //intent.putExtra("registeredUser-Name",userRegisterResponseModel!!.get("customerName").toString())
+            startActivity(intent)
+            //finish()
+
+        } else{
+            Toast.makeText(this,"Error Happened", Toast.LENGTH_LONG).show()
+            val intent = Intent(this@UpdateProfileActivity , MainActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
+
+    private fun handleHouseOwnerUpdateClickResponse(houseOwnerUpdate: JsonObject){
+        houseOwnerUpdateProfileResponseModel = houseOwnerUpdate
+        println("houseOwnerUpdateProfileResponseModel : ")
+        println(houseOwnerUpdateProfileResponseModel)
+        val houseOwnerId = houseOwnerUpdateProfileResponseModel!!.get("ownerId").asInt
+
+        if(houseOwnerId != null ){//password de kontrol edilecek ama önce api de olması şart
+            val intent = Intent(this@UpdateProfileActivity , MainPageActivity::class.java)
+            intent.putExtra("ownerId",houseOwnerId)
             //intent.putExtra("fromRegisterPage","firstLogin")
             //intent.putExtra("registeredUser-Name",userRegisterResponseModel!!.get("customerName").toString())
             startActivity(intent)

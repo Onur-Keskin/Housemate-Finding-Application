@@ -23,9 +23,21 @@
     </string-array>
 
     <string-array name="priceRange">
-        <item>2000-3000</item>
-        <item>3000-4000</item>
-        <item>4000-5000</item>
-        <item>5000+</item>
+        <item>2000</item>
+        <item>3000</item>
+        <item>4000</item>
+        <item>5000</item>
+        <item>6000</item>
+        <item>7000</item>
+        <item>8000</item>
+    </string-array>
+
+    <string-array name="countOfBSO">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
     </string-array>
 </resources>

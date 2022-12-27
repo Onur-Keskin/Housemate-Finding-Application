@@ -1,5 +1,6 @@
 package com.onurkeskin.demodemobitirmeproje.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -220,6 +221,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun handleResponse(customer: CustomerModel){
         customerModel = customer
 
@@ -229,6 +231,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
             singleProfileUsername.text = customerModel!!.customerUsername
             singleProfileHometown.text = customerModel!!.customerHometown
             singleProfileDepartmentGrade.text = customerModel!!.customerDepartment + " , " +customerModel!!.customerGrade.toString()
+            singleProfilePassword.text = customerModel!!.customerPassword.toString()
             singleProfilePhone.text = customerModel!!.customerPhone
             singleProfileEmail.text = customerModel!!.customerEmail
             singleProfileGender.text = customerModel!!.customerGender
@@ -245,7 +248,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
             singleProfileNameSurnameAge.text = houseOwnerModel!!.ownerName + houseOwnerModel!!.ownerSurname + " , " + houseOwnerModel!!.ownerAge.toString()
             singleProfileUsername.text = houseOwnerModel!!.ownerUsername
             singleProfileHometown.text = houseOwnerModel!!.ownerHometown
-            singleProfileDepartmentGrade.text = houseOwnerModel!!.ownerDepatment + houseOwnerModel!!.ownerGrade
+            singleProfileDepartmentGrade.text = houseOwnerModel!!.ownerDepartment + houseOwnerModel!!.ownerGrade
             singleProfilePhone.text = houseOwnerModel!!.ownerPhone
             singleProfileEmail.text = houseOwnerModel!!.ownerMail
             singleProfileGender.text = houseOwnerModel!!.ownerGender

@@ -69,7 +69,6 @@ class HouseOwnerLoginActivity : AppCompatActivity() {
 
     private fun handleResponse(ownerLogin: HouseOwnerModel){
         ownerLoginModel = ownerLogin
-        println(ownerLoginModel)
 
         //!!!!!!!!!!! kayıt olan username ler bir rakam içerince login olunamıyor
         if(ownerLoginModel!!.ownerUsername == ownerUsernameText.editableText.toString()){//password de kontrol edilecek ama önce api de olması şart

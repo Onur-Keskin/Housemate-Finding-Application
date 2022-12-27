@@ -264,7 +264,7 @@
                 android:id="@+id/singleProfilePassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Password"
+                android:text=""
                 android:textColor="#000"
                 android:textSize="18dp"
                 android:inputType="textPassword"

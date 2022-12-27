@@ -8,7 +8,7 @@ data class HouseOwnerModel(
     val ownerAge:Int,
     val ownerHometown: String,
     val ownerGrade:String,
-    val ownerDepatment: String,
+    val ownerDepartment: String,
     val ownerPhone: String,
     val ownerMail:String,
     val ownerGender:String

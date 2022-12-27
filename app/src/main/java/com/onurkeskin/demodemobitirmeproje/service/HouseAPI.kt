@@ -1,8 +1,11 @@
 package com.onurkeskin.demodemobitirmeproje.service
 
+import com.google.gson.JsonObject
 import com.onurkeskin.demodemobitirmeproje.model.HouseModel
 import io.reactivex.Observable
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface HouseAPI {
@@ -13,4 +16,8 @@ interface HouseAPI {
     fun getHouseById(
         @Path(value = "houseId", encoded = true) houseId: String?
     ): Observable<HouseModel>
+
+    @POST("houses/saveOneHouse")
+    fun saveOneHouse(@Body requestBody: JsonObject):Observable<JsonObject>
+
 }

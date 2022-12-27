@@ -23,7 +23,7 @@ class HouseOwnerRecyclerViewAdapter(private val houseOwnerList:ArrayList<HouseOw
 
             itemView.houseOwnerRecyclerViewName.text = "Name: " + houseOwnerModel.ownerName
             itemView.houseOwnerRecyclerViewSurname.text = "Surname: " + houseOwnerModel.ownerSurname
-            itemView.houseOwnerRecyclerViewDepartment.text = "Department: " + houseOwnerModel.ownerDepatment
+            itemView.houseOwnerRecyclerViewDepartment.text = "Department: " + houseOwnerModel.ownerDepartment
         }
     }
 
