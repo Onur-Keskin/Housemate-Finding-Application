@@ -65,8 +65,10 @@ class MainPageActivity : AppCompatActivity() {
     fun gotoMyProfile(view:View){
 
         val customerOrOwner = intent.getStringExtra("customerOrOwner")
+        println("customerOrOwner : $customerOrOwner")
         if(customerOrOwner == "houseOwner"){
             val houseOwnerId = intent.getIntExtra("ownerId",0)
+            println("houseOwnerId : $houseOwnerId")
             if(houseOwnerId != 0){
                 intent = Intent(this@MainPageActivity, SingleProfileActivity::class.java)
                 intent.putExtra("fromMainPageHouseOwner","houseOwnerLoginProfile")

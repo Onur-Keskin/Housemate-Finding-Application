@@ -59,7 +59,9 @@ class PropertiesFormActivity : AppCompatActivity() {
     }
     fun sendForm(view: View){
         val customerId = intent.getIntExtra("customerId",0)
-        val houseOwnerId = intent.getIntExtra("ownerId",0)
+        val houseOwnerId = intent.getIntExtra("houseOwnerId",0)
+
+        println("houseOwnerId : $houseOwnerId")
 
         if(customerId != 0){ //customer için
             properTiesFormObject.addProperty("customerId",customerId)//customer'a eklenecek
@@ -81,6 +83,7 @@ class PropertiesFormActivity : AppCompatActivity() {
                 .subscribe(this::handleCustomerFormRegisterResponse))
         }
         else if(houseOwnerId != 0){ //houseOwner için
+
             properTiesFormObject.addProperty("houseOwnerId",houseOwnerId)//houseOwner'a eklenecek
             properTiesFormObject.addProperty("sleepTime",sleepTime.text.toString())//houseOwner'a eklenecek
             properTiesFormObject.addProperty("gpa",gpa.text.toString().toDouble())//houseOwner'a eklenecek
@@ -100,7 +103,7 @@ class PropertiesFormActivity : AppCompatActivity() {
                 .subscribe(this::handleHouseOwnerFormRegisterResponse))
         }
         else{
-            Toast.makeText(this@PropertiesFormActivity,"Error Happened",Toast.LENGTH_LONG).show()
+            Toast.makeText(this@PropertiesFormActivity,"House Owner Properties Form Error ",Toast.LENGTH_LONG).show()
             startActivity(Intent(this@PropertiesFormActivity,RegisterActivity::class.java))
         }
     }
@@ -137,16 +140,42 @@ class PropertiesFormActivity : AppCompatActivity() {
     }
 
     private fun handleHouseOwnerFormRegisterResponse(houseOwnerFormRegister: JsonObject){
+
+        val houseOwnerId = intent.getIntExtra("houseOwnerId",0)
+        val houseOwnerName = intent.getStringExtra("registeredUser-Name")
+        val houseOwnerSurname = intent.getStringExtra("registeredUser-Surname")
+        val houseOwnerUsername = intent.getStringExtra("registeredUser-Username")
+        val houseOwnerEmail = intent.getStringExtra("registeredUser-Email")
+        val houseOwnerPassword = intent.getStringExtra("registeredUser-Password")
+
         houseOwnerRegisterFormResponseModel = houseOwnerFormRegister
+
+        println("houseOwnerRegisterFormResponseModel : " )
         println(houseOwnerRegisterFormResponseModel)
-        val houseOwnerId = houseOwnerRegisterFormResponseModel!!.getAsJsonObject("owner").get("ownerId").asInt
-        println(houseOwnerId)
-        if(houseOwnerId != null ){
+
+        //val houseOwnerId = houseOwnerRegisterFormResponseModel!!.getAsJsonObject("owner").get("ownerId").asInt
+        //println(houseOwnerId)
+        if(houseOwnerId != 0 ){
+
+            val intent = Intent(this@PropertiesFormActivity,SaveHouseActivity::class.java)
+            intent.putExtra("houseOwnerId",houseOwnerId)
+            intent.putExtra("houseOwnerName",houseOwnerName)
+            intent.putExtra("houseOwnerSurname",houseOwnerSurname)
+            intent.putExtra("houseOwnerUsername",houseOwnerUsername)
+            intent.putExtra("houseOwnerEmail",houseOwnerEmail)
+            intent.putExtra("houseOwnerPassword",houseOwnerPassword)
+            startActivity(intent)
+
+
+
+            /*
             val intent = Intent(this@PropertiesFormActivity,MainPageActivity::class.java)
             intent.putExtra("customerOrOwner","houseOwner")
             intent.putExtra("ownerId",houseOwnerId)
             startActivity(intent)
             //finish()
+
+             */
 
         } else{
             Toast.makeText(this,"Error Happened", Toast.LENGTH_LONG).show()

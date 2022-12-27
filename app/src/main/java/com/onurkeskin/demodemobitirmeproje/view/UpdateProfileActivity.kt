@@ -198,6 +198,7 @@ class UpdateProfileActivity : AppCompatActivity() {
         if(customerUpdateProfileResponseModel!!.get("customerId").asInt != null ){//password de kontrol edilecek ama önce api de olması şart
             val intent = Intent(this@UpdateProfileActivity , MainPageActivity::class.java)
             intent.putExtra("userId", customerUpdateProfileResponseModel!!.get("customerId").asInt)
+            intent.putExtra("customerOrOwner","customer")
             //intent.putExtra("fromRegisterPage","firstLogin")
             //intent.putExtra("registeredUser-Name",userRegisterResponseModel!!.get("customerName").toString())
             startActivity(intent)
@@ -220,6 +221,7 @@ class UpdateProfileActivity : AppCompatActivity() {
         if(houseOwnerId != null ){//password de kontrol edilecek ama önce api de olması şart
             val intent = Intent(this@UpdateProfileActivity , MainPageActivity::class.java)
             intent.putExtra("ownerId",houseOwnerId)
+            intent.putExtra("customerOrOwner","houseOwner")
             //intent.putExtra("fromRegisterPage","firstLogin")
             //intent.putExtra("registeredUser-Name",userRegisterResponseModel!!.get("customerName").toString())
             startActivity(intent)
