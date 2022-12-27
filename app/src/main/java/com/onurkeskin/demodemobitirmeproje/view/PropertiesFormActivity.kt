@@ -47,21 +47,19 @@ class PropertiesFormActivity : AppCompatActivity() {
         luxuryImportanceSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
         spinnerLuxuryImportance.adapter = luxuryImportanceSpinnerAdapter
 
-        //spinnerLuxuryImportance.selectedItem.toString() //seçilen dropdown item ı böyle alacağız
 
         //Evin fiyat aralığını seçeceğimiz dropdown menu
         val priceRangeSpinnerAdapter = ArrayAdapter.createFromResource(this,R.array.priceRange,android.R.layout.simple_spinner_item)
         priceRangeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
         spinnerPriceRange.adapter = priceRangeSpinnerAdapter
 
-        //spinnerPriceRange.selectedItem.toString() //seçilen dropdown item ı böyle alacağız
 
         compositeDisposable = CompositeDisposable()
 
     }
     fun sendForm(view: View){
         val customerId = intent.getIntExtra("customerId",0)
-        val houseOwnerId = intent.getIntExtra("houseOwnerId",0)
+        val houseOwnerId = intent.getIntExtra("ownerId",0)
 
         if(customerId != 0){ //customer için
             properTiesFormObject.addProperty("customerId",customerId)//customer'a eklenecek
@@ -110,12 +108,12 @@ class PropertiesFormActivity : AppCompatActivity() {
     fun handleDropdownMenues(){
         if(isCustomerOrHouseOwner == "customer"){ //customer'ın formu dolduruluyorsa
             properTiesFormObject.addProperty("luxury",spinnerLuxuryImportance.selectedItem.toString().toInt())//customer'a eklenecek
-            println("Selected luxury : " + spinnerLuxuryImportance.selectedItem.toString().toInt())
-            //properTiesFormObject.addProperty("priceRange",spinnerPriceRange.selectedItem.toString())//customer'a eklenecek
+            //println("Selected luxury : " + spinnerLuxuryImportance.selectedItem.toString().toInt())
+            properTiesFormObject.addProperty("price",spinnerPriceRange.selectedItem.toString().toInt())//customer'a eklenecek
         }
         else{ //houseOwner'ın formu dolduruluyorsa
             properTiesFormObject.addProperty("luxury",spinnerLuxuryImportance.selectedItem.toString().toInt())//houseOwner'a eklenecek
-            //properTiesFormObject.addProperty("priceRange",spinnerPriceRange.selectedItem.toString())//houseOwner'a eklenecek
+            properTiesFormObject.addProperty("price",spinnerPriceRange.selectedItem.toString().toInt())//houseOwner'a eklenecek
         }
     }
 
@@ -143,9 +141,10 @@ class PropertiesFormActivity : AppCompatActivity() {
         println(houseOwnerRegisterFormResponseModel)
         val houseOwnerId = houseOwnerRegisterFormResponseModel!!.getAsJsonObject("owner").get("ownerId").asInt
         println(houseOwnerId)
-        if(houseOwnerId != null ){//password de kontrol edilecek ama önce api de olması şart
+        if(houseOwnerId != null ){
             val intent = Intent(this@PropertiesFormActivity,MainPageActivity::class.java)
-            intent.putExtra("userId",houseOwnerId)
+            intent.putExtra("customerOrOwner","houseOwner")
+            intent.putExtra("ownerId",houseOwnerId)
             startActivity(intent)
             //finish()
 
@@ -190,6 +189,11 @@ class PropertiesFormActivity : AppCompatActivity() {
         }else{
             Toast.makeText(this@PropertiesFormActivity,"HavePet Error",Toast.LENGTH_LONG).show()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable?.clear()
     }
 
     //Gerekli Endpointe Post Request Yaptıktan sonra houseOwner olup olmama durumuna göre de ev ilanı eklemesini isteyeceksin

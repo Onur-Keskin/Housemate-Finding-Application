@@ -4,16 +4,13 @@ import com.google.gson.JsonObject
 import com.onurkeskin.demodemobitirmeproje.model.CustomerModel
 import com.onurkeskin.demodemobitirmeproje.model.HouseOwnerModel
 import io.reactivex.Observable
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface HouseOwnerAPI {
-    @GET("houseOwners/getAllHouseOwners")//todos http://192.168.1.21:8080/houseOwners
+    @GET("houseOwners/getAllHouseOwners")
     fun getOwners() : Observable<List<HouseOwnerModel>>
 
-    @GET("houseOwners/getOneHouseOwnerById/{ownerId}")//http:192.168.1.21:8080/customers/{id}
+    @GET("houseOwners/getOneHouseOwnerById/{ownerId}")
     fun getOwnerById(
         @Path(value = "ownerId", encoded = true) ownerId: String?
     ): Observable<HouseOwnerModel>
@@ -25,6 +22,9 @@ interface HouseOwnerAPI {
 
     @POST("houseOwners/saveOneHouseOwner")
     fun saveOneHouseOwner(@Body requestBody: JsonObject):Observable<JsonObject>
+
+    @PUT("houseOwners/updateOneHouseOwner")
+    fun updateOneHouseOwner(@Body requestBody: JsonObject):Observable<JsonObject>
 
     @POST("/models/saveOrUpdateOneHouseOwnerAttribute")
     fun saveOneHouseOwnerProperties(@Body requestBody: JsonObject):Observable<JsonObject>

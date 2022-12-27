@@ -151,13 +151,17 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun handleHouseOwnerRegisterResponse(houseOwnerRegister: JsonObject){ //houseOwner için post request handle eder
         houseOwnerRegisterResponseModel = houseOwnerRegister
-        println(houseOwnerRegisterResponseModel)
+        //println(houseOwnerRegisterResponseModel)
 
         if(houseOwnerRegisterResponseModel!!.get("ownerId").asInt != null ){//önce ev kaydetme sayfasına gidecek sonra form sayfasına
 
             val intent = Intent(this@RegisterActivity,SaveHouseActivity::class.java)
             intent.putExtra("houseOwnerId",houseOwnerRegisterResponseModel!!.get("ownerId").asInt)
-            intent.putExtra("registeredUser-Name",houseOwnerRegisterResponseModel!!.get("ownerName").toString())
+            intent.putExtra("registeredUser-Name",houseOwnerRegisterResponseModel!!.get("ownerName").asString)
+            intent.putExtra("registeredUser-Surname",houseOwnerRegisterResponseModel!!.get("ownerSurname").asString)
+            intent.putExtra("registeredUser-Username",houseOwnerRegisterResponseModel!!.get("ownerUsername").asString)
+            intent.putExtra("registeredUser-Email",houseOwnerRegisterResponseModel!!.get("ownerMail").asString)
+            intent.putExtra("registeredUser-Password",houseOwnerRegisterResponseModel!!.get("ownerPassword").toString())
             startActivity(intent)
 
         } else{
