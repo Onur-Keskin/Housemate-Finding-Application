@@ -105,26 +105,28 @@ class SaveHouseActivity : AppCompatActivity() {
 
     private fun handleSavingNewHouseResponse(houseResponse:JsonObject){
 
-        println("handleSavingNewHouseResponse içindeyiz compositeDisposable : " +compositeDisposable?.isDisposed)
+        //println("handleSavingNewHouseResponse içindeyiz compositeDisposable : " +compositeDisposable?.isDisposed)
 
         registerHouseResponseModel = houseResponse
         //println(registerHouseResponseModel)
 
         val houseId = registerHouseResponseModel!!.get("houseId").asInt
         val houseOwnerId = intent.getIntExtra("houseOwnerId",0)
-        val houseOwnerName = intent.getStringExtra("registeredUser-Name")
-        val houseOwnerSurname = intent.getStringExtra("registeredUser-Surname")
-        val houseOwnerUsername = intent.getStringExtra("registeredUser-Username")
-        val houseOwnerEmail = intent.getStringExtra("registeredUser-Email")
-        val houseOwnerPassword = intent.getStringExtra("registeredUser-Password")
+        val houseOwnerName = intent.getStringExtra("houseOwnerName")
+        val houseOwnerSurname = intent.getStringExtra("houseOwnerSurname")
+        val houseOwnerUsername = intent.getStringExtra("houseOwnerUsername")
+        val houseOwnerEmail = intent.getStringExtra("houseOwnerEmail")
+        val houseOwnerPassword = intent.getStringExtra("houseOwnerPassword")
 
-
+        /*
         println("houseOwnerId : $houseOwnerId")
         println("houseOwnerName : $houseOwnerName")
         println("houseOwnerSurname : $houseOwnerSurname")
         println("houseOwnerUsername : $houseOwnerUsername")
         println("houseOwnerEmail : $houseOwnerEmail")
         println("password : $houseOwnerPassword")
+
+         */
 
 
 
@@ -147,7 +149,6 @@ class SaveHouseActivity : AppCompatActivity() {
 
             houseOwnerUpdateObject.addProperty("houseId", houseId)
 
-            println(houseOwnerUpdateObject)
 
             updateHouseOwner(houseOwnerUpdateObject)
 
@@ -163,38 +164,33 @@ class SaveHouseActivity : AppCompatActivity() {
 
     fun updateHouseOwner(houseOwnerUpdateObject:JsonObject){
         println("updateHouseOwner fonk. çalıştı")
+
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(HouseOwnerAPI::class.java)
 
-        println(retrofit)
-
-
         compositeDisposable?.add(retrofit.updateOneHouseOwner(houseOwnerUpdateObject)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(this::handleHouseOwnerUpdateResponse))
 
-        println("updateHouseOwner içindeyiz compositeDisposable : " +compositeDisposable?.isDisposed)
     }
 
     fun handleHouseOwnerUpdateResponse(updateHouseOwner: JsonObject){ //Tekrar güncellenen houseOwner (houseId güncellendi)
         println("handleHouseOwnerUpdateResponse fonk çalıştı")
         houseOwnerUpdateResponseObject = updateHouseOwner
-        println("houseOwnerUpdateProfileResponseModel : ")
-        println(houseOwnerUpdateResponseObject)
+        //println("houseOwnerUpdateProfileResponseModel : ")
+        //println(houseOwnerUpdateResponseObject)
         val houseOwnerId = houseOwnerUpdateResponseObject!!.get("ownerId").asInt
-        println("House Owner Id : " + houseOwnerId)
+        //println("House Owner Id : " + houseOwnerId)
 
         if(houseOwnerId != 0 ){
-            val intent = Intent(this@SaveHouseActivity , PropertiesFormActivity::class.java)
+            val intent = Intent(this@SaveHouseActivity , MainPageActivity::class.java)
+            intent.putExtra("customerOrOwner","houseOwner")
             intent.putExtra("ownerId",houseOwnerId)
-            //intent.putExtra("fromRegisterPage","firstLogin")
-            //intent.putExtra("registeredUser-Name",userRegisterResponseModel!!.get("customerName").toString())
             startActivity(intent)
-            //finish()
 
         } else{
             Toast.makeText(this,"Updated HouseOwner and Save House Error", Toast.LENGTH_LONG).show()
