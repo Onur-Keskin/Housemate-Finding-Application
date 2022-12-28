@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.onurkeskin.demodemobitirmeproje.view.PropertiesFormActivity">
+    tools:context="com.onurkeskin.demodemobitirmeproje.view.UpdatePropertiesFormActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -30,15 +30,15 @@
                 android:background="@drawable/centre_background">
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="10dp"
                     android:adjustViewBounds="true"
                     android:cropToPadding="true"
-                    android:src="@drawable/fill_house_form" />
+                    android:src="@drawable/enquiry_bk" />
 
             </RelativeLayout>
 
@@ -52,7 +52,7 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_saving_house_form" />
+    <include layout="@layout/content_update_properties_form" />
 
     <!-- <androidx.core.widget.NestedScrollView
          android:layout_width="match_parent"

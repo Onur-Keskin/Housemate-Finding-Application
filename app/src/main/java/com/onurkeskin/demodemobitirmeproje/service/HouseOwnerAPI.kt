@@ -20,13 +20,20 @@ interface HouseOwnerAPI {
         @Path(value = "houseOwnerUsername", encoded = true) houseOwnerUsername: String?
     ): Observable<HouseOwnerModel>
 
+    @POST("models/getOneModelAttributeByHouseOwnerId")
+    fun getOneHouseOwnerProperties(@Body requestBody: JsonObject):Observable<JsonObject>
+
     @POST("houseOwners/saveOneHouseOwner")
     fun saveOneHouseOwner(@Body requestBody: JsonObject):Observable<JsonObject>
+
+    @POST("/models/saveOrUpdateOneHouseOwnerAttribute")
+    fun saveOneHouseOwnerProperties(@Body requestBody: JsonObject):Observable<JsonObject>
 
     @PUT("houseOwners/updateOneHouseOwner")
     fun updateOneHouseOwner(@Body requestBody: JsonObject):Observable<JsonObject>
 
-    @POST("/models/saveOrUpdateOneHouseOwnerAttribute")
-    fun saveOneHouseOwnerProperties(@Body requestBody: JsonObject):Observable<JsonObject>
+
+
+
 
 }

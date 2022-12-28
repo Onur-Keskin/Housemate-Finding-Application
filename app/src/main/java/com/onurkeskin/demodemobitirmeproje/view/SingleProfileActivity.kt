@@ -48,7 +48,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
 
     }
 
-    fun onUpdateClick(view: View){
+    fun onUpdateProfileClick(view: View){
         //customer mı yoksa house owner mı profil bilgilerini güncelleyecek bunun bilgisini alıp göndermek lazım
         val customerOrHouseOwner = singleProfileCustomerOrHouseOwner.text.toString()
 
@@ -68,6 +68,26 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
 
          */
         overridePendingTransition(R.anim.slide_in_left,android.R.anim.slide_out_right) //animasyon
+    }
+
+    fun onUpdateAttributeClick(view: View){ //Attribute Güncelleme Sayfası
+        val customerOrHouseOwner = singleProfileCustomerOrHouseOwner.text.toString()
+
+        if(customerOrHouseOwner == "Customer"){ //Customer ise
+            val intent = Intent(this@SingleProfileActivity,UpdatePropertiesFormActivity::class.java)
+            intent.putExtra("customerId",customerModel!!.customerId)
+            intent.putExtra("customerOrHouseOwner",customerOrHouseOwner)//customer
+            intent.putExtra("updateAttributeUser-Name",customerModel!!.customerName)
+            startActivity(intent)
+        }else{ //HouseOwner ise
+            val intent = Intent(this@SingleProfileActivity,UpdatePropertiesFormActivity::class.java)
+            intent.putExtra("houseOwnerId",houseOwnerModel!!.ownerId)
+            intent.putExtra("customerOrHouseOwner",customerOrHouseOwner)//houseOwner
+            intent.putExtra("updateAttributeUser-Name",houseOwnerModel!!.ownerName)
+            startActivity(intent)
+        }
+
+        overridePendingTransition(R.anim.slide_in_left,android.R.anim.slide_out_right)
     }
 
     private fun changeStatusBarColor(){

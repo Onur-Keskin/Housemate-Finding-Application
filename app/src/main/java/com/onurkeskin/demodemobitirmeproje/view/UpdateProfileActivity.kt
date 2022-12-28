@@ -129,8 +129,6 @@ class UpdateProfileActivity : AppCompatActivity() {
         val customerId = intent.getIntExtra("customerId",0)
         val houseOwnerId = intent.getIntExtra("ownerId",0)
 
-        println(customerId)
-
         if(customerId != 0){ //customer bilgilerini güncelle
             updateTextCustomerOrHouseOwner.text = "Customer"
             customerObject.addProperty("customerId",customerId)

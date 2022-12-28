@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/scrollFeed"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.onurkeskin.demodemobitirmeproje.view.PropertiesFormActivity"
+    tools:context="com.onurkeskin.demodemobitirmeproje.view.UpdatePropertiesFormActivity"
     android:background="@drawable/centre_background"
     android:focusableInTouchMode="true">
 
@@ -16,7 +16,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/personalDetailsCard"
         style="@style/centreLocatorCardDesign"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="10dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="10dp">
 
@@ -38,18 +38,18 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:text="Hoşgeldin! Seni biraz tanıyalım!"
+                    android:text="Tercih Güneclleme Formu"
                     android:textColor="@color/black"/>
 
             </RelativeLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtInputSleepTime"
+                android:id="@+id/txtInputUpdateSleepTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/sleepTime"
+                    android:id="@+id/updateSleepTime"
                     style="@style/modifiedUpdateEditText"
                     android:ems="10"
                     android:hint="Genelde Kaçta Uyursun? (22.00 gibi)"
@@ -58,12 +58,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtInputGpa"
+                android:id="@+id/txtInputUpdateGpa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/gpa"
+                    android:id="@+id/updateGpaText"
                     style="@style/modifiedUpdateEditText"
                     android:ems="10"
                     android:hint="Ortalaman Kaç?"
@@ -73,12 +73,12 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/useSmokeLayout"
+                android:id="@+id/useUpdateSmokeLayout"
                 style="@style/parent"
                 android:layout_marginTop="10dp">
 
                 <TextView
-                    android:id="@+id/useSmokeText"
+                    android:id="@+id/useUpdateSmokeText"
                     style="@style/modifiedEditText"
                     android:text="Sigara kullanıyor musun?"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -87,7 +87,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RadioGroup
-                    android:id="@+id/radioUseSmokeGroup"
+                    android:id="@+id/radioUpdateUseSmokeGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
                     android:orientation="horizontal"
@@ -97,21 +97,21 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <RadioButton
-                        android:id="@+id/radioYesSmokeButton"
+                        android:id="@+id/radioUpdateYesSmokeButton"
                         android:layout_width="wrap_content"
                         android:layout_height="33dp"
-                        android:onClick="useSmokeHandler"
+                        android:onClick="updateUseSmokeHandler"
                         android:text="Evet"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <RadioButton
-                        android:id="@+id/radioNoSmokeButton"
+                        android:id="@+id/radioUpdateNoSmokeButton"
                         android:layout_width="wrap_content"
                         android:layout_height="33dp"
                         android:layout_marginLeft="100dp"
-                        android:onClick="useSmokeHandler"
+                        android:onClick="updateUseSmokeHandler"
                         android:text="Hayır"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.655"
@@ -123,12 +123,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/havePetLayout"
+                android:id="@+id/haveUpdatePetLayout"
                 style="@style/parent"
                 android:layout_marginTop="10dp">
 
                 <TextView
-                    android:id="@+id/havePetLayoutText"
+                    android:id="@+id/haveUpdatePetLayoutText"
                     style="@style/modifiedEditText"
                     android:text="Evcil hayvanın var mı?"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -137,7 +137,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RadioGroup
-                    android:id="@+id/radioHavePetGroup"
+                    android:id="@+id/radioUpdateHavePetGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
                     android:orientation="horizontal"
@@ -147,21 +147,21 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <RadioButton
-                        android:id="@+id/radioYesPetButton"
+                        android:id="@+id/radioUpdateYesPetButton"
                         android:layout_width="wrap_content"
                         android:layout_height="33dp"
-                        android:onClick="havePetHandler"
+                        android:onClick="updateHavePetHandler"
                         android:text="Evet"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <RadioButton
-                        android:id="@+id/radioNoPetButton"
+                        android:id="@+id/radioUpdateNoPetButton"
                         android:layout_width="wrap_content"
                         android:layout_height="33dp"
                         android:layout_marginLeft="100dp"
-                        android:onClick="havePetHandler"
+                        android:onClick="updateHavePetHandler"
                         android:text="Hayır"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.655"
@@ -174,22 +174,22 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtInputMob"
+                android:id="@+id/txtInputUpdateLuxury"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
 
                 <TextView
-                    android:id="@+id/importanceLuxuryText"
+                    android:id="@+id/importanceUpdateLuxuryText"
                     style="@style/modifiedEditText"
-                    android:text="Evinizin lüks olması ne kadar önemli?"
+                    android:text="Evinizin lüks olması ne kadar önemli? (Lütfen Tekrar Seçiniz)"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.118"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Spinner
-                    android:id="@+id/spinnerLuxuryImportance"
+                    android:id="@+id/spinnerUpdateLuxuryImportance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:spinnerMode="dropdown"
@@ -210,12 +210,12 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtInputRentingDuration"
+                android:id="@+id/txtInputUpdateRentingDuration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/rentingDuration"
+                    android:id="@+id/updateRentingDuration"
                     style="@style/modifiedUpdateEditText"
                     android:inputType="number"
                     android:hint="Evi kaç aylığına kiralamak istiyorsunuz ?" />
@@ -224,21 +224,21 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/priceRangeTextLayout"
+                android:id="@+id/txtUpdatePriceRangeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/priceRangeText"
+                    android:id="@+id/updatePriceRangeText"
                     style="@style/modifiedEditText"
-                    android:text="Fiyat aralığınız nedir ? "
+                    android:text="Fiyat aralığınız nedir ? (Lütfen Tekrar Seçiniz) "
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.118"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Spinner
-                    android:id="@+id/spinnerPriceRange"
+                    android:id="@+id/spinnerUpdatePriceRange"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:spinnerMode="dropdown"
@@ -249,37 +249,21 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/sendFormLayout"
+                android:id="@+id/sendUpdatePropertiesFormLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <androidx.constraintlayout.utils.widget.MotionButton
-                    android:id="@+id/circleRegisterButton"
+                    android:id="@+id/circleUpdatePropertiesButton"
                     style="@style/loginButton"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="3dp"
-                    android:text="SEND"
-                    android:onClick="sendForm"
+                    android:layout_marginTop="@dimen/loginViewsMargin"
+                    android:text="Update"
+                    android:onClick="sendUpdatePropertiesForm"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
-            <!--<com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtInputFeedback"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/txtFeed"
-                    style="@style/modifiedEditText"
-                    android:hint="@string/message"
-                    android:inputType="textMultiLine"
-                    android:minLines="2" />
-
-            </com.google.android.material.textfield.TextInputLayout>-->
 
         </LinearLayout>
 
