@@ -31,7 +31,7 @@
                     style="@style/viewParent.headerText.NoMode"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:text="Here's\nyour first\nstep with\nus!"
+                    android:text="We look\nforward to\nyour\njoining us!"
                     android:textColor="@color/whiteTextColor"/>
 
                 <ImageView

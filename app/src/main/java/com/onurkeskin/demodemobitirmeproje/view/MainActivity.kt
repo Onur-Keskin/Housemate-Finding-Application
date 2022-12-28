@@ -79,6 +79,7 @@ class MainActivity : AppCompatActivity() {
         if(userLoginModel!!.customerUsername == userNameText.editableText.toString()){//password de kontrol edilecek ama önce api de olması şart
             intent = Intent(this@MainActivity , MainPageActivity::class.java)
             intent.putExtra("userId", userLoginModel!!.customerId)
+            intent.putExtra("customerOrOwner","Customer")
             startActivity(intent)
             //finish()
 

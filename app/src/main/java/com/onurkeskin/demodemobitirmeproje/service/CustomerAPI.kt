@@ -23,12 +23,20 @@ interface CustomerAPI {
         @Path(value = "userName", encoded = true) userName: String?
     ): Observable<CustomerModel>
 
+    @POST("models/getOneModelAttributeByCustomerId")
+    fun getOneCustomerProperties(@Body requestBody: JsonObject):Observable<JsonObject>
+
     @POST("customers/saveOneCustomer")
     fun saveOneCustomer(@Body requestBody: JsonObject):Observable<JsonObject>
+
+    @POST("/models/saveOrUpdateOneModelAttrOfCustomer")
+    fun saveOneCustomerProperties(@Body requestBody: JsonObject):Observable<JsonObject>
 
     @PUT("customers/updateOneCustomer")
     fun updateOneCustomer(@Body requestBody: JsonObject):Observable<JsonObject>
 
-    @POST("/models/saveOrUpdateOneModelAttrOfCustomer")
-    fun saveOneCustomerProperties(@Body requestBody: JsonObject):Observable<JsonObject>
+
+
+
+
 }

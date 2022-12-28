@@ -29,7 +29,7 @@
                     android:id="@+id/singleProfileImageView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/envervalencia" />
+                    android:src="@drawable/profile_avatar" />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -267,6 +267,7 @@
                 android:text=""
                 android:textColor="#000"
                 android:textSize="18dp"
+                android:hint="password"
                 android:inputType="textPassword"
                 android:paddingLeft="15dp"
                 android:layout_gravity="center_vertical"/>
@@ -335,6 +336,7 @@
                 android:layout_gravity="center_vertical"/>
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -350,15 +352,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="100dp"
-                android:layout_marginEnd="30dp"
                 android:gravity="center"
-                android:onClick="onUpdateClick"
-                android:paddingLeft="15dp"
-                android:text="Update Infos"
-                android:outlineAmbientShadowColor="@color/white"
-                android:backgroundTint="@color/design_default_color_primary_variant"
-                />
+                android:backgroundTint="@color/blue"
+                android:onClick="onUpdateProfileClick"
+                android:text="Update Profile"
+                app:cornerRadius="26dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/singlePropertiesUpdateInfoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:backgroundTint="@color/blue"
+                android:onClick="onUpdateAttributeClick"
+                android:text="Update Attribute"
+                app:cornerRadius="26dp" />
             <!--
             <TextView
                 android:id="@+id/singleProfileUpdateInfoButton"
