@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,8 +19,8 @@
             android:layout_marginLeft="20dp"
             android:orientation="vertical"
             app:layout_constraintGuide_end="349dp"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/mainPageGuidLine2"
             android:layout_width="wrap_content"
@@ -28,71 +29,71 @@
             android:layout_marginLeft="20dp"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="349dp"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/firstText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="15dp"
             android:fontFamily="@font/open_sans_light"
-            android:text="One"
+            android:text="You "
             android:textColor="@color/colorPrimary"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="@+id/mainPageGuidLine"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/secondText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:fontFamily="@font/open_sans_extra_bold"
-            android:text="View"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="@font/open_sans_light"
+            android:text="can"
             android:textColor="@color/colorPrimary"
             android:textSize="24sp"
             app:layout_constraintStart_toEndOf="@+id/firstText"
-            app:layout_constraintTop_toTopOf="@+id/firstText"
-            android:layout_marginLeft="8dp"
-            />
+            app:layout_constraintTop_toTopOf="@+id/firstText" />
+
         <TextView
             android:id="@+id/thirdText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:fontFamily="@font/open_sans_light"
-            android:text="Worth"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="@font/open_sans_extra_bold"
+            android:text="Search"
             android:textColor="@color/colorPrimary"
             android:textSize="24sp"
             app:layout_constraintStart_toEndOf="@+id/secondText"
-            app:layout_constraintTop_toTopOf="@+id/secondText"
-            android:layout_marginLeft="8dp"
-            />
+            app:layout_constraintTop_toTopOf="@+id/secondText" />
+
         <TextView
             android:id="@+id/fourthText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans_light"
-            android:text="a"
+            android:text=""
             android:textColor="@color/colorPrimary"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="@+id/mainPageGuidLine"
-            app:layout_constraintTop_toBottomOf="@+id/firstText"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/firstText" />
+
         <TextView
             android:id="@+id/fifthText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:fontFamily="@font/open_sans_extra_bold"
-            android:text="Thousands Word"
+            android:fontFamily="@font/open_sans_light"
+            android:text="Here"
             android:textColor="@color/colorPrimary"
             android:textSize="24sp"
-            app:layout_constraintStart_toEndOf="@+id/fourthText"
-            app:layout_constraintTop_toTopOf = "@+id/fourthText"
-            />
+            app:layout_constraintEnd_toStartOf="@+id/mainPageGuidLine2"
+            app:layout_constraintHorizontal_bias="0.186"
+            app:layout_constraintStart_toEndOf="@+id/thirdText"
+            app:layout_constraintTop_toTopOf="@+id/thirdText" />
+
         <ImageView
             android:id="@+id/profileImageView"
             android:layout_width="30dp"
@@ -101,14 +102,15 @@
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
             android:onClick="gotoMyProfile"
+            android:src="@drawable/ic_baseline_person_24"
             app:layout_constraintEnd_toStartOf="@id/mainPageGuidLine2"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_baseline_person_24"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
         <SearchView
             android:id="@+id/mainPageSearchView"
             android:layout_width="0dp"
             android:layout_height="55dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/custom_search_view"
             android:elevation="20dp"
             android:queryHint="Search here..."
@@ -116,8 +118,8 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@id/mainPageGuidLine"
             app:layout_constraintTop_toBottomOf="@id/fourthText"
-            tools:targetApi="lollipop"
-            />
+            tools:targetApi="lollipop" />
+
         <ScrollView
             android:id="@+id/mainPageScrollView"
             android:layout_width="0dp"
@@ -130,14 +132,17 @@
             app:layout_constraintStart_toStartOf="@id/mainPageGuidLine"
             app:layout_constraintTop_toBottomOf="@id/mainPageSearchView"
             app:layout_constraintVertical_bias="0.0">
+
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/housePageCardView"
                     android:layout_width="match_parent"
                     android:layout_height="226dp">
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
@@ -146,31 +151,30 @@
                             android:id="@+id/housePageView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/image_one"
+                            android:background="@drawable/house_main_page"
                             android:onClick="bringHouses"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="1.0"
-                            />
+                            app:layout_constraintVertical_bias="0.0" />
 
                         <TextView
                             android:id="@+id/sixthText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginTop="116dp"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginTop="100dp"
                             android:fontFamily="@font/open_sans_extra_bold"
                             android:text="House Information"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="22sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
-                        <RatingBar
+                            app:layout_constraintTop_toTopOf="parent" />
+                        <!--<RatingBar
                             android:id="@+id/housePageRatingBar"
                             style="?android:attr/ratingBarStyleSmall"
                             android:layout_width="wrap_content"
@@ -196,21 +200,20 @@
                             android:text="4.91"
                             android:textColor="@color/white"
                             app:layout_constraintStart_toEndOf="@+id/housePageRatingBar"
-                            app:layout_constraintTop_toBottomOf="@+id/sixthText"
+                            app:layout_constraintTop_toBottomOf="@+id/sixthText" />-->
 
-                            />
                         <TextView
                             android:id="@+id/eighthText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="2dp"
                             android:fontFamily="@font/open_sans_light"
                             android:text="(510)"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="15sp"
-                            app:layout_constraintStart_toEndOf="@+id/seventhText"
-                            app:layout_constraintTop_toTopOf="@+id/seventhText"/>
+                            app:layout_constraintEnd_toEndOf="@+id/sixthText"
+                            app:layout_constraintStart_toStartOf="@+id/sixthText"
+                            app:layout_constraintTop_toBottomOf="@+id/sixthText" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -222,14 +225,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="226dp"
                     android:layout_marginTop="20dp">
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+                        <!-- image_two -->
                         <View
                             android:id="@+id/customerPageView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/image_two"
+                            android:background="@drawable/customers"
                             android:onClick="bringCustomers"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -243,16 +248,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
-                            android:layout_marginTop="116dp"
+                            android:layout_marginTop="150dp"
                             android:fontFamily="@font/open_sans_extra_bold"
                             android:text="Customer Information"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="22sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
-                        <RatingBar
+                            app:layout_constraintTop_toTopOf="parent" />
+                        <!--<RatingBar
                             android:id="@+id/customerPageRatingBar"
                             style="?android:attr/ratingBarStyleSmall"
                             android:layout_width="wrap_content"
@@ -279,19 +284,19 @@
                             android:textColor="@color/white"
                             android:textSize="15sp"
                             app:layout_constraintStart_toEndOf="@+id/customerPageRatingBar"
-                            app:layout_constraintTop_toBottomOf="@+id/ninthText" />
+                            app:layout_constraintTop_toBottomOf="@+id/ninthText" />-->
                         <TextView
                             android:id="@+id/eleventhText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
                             android:fontFamily="@font/open_sans_light"
-                            android:text="(510)"
-                            android:textColor="@color/white"
+                            android:text="(600)"
+                            android:textColor="@color/black"
                             android:textSize="15sp"
-                            app:layout_constraintStart_toEndOf="@+id/tenthText"
-                            app:layout_constraintTop_toTopOf="@+id/tenthText"/>
+                            app:layout_constraintEnd_toEndOf="@+id/ninthText"
+                            app:layout_constraintStart_toStartOf="@+id/ninthText"
+                            app:layout_constraintTop_toBottomOf="@+id/ninthText" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -303,14 +308,16 @@
                     android:layout_height="226dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="15dp">
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
                         <View
                             android:id="@+id/houseOwnerView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/image_two"
+                            android:background="@drawable/house_owner"
                             android:onClick="bringHouseOwners"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -323,17 +330,18 @@
                             android:id="@+id/twelfthText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginTop="116dp"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="136dp"
                             android:fontFamily="@font/open_sans_extra_bold"
+                            android:gravity="center"
                             android:text="House Owner Information"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="22sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
-                        <RatingBar
+                            app:layout_constraintTop_toTopOf="parent" />
+                        <!--<RatingBar
                             android:id="@+id/houseOwnerRatingBar"
                             style="?android:attr/ratingBarStyleSmall"
                             android:layout_width="wrap_content"
@@ -360,7 +368,7 @@
                             android:textColor="@color/white"
                             android:textSize="15sp"
                             app:layout_constraintStart_toEndOf="@+id/houseOwnerRatingBar"
-                            app:layout_constraintTop_toBottomOf="@+id/twelfthText" />
+                            app:layout_constraintTop_toBottomOf="@+id/twelfthText" />-->
                         <TextView
                             android:id="@+id/fourteenthText"
                             android:layout_width="wrap_content"
@@ -368,11 +376,12 @@
                             android:layout_marginStart="5dp"
                             android:layout_marginLeft="5dp"
                             android:fontFamily="@font/open_sans_light"
-                            android:text="(510)"
-                            android:textColor="@color/white"
+                            android:text="(350)"
+                            android:textColor="@color/black"
                             android:textSize="15sp"
-                            app:layout_constraintStart_toEndOf="@+id/thirteenthText"
-                            app:layout_constraintTop_toTopOf="@+id/thirteenthText"/>
+                            app:layout_constraintEnd_toEndOf="@+id/twelfthText"
+                            app:layout_constraintStart_toStartOf="@+id/twelfthText"
+                            app:layout_constraintTop_toBottomOf="@+id/twelfthText" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
