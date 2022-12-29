@@ -13,7 +13,7 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/envervalencia"
-        android:label="@string/app_name"
+        android:label="HouseMate Finding App"
         android:roundIcon="@drawable/envervalencia"
         android:supportsRtl="true"
         android:theme="@style/Theme.DemoDemoBitirmeProje"

@@ -251,7 +251,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
             singleProfileUsername.text = customerModel!!.customerUsername
             singleProfileHometown.text = customerModel!!.customerHometown
             singleProfileDepartmentGrade.text = customerModel!!.customerDepartment + " , " +customerModel!!.customerGrade.toString()
-            singleProfilePassword.text = customerModel!!.customerPassword.toString()
+            //singleProfilePassword.text = customerModel!!.customerPassword.toString()
             singleProfilePhone.text = customerModel!!.customerPhone
             singleProfileEmail.text = customerModel!!.customerEmail
             singleProfileGender.text = customerModel!!.customerGender

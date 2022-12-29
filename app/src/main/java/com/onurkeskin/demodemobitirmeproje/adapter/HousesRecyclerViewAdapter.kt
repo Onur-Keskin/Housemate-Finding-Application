@@ -17,7 +17,7 @@ class HousesRecyclerViewAdapter(private val houseList:ArrayList<HouseModel>, pri
 
         fun onCustomerItemClick(houseModel: HouseModel)
     }
-    private val colors:Array<String> = arrayOf("#4CFF33","#33FFF9")
+    private val colors:Array<String> = arrayOf("#4CFF33","#33FFF9","#F4FC04")
     // diğer renkler -> ,"#FF334A","#FF9933","#D433FF"
     class HouseHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(houseModel: HouseModel, colors:Array<String>, position: Int, listener:Listener){
@@ -28,28 +28,26 @@ class HousesRecyclerViewAdapter(private val houseList:ArrayList<HouseModel>, pri
             itemView.housesRecyclerViewOwnerIdInfo.setOnClickListener {
                 listener.onHouseOwnerItemClick(houseModel)
             }
-            itemView.housesRecyclerViewCustomerIdInfo.setOnClickListener {
-                listener.onCustomerItemClick(houseModel)
-            }
-            itemView.setBackgroundColor(Color.parseColor(colors[position%2]))
 
-            itemView.housesRecyclerViewHouseId.text = houseModel.houseId.toString()
+            itemView.setBackgroundColor(Color.parseColor(colors[position%3]))
+
             itemView.housesRecyclerViewHouseAddress.text = houseModel.houseAddress
             itemView.housesRecyclerViewRent.text = "Rent : " + houseModel.rent.toString()
             itemView.housesRecyclerViewHeatResource.text ="Heat Resource : " + houseModel.heatResource
 
-            val size = houseModel.customerId?.size
+            val size = houseModel.owners?.size
             if(size != 0){
-                itemView.housesRecyclerViewOwnerIdInfo.text = "House Owner : " + houseModel.ownerId?.get(0)
-                    ?.get("ownerName").toString() + " " + houseModel.ownerId?.get(0)?.get("ownerSurname")
-                    .toString()
-                itemView.housesRecyclerViewCustomerIdInfo.text = "Customer : " + houseModel.customerId?.get(0)
-                    ?.get("customerName").toString() + " " + houseModel.customerId?.get(0)?.get("customerSurname")
-                    .toString()
+                val ownerNames : ArrayList<String>? = null
+                for(owerName in houseModel.owners){
+                    println(owerName.get("owerName"))
+                }
+                val houseOwnerName = houseModel.owners?.get(0)?.get("ownerName")?.asString
+                val houseOwnerSurname = houseModel.owners?.get(0)?.get("ownerSurname")?.asString
+                itemView.housesRecyclerViewOwnerIdInfo.text = "House Owner : $houseOwnerName \n $houseOwnerSurname"
+
             }
             else{
                 itemView.housesRecyclerViewOwnerIdInfo.text = "Ev Sahini : Yok"
-                itemView.housesRecyclerViewCustomerIdInfo.text = "Müşteri : Yok"
             }
 
         }

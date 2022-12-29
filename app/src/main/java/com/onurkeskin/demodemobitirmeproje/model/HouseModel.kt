@@ -13,8 +13,8 @@ data class HouseModel(
     val internetPaved:String,
     val floor:Int,
     val rent:Int,
-    val ownerId:List<JsonObject>,//Burası json gibi bir obje olabilir veya sahip adını tutarız buraya tıklayınca houseOwner'ın profiline gider
-    val customerId:List<JsonObject>//Burası json gibi bir obje olabilir veya sahip adını tutarız buraya tıklayınca customer'ın profiline gider
+    val owners:List<JsonObject>,//Burası json gibi bir obje olabilir veya sahip adını tutarız buraya tıklayınca houseOwner'ın profiline gider
+    //val customerId:List<JsonObject>//Burası json gibi bir obje olabilir veya sahip adını tutarız buraya tıklayınca customer'ın profiline gider
 
 )
 
