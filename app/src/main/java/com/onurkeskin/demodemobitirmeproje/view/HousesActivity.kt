@@ -51,14 +51,10 @@ class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
             .build().create(HouseAPI::class.java)
 
 
-
         compositeDisposable?.add(retrofit.getHouses()
             .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
             .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
             .subscribe(this::handleResponse))
-
-
-
 
     }
 
@@ -81,16 +77,14 @@ class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
     override fun onHouseOwnerItemClick(houseModel: HouseModel) {
         val intent = Intent(this@HousesActivity,SingleProfileActivity::class.java)
         intent.putExtra("fromHouseOwner","houseOwnerProfile")
-        println("HouseOwnerId : " + houseModel.ownerId[0].get("ownerId"))
-        intent.putExtra("houseOwnerId", houseModel.ownerId[0].get("ownerId").asInt)
+        println("HouseOwnerId : " + houseModel.owners[0].get("ownerId"))
+        intent.putExtra("houseOwnerId", houseModel.owners[0].get("ownerId").asInt)
         startActivity(intent)
     }
 
     override fun onCustomerItemClick(houseModel: HouseModel) {
         val intent = Intent(this@HousesActivity,SingleProfileActivity::class.java)
         intent.putExtra("fromCustomer","customerProfile")
-        println("CustomerId : "+ houseModel.customerId[0].get("customerId"))
-        intent.putExtra("customerId", houseModel.customerId[0].get("customerId").asInt)
         startActivity(intent)
     }
 
@@ -114,6 +108,28 @@ class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
         else if(item.itemId == R.id.logout){
             val intent = Intent(this@HousesActivity,finish()::class.java)
             startActivity(intent)
+            //onDestroy()
+        }
+        else if(item.itemId == R.id.profile){
+            val customerOrOwner = intent.getStringExtra("customerOrOwner")
+            println("customerOrOwner : $customerOrOwner")
+            if(customerOrOwner == "houseOwner"){
+                val houseOwnerId = intent.getIntExtra("ownerId",0)
+                //println("houseOwnerId : $houseOwnerId")
+                if(houseOwnerId != 0){
+                    intent = Intent(this@HousesActivity, SingleProfileActivity::class.java)
+                    intent.putExtra("fromMainPageHouseOwner","houseOwnerLoginProfile")
+                    intent.putExtra("houseOwnerLoginId",houseOwnerId)
+                    startActivity(intent)
+                }
+
+            }else{ //customer giriş yapmışssa
+                val userId = intent.getIntExtra("userId",1)
+                intent = Intent(this@HousesActivity, SingleProfileActivity::class.java)//Şuanlık boş safyaya gider. username e göre unique kullanıcıyı alacak olan bir endpoint lazım
+                intent.putExtra("fromMainPageCustomer","customerLoginProfile")
+                intent.putExtra("customerLoginId",userId)
+                startActivity(intent)
+            }
             //onDestroy()
         }
         else{

@@ -54,13 +54,13 @@
             android:layout_centerHorizontal="true"
             app:cardCornerRadius="5dp">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:weightSum="3"
                 android:orientation="horizontal"
                 android:padding="10dp">
-                <LinearLayout
+                <!--<LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -82,8 +82,8 @@
                         android:textColor="#2196F3"
                         android:textStyle="bold"/>
 
-                </LinearLayout>
-                <LinearLayout
+                </LinearLayout>-->
+                <!--<LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -105,32 +105,39 @@
                         android:textColor="#2196F3"
                         android:textStyle="bold"/>
 
-                </LinearLayout>
+                </LinearLayout>-->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:gravity="center">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteY="10dp">
+
                     <TextView
                         android:id="@+id/singleProfileFromThisDayHeader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="From This Day"
-                        android:textSize="17dp"
-                        android:textColor="#000"/>
+                        android:textColor="#000"
+                        android:textSize="17dp" />
+
                     <TextView
                         android:id="@+id/singleProfileFromThisDay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Şu Tarihren Beri"
-                        android:textSize="15dp"
                         android:textColor="#2196F3"
-                        android:textStyle="bold"/>
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.cardview.widget.CardView>
@@ -250,7 +257,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -272,7 +279,7 @@
                 android:paddingLeft="15dp"
                 android:layout_gravity="center_vertical"/>
 
-        </LinearLayout>
+        </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -337,7 +344,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -347,27 +354,38 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_baseline_transgender_24"/>-->
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/singleProfileUpdateInfoButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="10dp"
                 android:backgroundTint="@color/blue"
+                android:gravity="center"
                 android:onClick="onUpdateProfileClick"
                 android:text="Update Profile"
-                app:cornerRadius="26dp" />
+                app:cornerRadius="26dp"
+                app:layout_constraintEnd_toStartOf="@+id/singlePropertiesUpdateInfoButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/singlePropertiesUpdateInfoButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:gravity="center"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="15dp"
                 android:backgroundTint="@color/blue"
+                android:gravity="center"
                 android:onClick="onUpdateAttributeClick"
                 android:text="Update Attribute"
-                app:cornerRadius="26dp" />
+                app:cornerRadius="26dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
             <!--
             <TextView
                 android:id="@+id/singleProfileUpdateInfoButton"
@@ -379,7 +397,7 @@
                 android:paddingLeft="15dp"
                 android:layout_gravity="center_vertical"/>-->
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </LinearLayout>

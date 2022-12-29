@@ -61,7 +61,7 @@ class PropertiesFormActivity : AppCompatActivity() {
         val customerId = intent.getIntExtra("customerId",0)
         val houseOwnerId = intent.getIntExtra("houseOwnerId",0)
 
-        println("houseOwnerId : $houseOwnerId")
+        //println("houseOwnerId : $houseOwnerId")
 
         if(customerId != 0){ //customer için
             properTiesFormObject.addProperty("customerId",customerId)//customer'a eklenecek
@@ -97,6 +97,8 @@ class PropertiesFormActivity : AppCompatActivity() {
 
             handleDropdownMenues() //luxury ve price range için
 
+            println(properTiesFormObject)
+
             compositeDisposable?.add(retrofit.saveOneHouseOwnerProperties(properTiesFormObject)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -126,7 +128,7 @@ class PropertiesFormActivity : AppCompatActivity() {
         val customerId = customerRegisterFormResponseModel!!.getAsJsonObject("customer").get("customerId").asInt
         println(customerId)
         if(customerId != null ){//password de kontrol edilecek ama önce api de olması şart
-            val intent = Intent(this@PropertiesFormActivity,MainPageActivity::class.java)
+            val intent = Intent(this@PropertiesFormActivity,HousesActivity::class.java)
             intent.putExtra("userId",customerId)
             startActivity(intent)
             //finish()

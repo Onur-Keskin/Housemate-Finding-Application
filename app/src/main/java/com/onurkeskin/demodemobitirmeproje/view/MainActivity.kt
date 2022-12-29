@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         //println(userLoginModel!!.customerUsername == userNameText.text.toString())
         //!!!!!!!!!!! kayıt olan username ler bir rakam içerince login olunamıyor
         if(userLoginModel!!.customerUsername == userNameText.editableText.toString()){//password de kontrol edilecek ama önce api de olması şart
-            intent = Intent(this@MainActivity , MainPageActivity::class.java)
+            intent = Intent(this@MainActivity , HousesActivity::class.java)
             intent.putExtra("userId", userLoginModel!!.customerId)
             intent.putExtra("customerOrOwner","Customer")
             startActivity(intent)
