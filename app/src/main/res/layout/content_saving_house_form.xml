@@ -8,7 +8,7 @@
     android:id="@+id/scrollFeed"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.onurkeskin.demodemobitirmeproje.view.SaveHouseActivity"
-    android:background="@drawable/centre_background"
+    android:background="@color/white"
     android:focusableInTouchMode="true">
 
     <!--tools:showIn="@layout/activity_properties_form"-->
@@ -16,7 +16,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/personalDetailsCard"
         style="@style/centreLocatorCardDesign"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="100dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="10dp">
 
@@ -144,7 +144,7 @@
                 <TextView
                     android:id="@+id/countOwner"
                     style="@style/modifiedEditText"
-                    android:text="Ev sahibi sayısı(Biraz saçma burası)"
+                    android:text="Ev sahibi sayısı"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.118"
                     app:layout_constraintStart_toStartOf="parent"

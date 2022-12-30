@@ -39,7 +39,7 @@ class SaveHouseActivity : AppCompatActivity() {
         isCustomerOrHouseOwner = intent.getStringExtra("fromRegisterPage").toString()//Formu kaydedilecek olan kişi customer mı houseOwner mı?
 
         val registeredUserName = intent.getStringExtra("registeredUser-Name") // yeni kayıt olan kullanıcının adı
-        welcomeText.text = "Hoşgeldin! ${registeredUserName}! Şimdi evini kaydetme vakti"
+        welcomeText.text = "Şimdi evini kaydetme vakti"
 
         val countOfBathroomSpinnerAdapter = ArrayAdapter.createFromResource(this,R.array.countOfBSO,android.R.layout.simple_spinner_item)
         countOfBathroomSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
