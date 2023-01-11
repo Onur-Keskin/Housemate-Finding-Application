@@ -26,4 +26,11 @@ interface HouseAPI {
         @Path(value = "customerId", encoded = true) customerId: String?
     ): Observable<List<HouseModel>>
 
+    @GET("houses/getHousesByClass/{classOfHouse}")
+    fun getHousesByClass(
+        @Path(value = "classOfHouse", encoded = true) classOfHouse: String?
+    ): Observable<List<HouseModel>>
+
+    @POST("relations/likeControl")
+    fun likeControl(@Body requestBody: JsonObject):Observable<Boolean>
 }

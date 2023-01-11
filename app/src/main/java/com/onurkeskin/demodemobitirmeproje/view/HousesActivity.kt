@@ -8,9 +8,11 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.JsonObject
 import com.onurkeskin.demobitirmeproje.R
 import com.onurkeskin.demodemobitirmeproje.adapter.HousesRecyclerViewAdapter
 import com.onurkeskin.demodemobitirmeproje.model.HouseModel
+import com.onurkeskin.demodemobitirmeproje.service.CustomerAPI
 import com.onurkeskin.demodemobitirmeproje.service.HouseAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -24,7 +26,10 @@ class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
 
     private val BASE_URL = "http://192.168.1.21:8080/"
     private var houseModels : ArrayList<HouseModel>? = null
+    private var houseWithClassModel : ArrayList<HouseModel>? = null
     private var housesRecyclerViewAdapter : HousesRecyclerViewAdapter? = null
+    private val customerIdObject = JsonObject()
+    private  lateinit var customerWithClassObject : JsonObject
 
     //Disposable -> Tek kullanımlık-Kullan At
     private var compositeDisposable : CompositeDisposable? = null
@@ -44,6 +49,27 @@ class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
     }
 
     private fun loadData(){
+        val customerId = intent.getIntExtra("userId",0)
+        //println("customerId : ${customerId}")
+        if(customerId != 0){
+            customerIdObject.addProperty("customerId",customerId)
+            println(customerIdObject)
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build().create(CustomerAPI::class.java)
+
+
+            compositeDisposable?.add(retrofit.getOneCustomerProperties(customerIdObject)
+                .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
+                .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
+                .subscribe(this::handleCustomerClassResponse))
+        }else{
+            Toast.makeText(this,"Error during the get houses by class operation",Toast.LENGTH_SHORT).show()
+        }
+
+        /*
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -56,8 +82,10 @@ class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
             .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
             .subscribe(this::handleResponse))
 
-    }
+         */
 
+    }
+    /*
     private fun handleResponse(houseList: List<HouseModel>){
         houseModels = ArrayList(houseList)
 
@@ -67,10 +95,41 @@ class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
         }
     }
 
+     */
+
+    private fun handleCustomerClassResponse(customerWithClass : JsonObject){
+        customerWithClassObject = customerWithClass
+        val customerClass = customerWithClassObject.get("classOfCustomer").asString
+
+        if(customerClass != null){ //Customer ın class'ına göre olan evleri getirecek bize
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build().create(HouseAPI::class.java)
+
+            compositeDisposable?.add(retrofit.getHousesByClass(customerClass)
+                .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
+                .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
+                .subscribe(this::handleGetHousesByClassResponse))
+        }
+    }
+
+    private fun handleGetHousesByClassResponse(houseByClassList: List<HouseModel>){
+        houseWithClassModel = ArrayList(houseByClassList)
+
+        houseWithClassModel?.let {
+            housesRecyclerViewAdapter = HousesRecyclerViewAdapter(it,this@HousesActivity)
+            housesRecyclerView.adapter = housesRecyclerViewAdapter
+        }
+    }
+
     override fun onHouseItemClick(houseModel: HouseModel) {
+        val customerId = intent.getIntExtra("userId",0)
         Toast.makeText(this,"Clicked : ${houseModel.houseId}", Toast.LENGTH_SHORT).show()
         val intent = Intent(this@HousesActivity,HouseSingleProfileActivity::class.java) //Evin detay bilgilerinin görüntüleneceği sayfaya yönlenecek.
         intent.putExtra("houseId",houseModel.houseId)
+        intent.putExtra("customerId",customerId)
         startActivity(intent)
     }
 
@@ -149,5 +208,7 @@ class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
 
         return super.onOptionsItemSelected(item)
     }
+
+
 
 }
