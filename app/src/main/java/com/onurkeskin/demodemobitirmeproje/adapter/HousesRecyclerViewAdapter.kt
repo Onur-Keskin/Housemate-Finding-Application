@@ -31,9 +31,9 @@ class HousesRecyclerViewAdapter(private val houseList:ArrayList<HouseModel>, pri
 
             itemView.setBackgroundColor(Color.parseColor(colors[position%3]))
 
-            itemView.housesRecyclerViewHouseAddress.text = houseModel.houseAddress
-            itemView.housesRecyclerViewRent.text = "Rent : " + houseModel.rent.toString()
-            itemView.housesRecyclerViewHeatResource.text ="Heat Resource : " + houseModel.heatResource
+            itemView.housesRecyclerViewHouseAddress.text = "Adres : " + houseModel.houseAddress
+            itemView.housesRecyclerViewRent.text = "Kira : " + houseModel.rent.toString()
+            itemView.housesRecyclerViewHeatResource.text ="Yakıt Türü : " + houseModel.heatResource
 
             val size = houseModel.owners?.size
             if(size != 0){
@@ -43,7 +43,7 @@ class HousesRecyclerViewAdapter(private val houseList:ArrayList<HouseModel>, pri
                 }
                 val houseOwnerName = houseModel.owners?.get(0)?.get("ownerName")?.asString
                 val houseOwnerSurname = houseModel.owners?.get(0)?.get("ownerSurname")?.asString
-                itemView.housesRecyclerViewOwnerIdInfo.text = "House Owner : $houseOwnerName \n $houseOwnerSurname"
+                itemView.housesRecyclerViewOwnerIdInfo.text = "Ev Sahibi : $houseOwnerName \n $houseOwnerSurname"
 
             }
             else{

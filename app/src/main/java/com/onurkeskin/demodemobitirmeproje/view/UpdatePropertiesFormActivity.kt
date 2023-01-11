@@ -165,20 +165,18 @@ class UpdatePropertiesFormActivity : AppCompatActivity() {
 
             if(houseOwnerBringPropertiesObject!!.get("smooking").asBoolean){ //Sigara içiyorsa
                 radioUpdateUseSmokeGroup.radioUpdateYesSmokeButton.isChecked = true
+                properTiesFormObject.addProperty("smooking",true)
             }else{ //sigara içmiyorsa
                 radioUpdateUseSmokeGroup.radioUpdateNoSmokeButton.isChecked = true
+                properTiesFormObject.addProperty("smooking",false)
             }
 
             if(houseOwnerBringPropertiesObject!!.get("havingPet").asBoolean){ //Evcil hayvanı varsa
                 radioUpdateHavePetGroup.radioUpdateYesPetButton.isChecked = true
+                properTiesFormObject.addProperty("havingPet",true)
             }else{ //Evcil hayvanı yoksa
                 radioUpdateHavePetGroup.radioUpdateNoPetButton.isChecked = true
-            }
-
-            if(houseOwnerBringPropertiesObject!!.get("smooking").asBoolean){
-                radioUpdateUseSmokeGroup.radioUpdateYesSmokeButton.isChecked = true
-            }else{
-                radioUpdateUseSmokeGroup.radioUpdateNoSmokeButton.isChecked = true
+                properTiesFormObject.addProperty("havingPet",false)
             }
 
         }else{
