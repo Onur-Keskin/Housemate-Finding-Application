@@ -77,7 +77,7 @@ class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
     override fun onHouseOwnerItemClick(houseModel: HouseModel) {
         val intent = Intent(this@HousesActivity,SingleProfileActivity::class.java)
         intent.putExtra("fromHouseOwner","houseOwnerProfile")
-        println("HouseOwnerId : " + houseModel.owners[0].get("ownerId"))
+        //println("HouseOwnerId : " + houseModel.owners[0].get("ownerId"))
         intent.putExtra("houseOwnerId", houseModel.owners[0].get("ownerId").asInt)
         startActivity(intent)
     }
@@ -112,7 +112,7 @@ class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
         }
         else if(item.itemId == R.id.profile){
             val customerOrOwner = intent.getStringExtra("customerOrOwner")
-            println("customerOrOwner : $customerOrOwner")
+            //println("customerOrOwner : $customerOrOwner")
             if(customerOrOwner == "houseOwner"){
                 val houseOwnerId = intent.getIntExtra("ownerId",0)
                 //println("houseOwnerId : $houseOwnerId")

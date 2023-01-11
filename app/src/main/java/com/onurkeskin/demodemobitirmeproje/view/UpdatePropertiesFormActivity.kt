@@ -217,14 +217,14 @@ class UpdatePropertiesFormActivity : AppCompatActivity() {
     fun updateHavePetHandler(view:View){//radio button
         if(radioUpdateHavePetGroup.radioUpdateYesPetButton.isChecked){ //evcil hayvan var
             if(isCustomerOrHouseOwner == "Customer"){
-                println("customer'ın evcil hayvanı var")
+                //println("customer'ın evcil hayvanı var")
                 properTiesFormObject.addProperty("havingPet",true) // customer'ın evcil hayvanı var
             }else{
                 properTiesFormObject.addProperty("havingPet",true) // houseOwner'ın evcil hayvanı var
             }
         }else if(radioUpdateHavePetGroup.radioUpdateNoPetButton.isChecked){ //evcil hayvan yok
             if(isCustomerOrHouseOwner == "Customer"){
-                println("customer'ın evcil hayvanı yok")
+                //println("customer'ın evcil hayvanı yok")
                 properTiesFormObject.addProperty("havingPet",false) // customer'ın evcil hayvanı yok
             }else{
                 properTiesFormObject.addProperty("havingPet",false) // houseOwner'ın evcil hayvanı yok

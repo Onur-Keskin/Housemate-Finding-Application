@@ -25,9 +25,12 @@ class HousesRecyclerViewAdapter(private val houseList:ArrayList<HouseModel>, pri
             itemView.setOnClickListener {
                 listener.onHouseItemClick(houseModel)
             }
+            /*
             itemView.housesRecyclerViewOwnerIdInfo.setOnClickListener {
                 listener.onHouseOwnerItemClick(houseModel)
             }
+
+             */
 
             itemView.setBackgroundColor(Color.parseColor(colors[position%3]))
 
@@ -43,11 +46,11 @@ class HousesRecyclerViewAdapter(private val houseList:ArrayList<HouseModel>, pri
                 }
                 val houseOwnerName = houseModel.owners?.get(0)?.get("ownerName")?.asString
                 val houseOwnerSurname = houseModel.owners?.get(0)?.get("ownerSurname")?.asString
-                itemView.housesRecyclerViewOwnerIdInfo.text = "Ev Sahibi : $houseOwnerName \n $houseOwnerSurname"
+                //itemView.housesRecyclerViewOwnerIdInfo.text = "Ev Sahibi : $houseOwnerName \n $houseOwnerSurname"
 
             }
             else{
-                itemView.housesRecyclerViewOwnerIdInfo.text = "Ev Sahini : Yok"
+                //itemView.housesRecyclerViewOwnerIdInfo.text = "Ev Sahini : Yok"
             }
 
         }
