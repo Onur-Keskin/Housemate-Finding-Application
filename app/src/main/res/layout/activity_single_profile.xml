@@ -130,7 +130,7 @@
                         android:id="@+id/singleProfileFromThisDay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Şu Tarihren Beri"
+                        android:text="From This Day"
                         android:textColor="#2196F3"
                         android:textSize="15dp"
                         android:textStyle="bold" />
