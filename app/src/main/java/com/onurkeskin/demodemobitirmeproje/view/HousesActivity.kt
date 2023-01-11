@@ -68,7 +68,7 @@ class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
     }
 
     override fun onHouseItemClick(houseModel: HouseModel) {
-        Toast.makeText(this,"Clicked : ${houseModel.houseId}", Toast.LENGTH_LONG).show()
+        Toast.makeText(this,"Clicked : ${houseModel.houseId}", Toast.LENGTH_SHORT).show()
         val intent = Intent(this@HousesActivity,HouseSingleProfileActivity::class.java) //Evin detay bilgilerinin görüntüleneceği sayfaya yönlenecek.
         intent.putExtra("houseId",houseModel.houseId)
         startActivity(intent)
