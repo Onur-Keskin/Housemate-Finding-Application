@@ -9,6 +9,7 @@ data class HouseModel(
     val countOfBedroom:Int,
     val countOfSalon:Int,
     val countOfOwner:Int,
+    val houseType:String,
     val heatResource:String,
     val internetPaved:String,
     val floor:Int,

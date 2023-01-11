@@ -1,10 +1,12 @@
 package com.onurkeskin.demodemobitirmeproje.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.onurkeskin.demobitirmeproje.R
 import com.onurkeskin.demodemobitirmeproje.model.HouseModel
@@ -51,22 +53,52 @@ class HouseSingleProfileActivity : AppCompatActivity() {
             .subscribe(this::handleResponse))
     }
 
+    @SuppressLint("SetTextI18n")
     private fun handleResponse(houseModel: HouseModel){
         house = houseModel
         if(house != null){
             singleHouseId.text = "Id : " + house!!.houseId.toString()
             singleHouseAddress.text = "Adress : " + house!!.houseAddress
-            singleHouseCountOfBathroom.text = "Count of Bathrom : " + house!!.countOfBathroom.toString()
-            singleHouseCountOfBedroom.text = "Count of Bedroom : " + house!!.countOfBedroom.toString()
-            singleHouseCountOfSalon.text = "Count of Salon : " + house!!.countOfSalon.toString()
-            singleHouseCountOfOwner.text = "Count of Owner : " + house!!.countOfOwner.toString()
+            singleHouseType.text = "Ev Tipi : ${house!!.houseType}"
+            //singleHouseCountOfBathroom.text = "Count of Bathrom : " + house!!.countOfBathroom.toString()
+            //singleHouseCountOfBedroom.text = "Count of Bedroom : " + house!!.countOfBedroom.toString()
+            //singleHouseCountOfSalon.text = "Count of Salon : " + house!!.countOfSalon.toString()
+            singleHouseCountOfOwner.text = "Count of Owner : " + house!!.owners.size
             singleHouseHeatResource.text = "Count of Heat Resource : " + house!!.heatResource
             singleHouseInternetPaved.text = "Internet Paved?  : " + house!!.internetPaved
             singleHouseFloor.text = "Floor : " + house!!.floor.toString()
             singleHouseRent.text = "Rent: " + house!!.rent.toString()
+            singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
+            singleHouseOwner2.text = house!!.owners[1].get("ownerName").asString + " " +house!!.owners[1].get("ownerSurname").asString
+            singleHouseOwner3.text = house!!.owners[2].get("ownerName").asString + " " +house!!.owners[2].get("ownerSurname").asString
         }else{
             Toast.makeText(this,"Error happened" , Toast.LENGTH_LONG).show()
         }
+    }
+
+    fun goToOwnerProfile1(view:View){
+        Toast.makeText(this,"Clicked ${house!!.owners[0].get("ownerId").asInt}",Toast.LENGTH_SHORT).show()
+        val intent = Intent(this@HouseSingleProfileActivity , SingleProfileActivity::class.java)
+        intent.putExtra("fromHouseOwner","houseOwnerProfile")
+        intent.putExtra("houseOwnerId",house!!.owners[0].get("ownerId").asInt)
+        startActivity(intent)
+
+    }
+    fun goToOwnerProfile2(view:View){
+        Toast.makeText(this,"Clicked ${house!!.owners[1].get("ownerId").asInt}",Toast.LENGTH_SHORT).show()
+        val intent = Intent(this@HouseSingleProfileActivity , SingleProfileActivity::class.java)
+        intent.putExtra("fromHouseOwner","houseOwnerProfile")
+        intent.putExtra("houseOwnerId",house!!.owners[1].get("ownerId").asInt)
+        startActivity(intent)
+
+    }
+    fun goToOwnerProfile3(view:View){
+        Toast.makeText(this,"Clicked ${house!!.owners[2].get("ownerId").asInt}",Toast.LENGTH_SHORT).show()
+        val intent = Intent(this@HouseSingleProfileActivity , SingleProfileActivity::class.java)
+        intent.putExtra("fromHouseOwner","houseOwnerProfile")
+        intent.putExtra("houseOwnerId",house!!.owners[2].get("ownerId").asInt)
+        startActivity(intent)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

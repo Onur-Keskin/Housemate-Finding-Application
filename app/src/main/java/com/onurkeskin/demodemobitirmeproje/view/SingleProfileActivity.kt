@@ -110,6 +110,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
             val id = intent.getIntExtra("customerId",1)
             val customerId : String? = "$id"
             singleProfileUpdateInfoButton.isVisible = false
+            singlePropertiesUpdateInfoButton.isVisible = false
 
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -130,6 +131,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
             val id = intent.getIntExtra("houseOwnerId",1)
             val houseOwnerId : String? = "$id"
             singleProfileUpdateInfoButton.isVisible = false
+            singlePropertiesUpdateInfoButton.isVisible = false
 
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
