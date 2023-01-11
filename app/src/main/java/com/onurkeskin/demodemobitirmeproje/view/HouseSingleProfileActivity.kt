@@ -27,6 +27,7 @@ class HouseSingleProfileActivity : AppCompatActivity() {
     private var compositeDisposable : CompositeDisposable? = null
     private val customerLikeHomeObject = JsonObject()
     private var likedHouse: JsonObject? = null
+    private var customerIdAndHouseIdObject = JsonObject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,21 +61,37 @@ class HouseSingleProfileActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun handleResponse(houseModel: HouseModel){
         house = houseModel
-        if(house != null){ //always true geliyor farkındayım
-            val isHouseLiked = intent.getStringExtra("fromLikedHouse")
 
+        val customerId = intent.getIntExtra("customerId",0)
+        customerIdAndHouseIdObject.addProperty("customerId" ,customerId)
+        customerIdAndHouseIdObject.addProperty("houseId" ,house!!.houseId )
+        println(customerIdAndHouseIdObject)
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build().create(HouseAPI::class.java)
+
+        compositeDisposable?.add(retrofit.likeControl(customerIdAndHouseIdObject)
+            .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
+            .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
+            .subscribe(this::handleBeforeLikeResponse))
+
+
+        /*
+        if(house != null){ //always true geliyor farkındayım
+
+            val isHouseLiked = intent.getStringExtra("fromLikedHouse")
             if(isHouseLiked == "liked"){ //Ev beğenilmişse
-                singleHouseId.text = "Id : " + house!!.houseId.toString()
-                singleHouseAddress.text = "Adress : " + house!!.houseAddress
+                //singleHouseId.text = "Id : " + house!!.houseId.toString()
+                singleHouseAddress.text = "Adres : " + house!!.houseAddress
                 singleHouseType.text = "Ev Tipi : ${house!!.houseType}"
-                //singleHouseCountOfBathroom.text = "Count of Bathrom : " + house!!.countOfBathroom.toString()
-                //singleHouseCountOfBedroom.text = "Count of Bedroom : " + house!!.countOfBedroom.toString()
-                //singleHouseCountOfSalon.text = "Count of Salon : " + house!!.countOfSalon.toString()
-                singleHouseCountOfOwner.text = "Count of Owner : " + house!!.owners.size
-                singleHouseHeatResource.text = "Count of Heat Resource : " + house!!.heatResource
-                singleHouseInternetPaved.text = "Internet Paved?  : " + house!!.internetPaved
-                singleHouseFloor.text = "Floor : " + house!!.floor.toString()
-                singleHouseRent.text = "Rent: " + house!!.rent.toString()
+                //singleHouseCountOfOwner.text = "Ev Sahibi Sayısı : " + house!!.owners.size
+                singleHouseHeatResource.text = "Yakıt Türü : " + house!!.heatResource
+                singleHouseInternetPaved.text = "İnternet Dahil: " + house!!.internetPaved
+                singleHouseFloor.text = "Kat : " + house!!.floor.toString()
+                singleHouseRent.text = "Kira: " + house!!.rent.toString()
                 likeButton.setImageResource(R.drawable.ic_baseline_liked)
 
                 if(house!!.owners.size == 1){
@@ -91,17 +108,12 @@ class HouseSingleProfileActivity : AppCompatActivity() {
                 }
             }
             else{
-                singleHouseId.text = "Id : " + house!!.houseId.toString()
-                singleHouseAddress.text = "Adress : " + house!!.houseAddress
+                singleHouseAddress.text = "Adres : " + house!!.houseAddress
                 singleHouseType.text = "Ev Tipi : ${house!!.houseType}"
-                //singleHouseCountOfBathroom.text = "Count of Bathrom : " + house!!.countOfBathroom.toString()
-                //singleHouseCountOfBedroom.text = "Count of Bedroom : " + house!!.countOfBedroom.toString()
-                //singleHouseCountOfSalon.text = "Count of Salon : " + house!!.countOfSalon.toString()
-                singleHouseCountOfOwner.text = "Count of Owner : " + house!!.owners.size
-                singleHouseHeatResource.text = "Count of Heat Resource : " + house!!.heatResource
-                singleHouseInternetPaved.text = "Internet Paved?  : " + house!!.internetPaved
-                singleHouseFloor.text = "Floor : " + house!!.floor.toString()
-                singleHouseRent.text = "Rent: " + house!!.rent.toString()
+                singleHouseHeatResource.text = "Yakıt Türü: " + house!!.heatResource
+                singleHouseInternetPaved.text = "İnternet Dahil : " + house!!.internetPaved
+                singleHouseFloor.text = "Kat : " + house!!.floor.toString()
+                singleHouseRent.text = "Kira: " + house!!.rent.toString()
 
                 if(house!!.owners.size == 1){
                     singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
@@ -116,7 +128,8 @@ class HouseSingleProfileActivity : AppCompatActivity() {
                     singleHouseOwner3.text = house!!.owners[2].get("ownerName").asString + " " +house!!.owners[2].get("ownerSurname").asString
                 }
             }
-        }
+
+        }*/
 
     }
 
@@ -164,10 +177,64 @@ class HouseSingleProfileActivity : AppCompatActivity() {
 
     private fun handleLikeResponse(likedHouseResponseModel: JsonObject){
         likedHouse = likedHouseResponseModel
+        likeButton.setImageResource(R.drawable.ic_baseline_liked)
+        /*
         val intent = Intent(this@HouseSingleProfileActivity, HousesActivity::class.java)
-        intent.putExtra("customerId", likedHouse!!.get("customer").asJsonObject.get("customerId").asInt)
+        intent.putExtra("userId", likedHouse!!.get("customer").asJsonObject.get("customerId").asInt)
         startActivity(intent)
 
+         */
+    }
+
+    private fun handleBeforeLikeResponse(beforeLikeResponse:Boolean){
+        println("beforeLikeResponse : ${beforeLikeResponse}")
+        if(beforeLikeResponse){
+            //singleHouseId.text = "Id : " + house!!.houseId.toString()
+            singleHouseAddress.text = "Adres : " + house!!.houseAddress
+            singleHouseType.text = "Ev Tipi : ${house!!.houseType}"
+            //singleHouseCountOfOwner.text = "Ev Sahibi Sayısı : " + house!!.owners.size
+            singleHouseHeatResource.text = "Yakıt Türü : " + house!!.heatResource
+            singleHouseInternetPaved.text = "İnternet Dahil: " + house!!.internetPaved
+            singleHouseFloor.text = "Kat : " + house!!.floor.toString()
+            singleHouseRent.text = "Kira: " + house!!.rent.toString()
+            likeButton.setImageResource(R.drawable.ic_baseline_liked)
+
+            if(house!!.owners.size == 1){
+                singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
+            }
+            else if(house!!.owners.size == 2){
+                singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
+                singleHouseOwner2.text = house!!.owners[1].get("ownerName").asString + " " +house!!.owners[1].get("ownerSurname").asString
+            }
+            else if(house!!.owners.size == 3){
+                singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
+                singleHouseOwner2.text = house!!.owners[1].get("ownerName").asString + " " +house!!.owners[1].get("ownerSurname").asString
+                singleHouseOwner3.text = house!!.owners[2].get("ownerName").asString + " " +house!!.owners[2].get("ownerSurname").asString
+            }
+        }else{
+            singleHouseAddress.text = "Adres : " + house!!.houseAddress
+            singleHouseType.text = "Ev Tipi : ${house!!.houseType}"
+            //singleHouseCountOfBathroom.text = "Count of Bathrom : " + house!!.countOfBathroom.toString()
+            //singleHouseCountOfBedroom.text = "Count of Bedroom : " + house!!.countOfBedroom.toString()
+            //singleHouseCountOfSalon.text = "Count of Salon : " + house!!.countOfSalon.toString()
+            singleHouseHeatResource.text = "Yakıt Türü: " + house!!.heatResource
+            singleHouseInternetPaved.text = "İnternet Dahil : " + house!!.internetPaved
+            singleHouseFloor.text = "Kat : " + house!!.floor.toString()
+            singleHouseRent.text = "Kira: " + house!!.rent.toString()
+
+            if(house!!.owners.size == 1){
+                singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
+            }
+            else if(house!!.owners.size == 2){
+                singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
+                singleHouseOwner2.text = house!!.owners[1].get("ownerName").asString + " " +house!!.owners[1].get("ownerSurname").asString
+            }
+            else if(house!!.owners.size == 3){
+                singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
+                singleHouseOwner2.text = house!!.owners[1].get("ownerName").asString + " " +house!!.owners[1].get("ownerSurname").asString
+                singleHouseOwner3.text = house!!.owners[2].get("ownerName").asString + " " +house!!.owners[2].get("ownerSurname").asString
+            }
+        }
     }
 
 
