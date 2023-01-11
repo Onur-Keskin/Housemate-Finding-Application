@@ -189,7 +189,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="HouseOwner1"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:onClick="goToOwnerProfile1"/>
@@ -201,7 +201,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="HouseOwner2"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:onClick="goToOwnerProfile2"/>
@@ -213,7 +213,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="HouseOwner3"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:onClick="goToOwnerProfile3"/>
@@ -227,6 +227,7 @@
             android:layout_height="34dp"
             android:layout_marginTop="35dp"
             android:layout_marginEnd="10dp"
+            android:onClick="customerLikeHouse"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/singleHouseAddress"
             app:srcCompat="@drawable/ic_baseline_like" />
