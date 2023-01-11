@@ -132,6 +132,17 @@ class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
             }
             //onDestroy()
         }
+        else if(item.itemId == R.id.likedHouses){ //Customer beğendiği evleri görüntüleyeceği sayfasına gidecek
+            val customerId = intent.getIntExtra("userId",0)
+            if(customerId != 0){
+                val intent = Intent(this@HousesActivity,LikedHousesActivity::class.java)
+                intent.putExtra("customerId",customerId)
+                startActivity(intent)
+            }
+            else{
+                Toast.makeText(this@HousesActivity,"Some Errors Happened routing to Liked Houses Page", Toast.LENGTH_SHORT).show()
+            }
+        }
         else{
             Toast.makeText(this@HousesActivity,"Some Errors Happened", Toast.LENGTH_LONG).show()
         }

@@ -3,5 +3,6 @@
     <item android:id="@+id/profile" android:title="Profile"></item>
     <item android:id="@+id/settings" android:title="Settings"></item>
     <item android:id="@+id/logout" android:title="Logout"></item>
+    <item android:id="@+id/likedHouses" android:title="Houses I Like"></item>
 
 </menu>

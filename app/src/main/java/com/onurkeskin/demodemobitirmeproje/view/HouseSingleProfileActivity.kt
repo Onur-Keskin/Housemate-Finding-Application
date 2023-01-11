@@ -60,33 +60,39 @@ class HouseSingleProfileActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun handleResponse(houseModel: HouseModel){
         house = houseModel
-        if(house != null){
-            singleHouseId.text = "Id : " + house!!.houseId.toString()
-            singleHouseAddress.text = "Adress : " + house!!.houseAddress
-            singleHouseType.text = "Ev Tipi : ${house!!.houseType}"
-            //singleHouseCountOfBathroom.text = "Count of Bathrom : " + house!!.countOfBathroom.toString()
-            //singleHouseCountOfBedroom.text = "Count of Bedroom : " + house!!.countOfBedroom.toString()
-            //singleHouseCountOfSalon.text = "Count of Salon : " + house!!.countOfSalon.toString()
-            singleHouseCountOfOwner.text = "Count of Owner : " + house!!.owners.size
-            singleHouseHeatResource.text = "Count of Heat Resource : " + house!!.heatResource
-            singleHouseInternetPaved.text = "Internet Paved?  : " + house!!.internetPaved
-            singleHouseFloor.text = "Floor : " + house!!.floor.toString()
-            singleHouseRent.text = "Rent: " + house!!.rent.toString()
-            if(house!!.owners.size == 1){
-                singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
+        if(house != null){ //always true geliyor farkındayım
+            val isHouseLiked = intent.getStringExtra("fromLikedHouse")
+            if(isHouseLiked == "liked"){
+                singleHouseId.text = "Id : " + house!!.houseId.toString()
+                singleHouseAddress.text = "Adress : " + house!!.houseAddress
+                singleHouseType.text = "Ev Tipi : ${house!!.houseType}"
+                //singleHouseCountOfBathroom.text = "Count of Bathrom : " + house!!.countOfBathroom.toString()
+                //singleHouseCountOfBedroom.text = "Count of Bedroom : " + house!!.countOfBedroom.toString()
+                //singleHouseCountOfSalon.text = "Count of Salon : " + house!!.countOfSalon.toString()
+                singleHouseCountOfOwner.text = "Count of Owner : " + house!!.owners.size
+                singleHouseHeatResource.text = "Count of Heat Resource : " + house!!.heatResource
+                singleHouseInternetPaved.text = "Internet Paved?  : " + house!!.internetPaved
+                singleHouseFloor.text = "Floor : " + house!!.floor.toString()
+                singleHouseRent.text = "Rent: " + house!!.rent.toString()
+                likeButton.setImageResource(R.drawable.ic_baseline_liked)
+
+                if(house!!.owners.size == 1){
+                    singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
+                }
+                else if(house!!.owners.size == 2){
+                    singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
+                    singleHouseOwner2.text = house!!.owners[1].get("ownerName").asString + " " +house!!.owners[1].get("ownerSurname").asString
+                }
+                else if(house!!.owners.size == 3){
+                    singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
+                    singleHouseOwner2.text = house!!.owners[1].get("ownerName").asString + " " +house!!.owners[1].get("ownerSurname").asString
+                    singleHouseOwner3.text = house!!.owners[2].get("ownerName").asString + " " +house!!.owners[2].get("ownerSurname").asString
+                }
+            }else{
+                Toast.makeText(this,"Error happened" , Toast.LENGTH_LONG).show()
             }
-            else if(house!!.owners.size == 2){
-                singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
-                singleHouseOwner2.text = house!!.owners[1].get("ownerName").asString + " " +house!!.owners[1].get("ownerSurname").asString
             }
-            else if(house!!.owners.size == 3){
-                singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
-                singleHouseOwner2.text = house!!.owners[1].get("ownerName").asString + " " +house!!.owners[1].get("ownerSurname").asString
-                singleHouseOwner3.text = house!!.owners[2].get("ownerName").asString + " " +house!!.owners[2].get("ownerSurname").asString
-            }
-        }else{
-            Toast.makeText(this,"Error happened" , Toast.LENGTH_LONG).show()
-        }
+
     }
 
     fun goToOwnerProfile1(view:View){
