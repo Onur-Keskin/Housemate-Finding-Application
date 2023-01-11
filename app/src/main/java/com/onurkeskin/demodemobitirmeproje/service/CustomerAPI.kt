@@ -32,6 +32,9 @@ interface CustomerAPI {
     @POST("/models/saveOrUpdateOneModelAttrOfCustomer")
     fun saveOneCustomerProperties(@Body requestBody: JsonObject):Observable<JsonObject>
 
+    @POST("/relations/createOneRelation")
+    fun customerLikeHouse(@Body requestBody : JsonObject):Observable<JsonObject>
+
     @PUT("customers/updateOneCustomer")
     fun updateOneCustomer(@Body requestBody: JsonObject):Observable<JsonObject>
 

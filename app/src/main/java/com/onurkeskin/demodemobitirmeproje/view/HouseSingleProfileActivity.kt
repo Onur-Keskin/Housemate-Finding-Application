@@ -8,8 +8,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.google.gson.JsonObject
 import com.onurkeskin.demobitirmeproje.R
 import com.onurkeskin.demodemobitirmeproje.model.HouseModel
+import com.onurkeskin.demodemobitirmeproje.service.CustomerAPI
 import com.onurkeskin.demodemobitirmeproje.service.HouseAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -23,6 +25,8 @@ class HouseSingleProfileActivity : AppCompatActivity() {
     private val BASE_URL = "http://192.168.1.21:8080/"
     private var house : HouseModel? = null
     private var compositeDisposable : CompositeDisposable? = null
+    private val customerLikeHomeObject = JsonObject()
+    private var likedHouse: JsonObject? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,9 +72,18 @@ class HouseSingleProfileActivity : AppCompatActivity() {
             singleHouseInternetPaved.text = "Internet Paved?  : " + house!!.internetPaved
             singleHouseFloor.text = "Floor : " + house!!.floor.toString()
             singleHouseRent.text = "Rent: " + house!!.rent.toString()
-            singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
-            singleHouseOwner2.text = house!!.owners[1].get("ownerName").asString + " " +house!!.owners[1].get("ownerSurname").asString
-            singleHouseOwner3.text = house!!.owners[2].get("ownerName").asString + " " +house!!.owners[2].get("ownerSurname").asString
+            if(house!!.owners.size == 1){
+                singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
+            }
+            else if(house!!.owners.size == 2){
+                singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
+                singleHouseOwner2.text = house!!.owners[1].get("ownerName").asString + " " +house!!.owners[1].get("ownerSurname").asString
+            }
+            else if(house!!.owners.size == 3){
+                singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
+                singleHouseOwner2.text = house!!.owners[1].get("ownerName").asString + " " +house!!.owners[1].get("ownerSurname").asString
+                singleHouseOwner3.text = house!!.owners[2].get("ownerName").asString + " " +house!!.owners[2].get("ownerSurname").asString
+            }
         }else{
             Toast.makeText(this,"Error happened" , Toast.LENGTH_LONG).show()
         }
@@ -100,6 +113,32 @@ class HouseSingleProfileActivity : AppCompatActivity() {
         startActivity(intent)
 
     }
+
+    fun customerLikeHouse(view:View){
+        val customerId = intent.getIntExtra("customerId",1)
+        customerLikeHomeObject.addProperty("customerId",customerId)
+        customerLikeHomeObject.addProperty("houseId",house!!.houseId)
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build().create(CustomerAPI::class.java)
+
+        compositeDisposable?.add(retrofit.customerLikeHouse(customerLikeHomeObject)
+            .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
+            .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
+            .subscribe(this::handleLikeResponse))
+    }
+
+    private fun handleLikeResponse(likedHouseResponseModel: JsonObject){
+        likedHouse = likedHouseResponseModel
+        val intent = Intent(this@HouseSingleProfileActivity, HousesActivity::class.java)
+        intent.putExtra("customerId", likedHouse!!.get("customer").asJsonObject.get("customerId").asInt)
+        startActivity(intent)
+
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         //inflater xml ilemkodu bağlama
