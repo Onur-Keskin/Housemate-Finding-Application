@@ -20,4 +20,10 @@ interface HouseAPI {
     @POST("houses/saveOneHouse")
     fun saveOneHouse(@Body requestBody: JsonObject):Observable<JsonObject>
 
+
+    @GET("relations/getAllHousesOfOneCustomer/{customerId}")
+    fun getAllHousesOfOneCustomer(
+        @Path(value = "customerId", encoded = true) customerId: String?
+    ): Observable<List<HouseModel>>
+
 }
