@@ -3,8 +3,11 @@ package com.onurkeskin.demodemobitirmeproje.service
 import com.google.gson.JsonObject
 import com.onurkeskin.demodemobitirmeproje.model.HouseModel
 import io.reactivex.Observable
+import okhttp3.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -33,4 +36,7 @@ interface HouseAPI {
 
     @POST("relations/likeControl")
     fun likeControl(@Body requestBody: JsonObject):Observable<Boolean>
+
+    @HTTP(method = "DELETE", path = "/relations/deleteRelation", hasBody = true)
+    fun deleteLike(@Body requestBody: JsonObject) : Observable<JsonObject>
 }

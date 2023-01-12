@@ -8,6 +8,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import com.google.gson.JsonObject
 import com.onurkeskin.demobitirmeproje.R
 import com.onurkeskin.demodemobitirmeproje.model.HouseModel
@@ -17,6 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_house_single_profile.*
+import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -28,6 +31,7 @@ class HouseSingleProfileActivity : AppCompatActivity() {
     private val customerLikeHomeObject = JsonObject()
     private var likedHouse: JsonObject? = null
     private var customerIdAndHouseIdObject = JsonObject()
+    private var deleteLikeObject = JsonObject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +56,8 @@ class HouseSingleProfileActivity : AppCompatActivity() {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(HouseAPI::class.java)
 
+
+
         compositeDisposable?.add(retrofit.getHouseById(houseId)
             .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
             .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
@@ -62,11 +68,15 @@ class HouseSingleProfileActivity : AppCompatActivity() {
     private fun handleResponse(houseModel: HouseModel){
         house = houseModel
 
+        likeButton.isVisible = true
+        likeddButton.isVisible = false
+
         val customerId = intent.getIntExtra("customerId",0)
         customerIdAndHouseIdObject.addProperty("customerId" ,customerId)
         customerIdAndHouseIdObject.addProperty("houseId" ,house!!.houseId )
-        println(customerIdAndHouseIdObject)
+        //println(customerIdAndHouseIdObject)
 
+        //öncelikle evin beğenilim beğenilmediği kontrol ediliyor
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -74,8 +84,8 @@ class HouseSingleProfileActivity : AppCompatActivity() {
             .build().create(HouseAPI::class.java)
 
         compositeDisposable?.add(retrofit.likeControl(customerIdAndHouseIdObject)
-            .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
-            .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(this::handleBeforeLikeResponse))
 
 
@@ -170,14 +180,16 @@ class HouseSingleProfileActivity : AppCompatActivity() {
             .build().create(CustomerAPI::class.java)
 
         compositeDisposable?.add(retrofit.customerLikeHouse(customerLikeHomeObject)
-            .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
-            .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(this::handleLikeResponse))
     }
 
     private fun handleLikeResponse(likedHouseResponseModel: JsonObject){
         likedHouse = likedHouseResponseModel
-        likeButton.setImageResource(R.drawable.ic_baseline_liked)
+        likeButton.isVisible = false
+        likeddButton.isVisible = true
+        //likeButton.setImageResource(R.drawable.ic_baseline_liked)
         /*
         val intent = Intent(this@HouseSingleProfileActivity, HousesActivity::class.java)
         intent.putExtra("userId", likedHouse!!.get("customer").asJsonObject.get("customerId").asInt)
@@ -187,7 +199,7 @@ class HouseSingleProfileActivity : AppCompatActivity() {
     }
 
     private fun handleBeforeLikeResponse(beforeLikeResponse:Boolean){
-        println("beforeLikeResponse : ${beforeLikeResponse}")
+        //println("beforeLikeResponse : ${beforeLikeResponse}")
         if(beforeLikeResponse){
             //singleHouseId.text = "Id : " + house!!.houseId.toString()
             singleHouseAddress.text = "Adres : " + house!!.houseAddress
@@ -197,7 +209,12 @@ class HouseSingleProfileActivity : AppCompatActivity() {
             singleHouseInternetPaved.text = "İnternet Dahil: " + house!!.internetPaved
             singleHouseFloor.text = "Kat : " + house!!.floor.toString()
             singleHouseRent.text = "Kira: " + house!!.rent.toString()
-            likeButton.setImageResource(R.drawable.ic_baseline_liked)
+
+            likeButton.isInvisible = true
+            likeddButton.isInvisible = false
+
+
+
 
             if(house!!.owners.size == 1){
                 singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
@@ -235,6 +252,31 @@ class HouseSingleProfileActivity : AppCompatActivity() {
                 singleHouseOwner3.text = house!!.owners[2].get("ownerName").asString + " " +house!!.owners[2].get("ownerSurname").asString
             }
         }
+    }
+
+    fun removeLike(view:View){
+        val customerId = intent.getIntExtra("customerId",1)
+        deleteLikeObject.addProperty("customerId",customerId)
+        deleteLikeObject.addProperty("houseId",house!!.houseId)
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build().create(HouseAPI::class.java)
+
+        println("Silme işlemi içerisindeli deleteLikeObject : " + deleteLikeObject)
+
+        compositeDisposable?.add(retrofit.deleteLike(deleteLikeObject)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(this::handleDeleteLikeResponse))
+
+    }
+
+    private fun handleDeleteLikeResponse(response: JsonObject){
+        println(response)
+        likeButton.isVisible = true
+        likeddButton.isVisible = false
     }
 
 
