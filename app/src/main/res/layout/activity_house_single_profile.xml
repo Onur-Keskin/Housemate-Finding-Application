@@ -213,14 +213,26 @@
 
         <ImageView
             android:id="@+id/likeButton"
-            android:layout_width="31dp"
-            android:layout_height="34dp"
-            android:layout_marginTop="500dp"
-            android:layout_marginEnd="15dp"
+            android:layout_width="41dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="504dp"
+            android:layout_marginEnd="48dp"
             android:onClick="customerLikeHouse"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_notlikeyet" />
+
+        <ImageView
+            android:id="@+id/likeddButton"
+            android:layout_width="41dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="504dp"
+            android:layout_marginEnd="48dp"
+            android:onClick="removeLike"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_like" />
+
 
         <!--<ImageView
             android:id="@+id/likedButton"
