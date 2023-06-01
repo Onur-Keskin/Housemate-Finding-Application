@@ -196,6 +196,8 @@ class UpdateProfileActivity : AppCompatActivity() {
         if(customerUpdateProfileResponseModel!!.get("customerId").asInt != null ){//password de kontrol edilecek ama önce api de olması şart
             val intent = Intent(this@UpdateProfileActivity , HousesActivity::class.java)
             intent.putExtra("userId", customerUpdateProfileResponseModel!!.get("customerId").asInt)
+            //intent.putExtra("customerId", customerUpdateProfileResponseModel!!.get("customerId").asInt)//ekstra
+            //intent.putExtra("fromCustomer","customerProfile")
             intent.putExtra("customerOrOwner","customer")
             //intent.putExtra("fromRegisterPage","firstLogin")
             //intent.putExtra("registeredUser-Name",userRegisterResponseModel!!.get("customerName").toString())

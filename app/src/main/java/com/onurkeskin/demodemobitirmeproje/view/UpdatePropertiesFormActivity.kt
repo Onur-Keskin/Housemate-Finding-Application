@@ -301,9 +301,10 @@ class UpdatePropertiesFormActivity : AppCompatActivity() {
         //println(userUpdateProfileResponseModel)
         val customerId = customerUpdatePropertiesResponseObject!!.getAsJsonObject("customer").get("customerId").asInt
         if(customerId != 0 ){//password de kontrol edilecek ama önce api de olması şart
-            val intent = Intent(this@UpdatePropertiesFormActivity , MainPageActivity::class.java)
+            val intent = Intent(this@UpdatePropertiesFormActivity , SingleProfileActivity::class.java)
             intent.putExtra("userId", customerId)
-            intent.putExtra("customerOrOwner","customer")
+            //intent.putExtra("customerOrOwner","customer")
+            intent.putExtra("fromCustomer","customerProfile")
             startActivity(intent)
             //finish()
 
