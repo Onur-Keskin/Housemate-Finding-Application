@@ -213,7 +213,9 @@ class HouseSingleProfileActivity : AppCompatActivity() {
             likeButton.isInvisible = true
             likeddButton.isInvisible = false
 
-
+            //println("Beğenilen evin ev sahipleri : ")
+            //println(house!!.owners)
+            //println(house!!.owners.size)
 
 
             if(house!!.owners.size == 1){
@@ -238,6 +240,10 @@ class HouseSingleProfileActivity : AppCompatActivity() {
             singleHouseInternetPaved.text = "İnternet Dahil : " + house!!.internetPaved
             singleHouseFloor.text = "Kat : " + house!!.floor.toString()
             singleHouseRent.text = "Kira: " + house!!.rent.toString()
+
+            //println("Beğenilmeyen evin ev sahipleri : ")
+            //println(house!!.owners)
+            //println(house!!.owners.size)
 
             if(house!!.owners.size == 1){
                 singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
