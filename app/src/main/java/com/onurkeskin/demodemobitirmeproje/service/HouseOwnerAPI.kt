@@ -20,6 +20,11 @@ interface HouseOwnerAPI {
         @Path(value = "houseOwnerUsername", encoded = true) houseOwnerUsername: String?
     ): Observable<HouseOwnerModel>
 
+    @GET("relations/getAllCustomersOfOneHouse/{houseId}")
+    fun getAllCustomersOfOneHouse(
+        @Path(value = "houseId", encoded = true) houseId: String?
+    ): Observable<List<CustomerModel>>
+
     @POST("models/getOneModelAttributeByHouseOwnerId")
     fun getOneHouseOwnerProperties(@Body requestBody: JsonObject):Observable<JsonObject>
 
