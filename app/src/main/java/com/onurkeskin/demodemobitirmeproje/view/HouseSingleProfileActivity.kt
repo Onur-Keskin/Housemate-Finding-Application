@@ -200,6 +200,35 @@ class HouseSingleProfileActivity : AppCompatActivity() {
 
     private fun handleBeforeLikeResponse(beforeLikeResponse:Boolean){
         //println("beforeLikeResponse : ${beforeLikeResponse}")
+        val intent = intent
+        var fromWhere: String? = intent.getStringExtra("fromLikedHouse")
+        if (fromWhere == "liked"){
+            //singleHouseId.text = "Id : " + house!!.houseId.toString()
+            singleHouseAddress.text = "Adres : " + house!!.houseAddress
+            singleHouseType.text = "Ev Tipi : ${house!!.houseType}"
+            //singleHouseCountOfOwner.text = "Ev Sahibi Sayısı : " + house!!.owners.size
+            singleHouseHeatResource.text = "Yakıt Türü : " + house!!.heatResource
+            singleHouseInternetPaved.text = "İnternet Dahil: " + house!!.internetPaved
+            singleHouseFloor.text = "Kat : " + house!!.floor.toString()
+            singleHouseRent.text = "Kira: " + house!!.rent.toString()
+
+            likeButton.isInvisible = true
+            likeddButton.isInvisible = false
+
+
+            if(house!!.owners.size == 1){
+                singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
+            }
+            else if(house!!.owners.size == 2){
+                singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
+                singleHouseOwner2.text = house!!.owners[1].get("ownerName").asString + " " +house!!.owners[1].get("ownerSurname").asString
+            }
+            else if(house!!.owners.size == 3){
+                singleHouseOwner1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
+                singleHouseOwner2.text = house!!.owners[1].get("ownerName").asString + " " +house!!.owners[1].get("ownerSurname").asString
+                singleHouseOwner3.text = house!!.owners[2].get("ownerName").asString + " " +house!!.owners[2].get("ownerSurname").asString
+            }
+        }
         if(beforeLikeResponse){
             //singleHouseId.text = "Id : " + house!!.houseId.toString()
             singleHouseAddress.text = "Adres : " + house!!.houseAddress
