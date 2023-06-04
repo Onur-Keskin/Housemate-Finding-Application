@@ -61,7 +61,7 @@ class MainPageActivity : AppCompatActivity(){
         else if(item.itemId == R.id.profile){
             val customerOrOwner = intent.getStringExtra("customerOrOwner")
             println("customerOrOwner : $customerOrOwner")
-            if(customerOrOwner == "houseOwner"){
+            if(customerOrOwner == "houseOwner"){//houseOwner giriş yapmışsa
                 val houseOwnerId = intent.getIntExtra("ownerId",0)
                 //println("houseOwnerId : $houseOwnerId")
                 if(houseOwnerId != 0){
@@ -71,7 +71,7 @@ class MainPageActivity : AppCompatActivity(){
                     startActivity(intent)
                 }
 
-            }else{ //customer giriş yapmışssa
+            }else{ //customer giriş yapmışsa
                 val userId = intent.getIntExtra("userId",1)
                 intent = Intent(this@MainPageActivity, SingleProfileActivity::class.java)//Şuanlık boş safyaya gider. username e göre unique kullanıcıyı alacak olan bir endpoint lazım
                 intent.putExtra("fromMainPageCustomer","customerLoginProfile")
@@ -100,7 +100,8 @@ class MainPageActivity : AppCompatActivity(){
     }
 
     fun bringHouseOwners(view: View){
-        val intent = Intent(this@MainPageActivity, HouseOwnersProfilesActivity::class.java)
+        val intent = Intent(this@MainPageActivity, CustomerWhoLikeHouseActivity::class.java)
+        intent.putExtra("houseId",1)//houseOwner' ın evinin id'si gönderilmeli
         startActivity(intent)
     }
     fun gotoMyProfile(view:View){

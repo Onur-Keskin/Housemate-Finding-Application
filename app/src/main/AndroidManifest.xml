@@ -20,6 +20,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name="com.onurkeskin.demodemobitirmeproje.view.CustomerWhoLikeHouseActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name="com.onurkeskin.demodemobitirmeproje.view.LikedHousesActivity"
             android:exported="false">
             <meta-data

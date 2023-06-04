@@ -31,8 +31,11 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
     private var isHouseOwner: String?=null
     private var isLoginCustomer : String? = null
     private var isLoginHouseOwner : String? = null
+    private var isCustomerWhoLikesHouse : String? = null
+
     private var customerModel : CustomerModel? = null
     private var houseOwnerModel : HouseOwnerModel?=null
+
     private var compositeDisposable : CompositeDisposable? = null
 
 
@@ -105,6 +108,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
         isHouseOwner = intent.getStringExtra("fromHouseOwner")
         isLoginCustomer = intent.getStringExtra("fromMainPageCustomer")
         isLoginHouseOwner = intent.getStringExtra("fromMainPageHouseOwner")
+        isCustomerWhoLikesHouse = intent.getStringExtra("fromCustomerWhoLikeHouse")
 
         if (isCustomer.equals("customerProfile")){//eğer customerProfiles kısmından profile gidilecekse
             val id = intent.getIntExtra("customerId",1)
@@ -169,7 +173,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
 
         }
 
-        else if(isLoginHouseOwner.equals("houseOwnerLoginProfile")){ //eğer customer kendi profiline gidecekse
+        else if(isLoginHouseOwner.equals("houseOwnerLoginProfile")){ //eğer houseOwner kendi profiline gidecekse
             val ownerId = intent.getIntExtra("houseOwnerLoginId",0)
 
             val retrofit = Retrofit.Builder()
@@ -185,6 +189,26 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(this::handleResponse))
+            }
+
+        }
+
+        else if(isCustomerWhoLikesHouse.equals("customerWhoLikesHouse")){ //eğer houseOwner evini beğenen customer' ın profiline gidecekse
+            val customerId = intent.getIntExtra("customerId",0)
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build().create(CustomerAPI::class.java)
+
+
+            if (customerId != 0){
+
+                compositeDisposable?.add(retrofit.getCustomerById(customerId.toString())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::handleCustomerWhoLikesHouseResponse))
             }
 
         }
@@ -258,7 +282,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
             singleProfileEmail.text = customerModel!!.customerEmail
             singleProfileGender.text = customerModel!!.customerGender
         }else{
-            Toast.makeText(this,"Error happened" , Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"Error happened in SingleProfileActivity Customer Side" , Toast.LENGTH_LONG).show()
         }
 
     }
@@ -275,7 +299,29 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
             singleProfileEmail.text = houseOwnerModel!!.ownerMail
             singleProfileGender.text = houseOwnerModel!!.ownerGender
         }else{
-            Toast.makeText(this,"Error happened" , Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"Error happened in SingleProfileActivity HouseOwner Side" , Toast.LENGTH_LONG).show()
+        }
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun handleCustomerWhoLikesHouseResponse(customer: CustomerModel){
+        customerModel = customer
+
+        if(customerModel != null){
+            singleProfileCustomerOrHouseOwner.text = "Customer"
+            singleProfileNameSurnameAge.text = customerModel!!.customerName + " " +customer!!.customerSurname +  " , " + customer!!.customerAge.toString()
+            singleProfileUsername.text = customerModel!!.customerUsername
+            singleProfileHometown.text = customerModel!!.customerHometown
+            singleProfileDepartmentGrade.text = customerModel!!.customerDepartment + " , " +customerModel!!.customerGrade.toString()
+            //singleProfilePassword.text = customerModel!!.customerPassword.toString()
+            singleProfilePhone.text = customerModel!!.customerPhone
+            singleProfileEmail.text = customerModel!!.customerEmail
+            singleProfileGender.text = customerModel!!.customerGender
+            singleProfileUpdateInfoButton.isVisible = false
+            singlePropertiesUpdateInfoButton.isVisible = false
+        }else{
+            Toast.makeText(this,"Error happened in SingleProfileActivity Customer Side" , Toast.LENGTH_LONG).show()
         }
 
     }
