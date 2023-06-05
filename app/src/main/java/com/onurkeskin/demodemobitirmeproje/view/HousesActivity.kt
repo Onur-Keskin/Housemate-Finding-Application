@@ -53,7 +53,7 @@ class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
         //println("customerId : ${customerId}")
         if(customerId != 0){
             customerIdObject.addProperty("customerId",customerId)
-            println(customerIdObject)
+            //println(customerIdObject)
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
