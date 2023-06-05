@@ -50,7 +50,7 @@ class CustomerWhoLikeHouseActivity : AppCompatActivity() ,CustomerWhoLikeHouseRe
     }
 
     private fun loadData(){
-        val houseId = intent.getIntExtra("houseId",1)
+        val houseOwnerId = intent.getIntExtra("houseOwnerId",1)
 
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -59,15 +59,31 @@ class CustomerWhoLikeHouseActivity : AppCompatActivity() ,CustomerWhoLikeHouseRe
                 .build().create(HouseOwnerAPI::class.java)
 
 
-            compositeDisposable?.add(retrofit.getAllCustomersOfOneHouse(houseId.toString())
+            compositeDisposable?.add(retrofit.getHouseIdOfHouseOwner(houseOwnerId.toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::handleResponse))
+                .subscribe(this::bringHouseIdHandleResponse))
 
 
     }
 
-    private fun handleResponse(customersWhoLikeList: List<CustomerModel>){
+    private fun bringHouseIdHandleResponse(houseModel: HouseModel){
+        val houseId = houseModel.houseId
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build().create(HouseOwnerAPI::class.java)
+
+
+        compositeDisposable?.add(retrofit.getAllCustomersOfOneHouse(houseId.toString())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(this::bringCustomersHandleResponse))
+    }
+
+    private fun bringCustomersHandleResponse(customersWhoLikeList: List<CustomerModel>){
         customersWhoLikes = ArrayList(customersWhoLikeList)
 
         customersWhoLikes?.let {
