@@ -26,8 +26,9 @@ interface HouseOwnerAPI {
         @Path(value = "houseId", encoded = true) houseId: String?
     ): Observable<List<CustomerModel>>
 
+    //houseOwner'ın evini çağırma endpointi
     @GET("houseOwners/getHouseOfHouseOwner/{houseOwnerId}")
-    fun getHouseIdOfHouseOwner(
+    fun getHouseOfHouseOwner(
         @Path(value = "houseOwnerId", encoded = true) houseOwnerId: String?
     ): Observable<HouseModel>
 

@@ -59,7 +59,7 @@ class CustomerWhoLikeHouseActivity : AppCompatActivity() ,CustomerWhoLikeHouseRe
                 .build().create(HouseOwnerAPI::class.java)
 
 
-            compositeDisposable?.add(retrofit.getHouseIdOfHouseOwner(houseOwnerId.toString())
+            compositeDisposable?.add(retrofit.getHouseOfHouseOwner(houseOwnerId.toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::bringHouseIdHandleResponse))

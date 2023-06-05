@@ -89,8 +89,10 @@ class MainPageActivity : AppCompatActivity(){
 
 
 
-    fun bringHouses(view: View){
-        val intent = Intent(this@MainPageActivity, HousesActivity::class.java)
+    fun bringHouseOwnersHouse(view: View){
+        val houseOwnerId = intent.getIntExtra("ownerId",0)
+        val intent = Intent(this@MainPageActivity, MyHouseActivity::class.java)
+        intent.putExtra("houseOwnerId",houseOwnerId)
         startActivity(intent)
     }
 
@@ -99,7 +101,7 @@ class MainPageActivity : AppCompatActivity(){
         startActivity(intent)
     }
 
-    fun bringHouseOwners(view: View){
+    fun bringCustomersWhoLikeHouse(view: View){
         val houseOwnerId = intent.getIntExtra("ownerId",0)
         val intent = Intent(this@MainPageActivity, CustomerWhoLikeHouseActivity::class.java)
         intent.putExtra("houseOwnerId",houseOwnerId)//houseOwner' ın id'si gönderilmeli
