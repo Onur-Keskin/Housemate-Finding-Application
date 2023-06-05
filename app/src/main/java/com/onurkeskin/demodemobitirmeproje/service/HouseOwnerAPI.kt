@@ -2,6 +2,7 @@ package com.onurkeskin.demodemobitirmeproje.service
 
 import com.google.gson.JsonObject
 import com.onurkeskin.demodemobitirmeproje.model.CustomerModel
+import com.onurkeskin.demodemobitirmeproje.model.HouseModel
 import com.onurkeskin.demodemobitirmeproje.model.HouseOwnerModel
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -24,6 +25,11 @@ interface HouseOwnerAPI {
     fun getAllCustomersOfOneHouse(
         @Path(value = "houseId", encoded = true) houseId: String?
     ): Observable<List<CustomerModel>>
+
+    @GET("houseOwners/getHouseOfHouseOwner/{houseOwnerId}")
+    fun getHouseIdOfHouseOwner(
+        @Path(value = "houseOwnerId", encoded = true) houseOwnerId: String?
+    ): Observable<HouseModel>
 
     @POST("models/getOneModelAttributeByHouseOwnerId")
     fun getOneHouseOwnerProperties(@Body requestBody: JsonObject):Observable<JsonObject>

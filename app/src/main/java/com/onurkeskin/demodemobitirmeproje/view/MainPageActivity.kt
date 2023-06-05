@@ -100,8 +100,9 @@ class MainPageActivity : AppCompatActivity(){
     }
 
     fun bringHouseOwners(view: View){
+        val houseOwnerId = intent.getIntExtra("ownerId",0)
         val intent = Intent(this@MainPageActivity, CustomerWhoLikeHouseActivity::class.java)
-        intent.putExtra("houseId",1)//houseOwner' ın evinin id'si gönderilmeli
+        intent.putExtra("houseOwnerId",houseOwnerId)//houseOwner' ın id'si gönderilmeli
         startActivity(intent)
     }
     fun gotoMyProfile(view:View){
