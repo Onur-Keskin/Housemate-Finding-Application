@@ -72,6 +72,12 @@ class MyHouseActivity : AppCompatActivity() {
 
     }
 
+    fun onUpdateHouseClick(view:View){
+        val intent = Intent(this@MyHouseActivity, UpdateHouseActivity::class.java)
+        house?.let { intent.putExtra("houseId", it.houseId) }
+        startActivity(intent)
+    }
+
     fun goToOwnerProfile1(view:View){
         Toast.makeText(this,"Clicked ${house!!.owners[0].get("ownerId").asInt}",Toast.LENGTH_SHORT).show()
         val intent = Intent(this@MyHouseActivity , SingleProfileActivity::class.java)

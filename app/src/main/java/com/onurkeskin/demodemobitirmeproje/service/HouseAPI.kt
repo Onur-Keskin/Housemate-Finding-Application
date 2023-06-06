@@ -3,12 +3,11 @@ package com.onurkeskin.demodemobitirmeproje.service
 import com.google.gson.JsonObject
 import com.onurkeskin.demodemobitirmeproje.model.HouseModel
 import io.reactivex.Observable
-import okhttp3.Response
 import retrofit2.http.Body
-import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface HouseAPI {
@@ -23,11 +22,15 @@ interface HouseAPI {
     @POST("houses/saveOneHouse")
     fun saveOneHouse(@Body requestBody: JsonObject):Observable<JsonObject>
 
-
     @GET("relations/getAllHousesOfOneCustomer/{customerId}")
     fun getAllHousesOfOneCustomer(
         @Path(value = "customerId", encoded = true) customerId: String?
     ): Observable<List<HouseModel>>
+
+    @PUT("houses/updateOneHouseByHouseId/{houseId}")
+    fun updateOneHouseByHouseId(@Body requestBody: JsonObject,
+        @Path(value = "houseId", encoded = true) houseId: String?
+    ): Observable<HouseModel>
 
     @GET("houses/getHousesByClass/{classOfHouse}")
     fun getHousesByClass(
