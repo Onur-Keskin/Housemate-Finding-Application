@@ -1,6 +1,7 @@
 package com.onurkeskin.demodemobitirmeproje.view
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import com.google.gson.JsonObject
 import com.onurkeskin.demobitirmeproje.R
+import com.onurkeskin.demobitirmeproje.view.MainPageActivity
 import com.onurkeskin.demodemobitirmeproje.model.HouseModel
 import com.onurkeskin.demodemobitirmeproje.service.HouseAPI
 import com.onurkeskin.demodemobitirmeproje.service.HouseOwnerAPI
@@ -49,7 +51,6 @@ class MyHouseActivity : AppCompatActivity() {
             .build().create(HouseOwnerAPI::class.java)
 
 
-
         compositeDisposable?.add(retrofit.getHouseOfHouseOwner(houseOwnerId.toString())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -67,11 +68,7 @@ class MyHouseActivity : AppCompatActivity() {
         houseOwnersHouseFloor.text = "Kat : " + house!!.floor.toString()
         houseOwnersHouseRent.text = "Kira: " + house!!.rent.toString()
 
-
         homeDwellers1.text = house!!.owners[0].get("ownerName").asString + " " +house!!.owners[0].get("ownerSurname").asString
-
-
-
 
     }
 
@@ -83,19 +80,29 @@ class MyHouseActivity : AppCompatActivity() {
         startActivity(intent)
 
     }
-    fun goToOwnerProfile2(view:View){
-        Toast.makeText(this,"Clicked ${house!!.owners[1].get("ownerId").asInt}",Toast.LENGTH_SHORT).show()
-        val intent = Intent(this@MyHouseActivity , SingleProfileActivity::class.java)
-        intent.putExtra("fromHouseOwner","houseOwnerProfile")
-        intent.putExtra("houseOwnerId",house!!.owners[1].get("ownerId").asInt)
-        startActivity(intent)
 
+    fun onDeleteHouseClick(view:View){
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle("Ev Silme Onay")
+        alertDialogBuilder.setMessage("İşlemi gerçekleştirmek istediğinize emin misiniz?")
+
+        alertDialogBuilder.setPositiveButton("Evet") { dialog, which ->
+            Toast.makeText(this,"Ev silindi", Toast.LENGTH_SHORT).show()
+        }
+
+        alertDialogBuilder.setNegativeButton("Hayır") { dialog, which ->
+            dialog.dismiss()
+        }
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
     }
-    fun goToOwnerProfile3(view:View){
-        Toast.makeText(this,"Clicked ${house!!.owners[2].get("ownerId").asInt}",Toast.LENGTH_SHORT).show()
-        val intent = Intent(this@MyHouseActivity , SingleProfileActivity::class.java)
-        intent.putExtra("fromHouseOwner","houseOwnerProfile")
-        intent.putExtra("houseOwnerId",house!!.owners[2].get("ownerId").asInt)
+
+    //Henüz burayı kullanmayacağız sadece kullanılabilme ihtimaline karşın ekledim
+    fun onClosePageClick(view:View){
+        val intent = Intent(this@MyHouseActivity, MainPageActivity::class.java)
+        intent.putExtra("fromMyHouse","myHouse")
+        intent.putExtra("houseOwnerId",house!!.owners[0].get("ownerId").asInt)
         startActivity(intent)
 
     }
