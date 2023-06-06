@@ -16,6 +16,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_update_house.*
+import kotlinx.android.synthetic.main.activity_update_house.view.*
+import kotlinx.android.synthetic.main.content_update_properties_form.*
+import kotlinx.android.synthetic.main.content_update_properties_form.view.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -62,14 +65,23 @@ class UpdateHouseActivity : AppCompatActivity() {
         house = houseModel
         //println(house)
 
-        updateHouseAddress.setText(house!!.houseAddress)
-        updateHouseType.setText(house!!.houseType)
-        updateHouseHeatResource.setText(house!!.heatResource)
-        updateHouseFurnished.setText( house!!.furnished.toString())
-        updateHouseInternetPaved.setText(house!!.internetPaved)
-        updateHouseFloor.setText(house!!.floor.toString())
-        updateHouseRent.setText(house!!.rent.toString())
-        updateHouseOwnersTitle.text = "${house!!.owners[0].get("ownerName")}" + "${house!!.owners[0].get("ownerSurname")}"
+        updateHouseAdressEditText.setText(house!!.houseAddress)
+        updateHouseFloorEditText.setText(house!!.floor.toString())
+        updateHouseRentEditText.setText(house!!.rent.toString())
+
+        bringHouseTypeRadioButtonChoices()//Ev tipi için radio button seçimlerini getirir
+
+        bringHeatResourceRadioButtonChoices() //Evin mevcut yakıt türünün radio button seçimlerini getirir
+
+        bringFurnitureRadioButtonChoices() //Evin mevcut eşyalı olma durumunun radio button seçimlerini getirir
+
+        bringInternetPavedRadioButtonChoices() //Evin mevcut internet dahil  olma durumunun radio button seçimlerini getirir
+
+
+        updateHouseOwnersTitle.text = "${house!!.owners[0].get("ownerName")} + ${house!!.owners[0].get("ownerSurname")}"
+
+
+
         updateHouseDisableImageButtonBlue.isVisible = false
         updateHouseDisableImageButtonWhite.isVisible = true
 
@@ -80,13 +92,9 @@ class UpdateHouseActivity : AppCompatActivity() {
     fun confirmUpdateHouse(view: View){
 
         houseObject.addProperty("houseId", house?.houseId)
-        houseObject.addProperty("houseAddress", updateHouseAddress.text.toString())
-        houseObject.addProperty("houseType", updateHouseType.text.toString())
-        houseObject.addProperty("heatResource", updateHouseHeatResource.text.toString())
-        houseObject.addProperty("furnished", updateHouseFurnished.text.toString())
-        houseObject.addProperty("internetPaved", updateHouseInternetPaved.text.toString())
-        houseObject.addProperty("floor", updateHouseFloor.text.toString())
-        houseObject.addProperty("rent", updateHouseRent.text.toString())
+        houseObject.addProperty("houseAddress", updateHouseAdressEditText.text.toString())
+        houseObject.addProperty("floor", updateHouseFloorEditText.text.toString())
+        houseObject.addProperty("rent", updateHouseRentEditText.text.toString())
 
 
         val retrofit = Retrofit.Builder()
@@ -100,6 +108,114 @@ class UpdateHouseActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(this::updateHouseHandleResponse))
 
+    }
+
+    private fun bringHouseTypeRadioButtonChoices(){
+        if(house!!.houseType == "1+1"){ //1+1
+            updateHouseRadioHouseTypeGroup.updateHouseRadioTwoPlusOneButton.isChecked = true
+            houseObject.addProperty("houseType","1+1")
+        }
+        else if(house!!.houseType == "2+1"){ //2+1
+            updateHouseRadioHouseTypeGroup.updateHouseRadioTwoPlusOneButton.isChecked = true
+            houseObject.addProperty("houseType","2+1")
+        }
+        else if(house!!.houseType == "3+1"){ //3+1
+            updateHouseRadioHouseTypeGroup.updateHouseRadioThreePlusOneButton.isChecked= true
+            houseObject.addProperty("houseType","3+1")
+        }
+        else if(house!!.houseType == "4+1"){ //4+1
+            updateHouseRadioHouseTypeGroup.updateHouseRadioFourPlusOneButton.isChecked= true
+            houseObject.addProperty("houseType","4+1")
+        }
+        else{ //Other HouseType
+            updateHouseRadioHouseTypeGroup.updateHouseRadioOtherButton.isChecked= true
+            houseObject.addProperty("houseType","diger")
+        }
+    }
+
+    private fun bringHeatResourceRadioButtonChoices(){
+        if(house!!.heatResource == "Doğal Gaz"){
+            updateHouseRadioUseHeatResourceGroup.updateHouseRadioGasButton.isChecked = true
+            houseObject.addProperty("heatResource","Doğal Gaz")
+        }
+        else if(house!!.heatResource == "Kömür"){
+            updateHouseRadioUseHeatResourceGroup.updateHouseRadioCoalButton.isChecked = true
+            houseObject.addProperty("heatResource","Kömür")
+        }else{
+            updateHouseRadioUseHeatResourceGroup.updateHouseRadioOtherHeatResourceButton.isChecked = true
+            houseObject.addProperty("heatResource","diger")
+        }
+
+    }
+
+    private fun bringFurnitureRadioButtonChoices(){
+        if(house!!.furnished == "yes"){
+            updateHouseRadioIsFurnitureGroup.updateHouseRadioYesFurnitureButton.isChecked = true
+            houseObject.addProperty("furnished","yes")
+        } else{
+            updateHouseRadioIsFurnitureGroup.updateHouseRadioNoFurnitureButton.isChecked = true
+            houseObject.addProperty("furnished","no")
+        }
+
+    }
+
+    private fun bringInternetPavedRadioButtonChoices(){
+        if(house!!.internetPaved == "yes"){
+            updateHouseRadioInternetPavedGroup.updateHouseRadioYesInternetPavedButton.isChecked = true
+            houseObject.addProperty("internetPaved","yes")
+        } else{
+            updateHouseRadioInternetPavedGroup.updateHouseRadioNoInternetPavedButton.isChecked = true
+            houseObject.addProperty("internetPaved","no")
+        }
+
+    }
+
+    fun updateHouseTypeHandler(view:View){ //HouseTypeRadioButton
+        if(updateHouseRadioHouseTypeGroup.updateHouseRadioOnePlusOneButton.isChecked){ //1+1
+            houseObject.addProperty("houseType","1+1")
+        }
+        else if(updateHouseRadioHouseTypeGroup.updateHouseRadioTwoPlusOneButton.isChecked){ //2+1
+            houseObject.addProperty("houseType","2+1")
+        }
+        else if(updateHouseRadioHouseTypeGroup.updateHouseRadioThreePlusOneButton.isChecked){ //3+1
+            houseObject.addProperty("houseType","3+1")
+        }
+        else if(updateHouseRadioHouseTypeGroup.updateHouseRadioFourPlusOneButton.isChecked){ //4+1
+            houseObject.addProperty("houseType","4+1")
+        }
+        else{ //Other House Type
+            houseObject.addProperty("houseType","diger")
+        }
+    }
+
+    fun updateHouseHeatResourceHandler(view:View){//HeatResourceRadioButton
+        if(updateHouseRadioUseHeatResourceGroup.updateHouseRadioGasButton.isChecked){ //Doğal Gaz
+            houseObject.addProperty("heatResource","Doğal Gaz")
+        }
+        else if(updateHouseRadioUseHeatResourceGroup.updateHouseRadioCoalButton.isChecked){ //Kömür
+            houseObject.addProperty("heatResource","Kömür")
+        }
+        else{//Diğer
+            houseObject.addProperty("heatResource","diger")
+        }
+    }
+
+    fun updateHouseIsFurnitureHandler(view:View){ //IsFurnitureRadioButton
+        if(updateHouseRadioIsFurnitureGroup.updateHouseRadioYesFurnitureButton.isChecked){ //Eşyalı
+            houseObject.addProperty("furnished","yes")
+        }
+        else{ //Eşyasız
+            houseObject.addProperty("furnished","no")
+        }
+    }
+
+    fun updateHouseIsInternetPavedHandler(view:View){ //IsInternetPavedRadioButton
+        if(updateHouseRadioInternetPavedGroup.updateHouseRadioYesInternetPavedButton.isChecked){ //Internet dahil
+            houseObject.addProperty("internetPaved","yes")
+        }
+        else{ //Internet dahil değil
+            houseObject.addProperty("internetPaved","no")
+        }
     }
 
     private fun updateHouseHandleResponse(houseModel: HouseModel){
