@@ -64,7 +64,7 @@
                     android:id="@+id/passwordText"
                     style="@style/modifiedEditText"
                     android:hint="@string/login_password_hint"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textPassword"
                     android:maxLines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
