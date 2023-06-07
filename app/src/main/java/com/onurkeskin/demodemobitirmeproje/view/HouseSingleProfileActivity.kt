@@ -12,6 +12,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.google.gson.JsonObject
 import com.onurkeskin.demobitirmeproje.R
+import com.onurkeskin.demodemobitirmeproje.globalvariables.GlobalVariables
 import com.onurkeskin.demodemobitirmeproje.model.HouseModel
 import com.onurkeskin.demodemobitirmeproje.service.CustomerAPI
 import com.onurkeskin.demodemobitirmeproje.service.HouseAPI
@@ -25,7 +26,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class HouseSingleProfileActivity : AppCompatActivity() {
-    private val BASE_URL = "http://192.168.1.21:8080/"
     private var house : HouseModel? = null
     private var compositeDisposable : CompositeDisposable? = null
     private val customerLikeHomeObject = JsonObject()
@@ -51,7 +51,7 @@ class HouseSingleProfileActivity : AppCompatActivity() {
         val houseId : String? = "$id"
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(GlobalVariables.globalBASEURL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(HouseAPI::class.java)
@@ -78,7 +78,7 @@ class HouseSingleProfileActivity : AppCompatActivity() {
 
         //öncelikle evin beğenilim beğenilmediği kontrol ediliyor
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(GlobalVariables.globalBASEURL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(HouseAPI::class.java)
@@ -174,7 +174,7 @@ class HouseSingleProfileActivity : AppCompatActivity() {
         customerLikeHomeObject.addProperty("houseId",house!!.houseId)
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(GlobalVariables.globalBASEURL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(CustomerAPI::class.java)
@@ -294,7 +294,7 @@ class HouseSingleProfileActivity : AppCompatActivity() {
         deleteLikeObject.addProperty("customerId",customerId)
         deleteLikeObject.addProperty("houseId",house!!.houseId)
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(GlobalVariables.globalBASEURL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(HouseAPI::class.java)

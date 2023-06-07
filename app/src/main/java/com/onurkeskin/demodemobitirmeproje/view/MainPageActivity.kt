@@ -26,11 +26,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MainPageActivity : AppCompatActivity(){
-    private val BASE_URL = "http://192.168.1.21:8080/"
-    private var houseModels : ArrayList<HouseModel>? = null
-    private var housesRecyclerViewAdapter : HousesRecyclerViewAdapter? = null
 
-    private var compositeDisposable : CompositeDisposable? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)

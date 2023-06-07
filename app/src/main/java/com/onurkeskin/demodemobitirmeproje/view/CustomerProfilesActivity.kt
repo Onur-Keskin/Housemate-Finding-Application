@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.onurkeskin.demobitirmeproje.R
 import com.onurkeskin.demodemobitirmeproje.adapter.CustomerRecyclerViewAdapter
+import com.onurkeskin.demodemobitirmeproje.globalvariables.GlobalVariables
 import com.onurkeskin.demodemobitirmeproje.model.CustomerModel
 import com.onurkeskin.demodemobitirmeproje.service.CustomerAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,7 +23,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class CustomerProfilesActivity : AppCompatActivity(), CustomerRecyclerViewAdapter.Listener {
-    private val BASE_URL = "http://192.168.1.21:8080/"
     private var customerModels : ArrayList<CustomerModel>? = null
     private var customerRecyclerViewAdapter : CustomerRecyclerViewAdapter? = null
 
@@ -95,7 +95,7 @@ class CustomerProfilesActivity : AppCompatActivity(), CustomerRecyclerViewAdapte
 
     private fun loadData(){
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(GlobalVariables.globalBASEURL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(CustomerAPI::class.java)

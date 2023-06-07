@@ -11,6 +11,7 @@ import androidx.core.view.get
 import com.google.gson.JsonObject
 import com.onurkeskin.demobitirmeproje.R
 import com.onurkeskin.demobitirmeproje.view.MainPageActivity
+import com.onurkeskin.demodemobitirmeproje.globalvariables.GlobalVariables
 import com.onurkeskin.demodemobitirmeproje.model.CustomerModel
 import com.onurkeskin.demodemobitirmeproje.model.HouseOwnerModel
 import com.onurkeskin.demodemobitirmeproje.service.CustomerAPI
@@ -29,7 +30,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class UpdatePropertiesFormActivity : AppCompatActivity() {
-    private val BASE_URL = "http://192.168.1.21:8080/"
     private var compositeDisposable : CompositeDisposable? = null
     private val properTiesFormObject = JsonObject()
     private var customerBringPropertiesObject : JsonObject? = null
@@ -81,7 +81,7 @@ class UpdatePropertiesFormActivity : AppCompatActivity() {
             customerIdObject.addProperty("customerId",customerId)
             println(customerIdObject)
             val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(GlobalVariables.globalBASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(CustomerAPI::class.java)
@@ -98,7 +98,7 @@ class UpdatePropertiesFormActivity : AppCompatActivity() {
             val houseOwnerIdObject = JsonObject()
             houseOwnerIdObject.addProperty("houseOwnerId",houseOwnerId)
             val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(GlobalVariables.globalBASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(HouseOwnerAPI::class.java)
@@ -252,7 +252,7 @@ class UpdatePropertiesFormActivity : AppCompatActivity() {
 
 
             val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(GlobalVariables.globalBASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(CustomerAPI::class.java)
@@ -278,7 +278,7 @@ class UpdatePropertiesFormActivity : AppCompatActivity() {
 
 
             val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(GlobalVariables.globalBASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(HouseOwnerAPI::class.java)

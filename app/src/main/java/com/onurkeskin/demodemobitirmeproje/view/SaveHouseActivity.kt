@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.google.gson.JsonObject
 import com.onurkeskin.demobitirmeproje.R
 import com.onurkeskin.demobitirmeproje.view.MainPageActivity
+import com.onurkeskin.demodemobitirmeproje.globalvariables.GlobalVariables
 import com.onurkeskin.demodemobitirmeproje.service.CustomerAPI
 import com.onurkeskin.demodemobitirmeproje.service.HouseAPI
 import com.onurkeskin.demodemobitirmeproje.service.HouseOwnerAPI
@@ -25,7 +26,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class SaveHouseActivity : AppCompatActivity() {
-    private val BASE_URL = "http://192.168.1.21:8080/"
     private val savingHouseFormObject = JsonObject()
     private lateinit var isCustomerOrHouseOwner:String
     private var compositeDisposable : CompositeDisposable? = null
@@ -88,7 +88,7 @@ class SaveHouseActivity : AppCompatActivity() {
         savingHouseFormObject.addProperty("rent",rent.text.toString().toInt())
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(GlobalVariables.globalBASEURL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(HouseAPI::class.java)
@@ -166,7 +166,7 @@ class SaveHouseActivity : AppCompatActivity() {
         println("updateHouseOwner fonk. çalıştı")
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(GlobalVariables.globalBASEURL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(HouseOwnerAPI::class.java)

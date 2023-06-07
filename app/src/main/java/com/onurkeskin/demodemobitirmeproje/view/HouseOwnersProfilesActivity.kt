@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.onurkeskin.demobitirmeproje.R
 import com.onurkeskin.demodemobitirmeproje.adapter.HouseOwnerRecyclerViewAdapter
+import com.onurkeskin.demodemobitirmeproje.globalvariables.GlobalVariables
 import com.onurkeskin.demodemobitirmeproje.model.HouseOwnerModel
 import com.onurkeskin.demodemobitirmeproje.service.HouseOwnerAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,7 +22,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class HouseOwnersProfilesActivity : AppCompatActivity(), HouseOwnerRecyclerViewAdapter.Listener {
-    private val BASE_URL = "http://192.168.1.21:8080/" //IPv4 Address. . . . . . . . . . . : 192.168.1.21
     private var houseOwnerModels : ArrayList<HouseOwnerModel>? = null
     private var houseOwnerRecyclerViewAdapter : HouseOwnerRecyclerViewAdapter? = null
 
@@ -42,7 +42,7 @@ class HouseOwnersProfilesActivity : AppCompatActivity(), HouseOwnerRecyclerViewA
 
     private fun loadData(){
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(GlobalVariables.globalBASEURL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(HouseOwnerAPI::class.java)

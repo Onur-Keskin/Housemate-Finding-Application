@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import com.onurkeskin.demobitirmeproje.R
 import com.onurkeskin.demobitirmeproje.view.MainPageActivity
+import com.onurkeskin.demodemobitirmeproje.globalvariables.GlobalVariables
 import com.onurkeskin.demodemobitirmeproje.model.CustomerModel
 import com.onurkeskin.demodemobitirmeproje.service.CustomerAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,7 +20,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
-    private val BASE_URL = "http://192.168.1.21:8080/"
     private var userLoginModel : CustomerModel? = null
     private var fromRegister = ""
     //private var userLoginRecyclerViewAdapter : UserLoginRecyclerViewAdapter? = null
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadData(userName:String){
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(GlobalVariables.globalBASEURL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(CustomerAPI::class.java)
