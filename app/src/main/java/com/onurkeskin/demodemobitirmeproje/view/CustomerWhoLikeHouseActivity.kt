@@ -12,6 +12,7 @@ import com.onurkeskin.demodemobitirmeproje.adapter.CustomerRecyclerViewAdapter
 import com.onurkeskin.demodemobitirmeproje.adapter.CustomerWhoLikeHouseRecyclerViewAdapter
 import com.onurkeskin.demodemobitirmeproje.adapter.HousesRecyclerViewAdapter
 import com.onurkeskin.demodemobitirmeproje.adapter.LikedHousesRecyclerViewAdapter
+import com.onurkeskin.demodemobitirmeproje.globalvariables.GlobalVariables
 import com.onurkeskin.demodemobitirmeproje.model.CustomerModel
 import com.onurkeskin.demodemobitirmeproje.model.HouseModel
 import com.onurkeskin.demodemobitirmeproje.service.CustomerAPI
@@ -29,7 +30,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class CustomerWhoLikeHouseActivity : AppCompatActivity() ,CustomerWhoLikeHouseRecyclerViewAdapter.Listener{
 
-    private val BASE_URL = "http://192.168.1.21:8080/"
     private var customerWhoLikeHouseRecyclerViewAdapter : CustomerWhoLikeHouseRecyclerViewAdapter? = null
     private lateinit var customersWhoLikes : ArrayList<CustomerModel>
 
@@ -53,7 +53,7 @@ class CustomerWhoLikeHouseActivity : AppCompatActivity() ,CustomerWhoLikeHouseRe
         val houseOwnerId = intent.getIntExtra("houseOwnerId",1)
 
             val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(GlobalVariables.globalBASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(HouseOwnerAPI::class.java)
@@ -71,7 +71,7 @@ class CustomerWhoLikeHouseActivity : AppCompatActivity() ,CustomerWhoLikeHouseRe
         val houseId = houseModel.houseId
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(GlobalVariables.globalBASEURL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(HouseOwnerAPI::class.java)

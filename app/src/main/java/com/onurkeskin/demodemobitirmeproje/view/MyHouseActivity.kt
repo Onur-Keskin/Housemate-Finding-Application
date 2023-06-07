@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 import com.google.gson.JsonObject
 import com.onurkeskin.demobitirmeproje.R
 import com.onurkeskin.demobitirmeproje.view.MainPageActivity
+import com.onurkeskin.demodemobitirmeproje.globalvariables.GlobalVariables
 import com.onurkeskin.demodemobitirmeproje.model.HouseModel
 import com.onurkeskin.demodemobitirmeproje.service.HouseAPI
 import com.onurkeskin.demodemobitirmeproje.service.HouseOwnerAPI
@@ -26,7 +27,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MyHouseActivity : AppCompatActivity() {
-    private val BASE_URL = "http://192.168.1.21:8080/"
     private var house : HouseModel? = null
     private var compositeDisposable : CompositeDisposable? = null
 
@@ -45,7 +45,7 @@ class MyHouseActivity : AppCompatActivity() {
         val houseOwnerId = intent.getIntExtra("houseOwnerId",1)
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(GlobalVariables.globalBASEURL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(HouseOwnerAPI::class.java)

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import com.onurkeskin.demobitirmeproje.R
 import com.onurkeskin.demodemobitirmeproje.adapter.HousesRecyclerViewAdapter
+import com.onurkeskin.demodemobitirmeproje.globalvariables.GlobalVariables
 import com.onurkeskin.demodemobitirmeproje.model.HouseModel
 import com.onurkeskin.demodemobitirmeproje.service.CustomerAPI
 import com.onurkeskin.demodemobitirmeproje.service.HouseAPI
@@ -24,7 +25,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
 
-    private val BASE_URL = "http://192.168.1.21:8080/"
     private var houseModels : ArrayList<HouseModel>? = null
     private var houseWithClassModel : ArrayList<HouseModel>? = null
     private var housesRecyclerViewAdapter : HousesRecyclerViewAdapter? = null
@@ -55,7 +55,7 @@ class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
             customerIdObject.addProperty("customerId",customerId)
             //println(customerIdObject)
             val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(GlobalVariables.globalBASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(CustomerAPI::class.java)
@@ -103,7 +103,7 @@ class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
 
         if(customerClass != null){ //Customer ın class'ına göre olan evleri getirecek bize
             val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(GlobalVariables.globalBASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(HouseAPI::class.java)

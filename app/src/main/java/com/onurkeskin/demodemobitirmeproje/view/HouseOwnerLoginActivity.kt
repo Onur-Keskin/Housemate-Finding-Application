@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import com.onurkeskin.demobitirmeproje.R
 import com.onurkeskin.demobitirmeproje.view.MainPageActivity
+import com.onurkeskin.demodemobitirmeproje.globalvariables.GlobalVariables
 import com.onurkeskin.demodemobitirmeproje.model.HouseOwnerModel
 import com.onurkeskin.demodemobitirmeproje.service.HouseOwnerAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,7 +21,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class HouseOwnerLoginActivity : AppCompatActivity() {
-    private val BASE_URL = "http://192.168.1.21:8080/"
     private var ownerLoginModel : HouseOwnerModel? = null
 
     //Disposable -> Tek kullanımlık-Kullan At
@@ -53,7 +53,7 @@ class HouseOwnerLoginActivity : AppCompatActivity() {
     private fun loadData(houseOwnerUsername:String){
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(GlobalVariables.globalBASEURL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(HouseOwnerAPI::class.java)

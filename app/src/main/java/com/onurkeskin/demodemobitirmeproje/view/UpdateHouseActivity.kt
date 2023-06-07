@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import com.google.gson.JsonObject
 import com.onurkeskin.demobitirmeproje.R
 import com.onurkeskin.demobitirmeproje.view.MainPageActivity
+import com.onurkeskin.demodemobitirmeproje.globalvariables.GlobalVariables
 import com.onurkeskin.demodemobitirmeproje.model.HouseModel
 import com.onurkeskin.demodemobitirmeproje.service.HouseAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,7 +25,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class UpdateHouseActivity : AppCompatActivity() {
-    private val BASE_URL = "http://192.168.1.21:8080/"
     private var compositeDisposable : CompositeDisposable? = null
 
     private val houseObject = JsonObject()
@@ -45,7 +45,7 @@ class UpdateHouseActivity : AppCompatActivity() {
 
         if (houseId != 0){
             val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(GlobalVariables.globalBASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(HouseAPI::class.java)
@@ -98,7 +98,7 @@ class UpdateHouseActivity : AppCompatActivity() {
 
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(GlobalVariables.globalBASEURL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(HouseAPI::class.java)

@@ -12,6 +12,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.onurkeskin.demobitirmeproje.R
+import com.onurkeskin.demodemobitirmeproje.globalvariables.GlobalVariables
 import com.onurkeskin.demodemobitirmeproje.model.CustomerModel
 import com.onurkeskin.demodemobitirmeproje.model.HouseOwnerModel
 import com.onurkeskin.demodemobitirmeproje.service.CustomerAPI
@@ -26,7 +27,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyclerViewAdapter.Listener*/ {
-    private val BASE_URL = "http://192.168.1.21:8080/"
     private var isCustomer: String?=null
     private var isHouseOwner: String?=null
     private var isLoginCustomer : String? = null
@@ -117,7 +117,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
             singlePropertiesUpdateInfoButton.isVisible = false
 
             val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(GlobalVariables.globalBASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(CustomerAPI::class.java)
@@ -138,7 +138,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
             singlePropertiesUpdateInfoButton.isVisible = false
 
             val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(GlobalVariables.globalBASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(HouseOwnerAPI::class.java)
@@ -157,7 +157,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
             val customerId = intent.getIntExtra("customerLoginId",0)
 
             val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(GlobalVariables.globalBASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(CustomerAPI::class.java)
@@ -177,7 +177,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
             val ownerId = intent.getIntExtra("houseOwnerLoginId",0)
 
             val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(GlobalVariables.globalBASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(HouseOwnerAPI::class.java)
@@ -197,7 +197,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
             val customerId = intent.getIntExtra("customerId",0)
 
             val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(GlobalVariables.globalBASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(CustomerAPI::class.java)
