@@ -41,6 +41,9 @@ interface HouseOwnerAPI {
     @POST("/models/saveOrUpdateOneHouseOwnerAttribute")
     fun saveOneHouseOwnerProperties(@Body requestBody: JsonObject):Observable<JsonObject>
 
+    @POST("houseOwners/houseOwnerLogin")
+    fun houseOwnerLogin(@Body requestBody: JsonObject):Observable<HouseOwnerModel>
+
     @PUT("houseOwners/updateOneHouseOwner")
     fun updateOneHouseOwner(@Body requestBody: JsonObject):Observable<JsonObject>
 

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.google.gson.JsonObject
 import com.onurkeskin.demobitirmeproje.R
 import com.onurkeskin.demobitirmeproje.view.MainPageActivity
 import com.onurkeskin.demodemobitirmeproje.globalvariables.GlobalVariables
@@ -22,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class HouseOwnerLoginActivity : AppCompatActivity() {
     private var ownerLoginModel : HouseOwnerModel? = null
-
+    private var loginModel : JsonObject = JsonObject()
     //Disposable -> Tek kullanımlık-Kullan At
     private var compositeDisposable : CompositeDisposable? = null
 
@@ -38,10 +39,12 @@ class HouseOwnerLoginActivity : AppCompatActivity() {
     }
 
     fun ownerSignIn(view: View){
-        val username = ownerUsernameText.text.toString()
-        val password = ownerPasswordText.text.toString()
+        loginModel.addProperty("username",ownerUsernameText.text.toString())
+        loginModel.addProperty("password",ownerPasswordText.text.toString())
 
-        loadData(username)
+        println("LoginModel in ownerSignIn : $loginModel")
+
+        loadData()
 
     }
 
@@ -56,7 +59,7 @@ class HouseOwnerLoginActivity : AppCompatActivity() {
         //startActivity(intent)
     }
 
-    private fun loadData(houseOwnerUsername:String){
+    private fun loadData(){
 
         val retrofit = Retrofit.Builder()
             .baseUrl(GlobalVariables.globalBASEURL)
@@ -65,7 +68,7 @@ class HouseOwnerLoginActivity : AppCompatActivity() {
             .build().create(HouseOwnerAPI::class.java)
 
 
-        compositeDisposable?.add(retrofit.getOwnerByUsername(houseOwnerUsername)
+        compositeDisposable?.add(retrofit.houseOwnerLogin(loginModel)
             .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
             .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
             .subscribe(this::handleResponse))

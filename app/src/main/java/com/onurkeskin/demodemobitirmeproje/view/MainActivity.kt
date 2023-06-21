@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.google.gson.JsonObject
 import com.onurkeskin.demobitirmeproje.R
-import com.onurkeskin.demobitirmeproje.view.MainPageActivity
 import com.onurkeskin.demodemobitirmeproje.globalvariables.GlobalVariables
 import com.onurkeskin.demodemobitirmeproje.model.CustomerModel
 import com.onurkeskin.demodemobitirmeproje.service.CustomerAPI
@@ -21,6 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
     private var userLoginModel : CustomerModel? = null
+    private var loginModel : JsonObject = JsonObject()
     private var fromRegister = ""
     //private var userLoginRecyclerViewAdapter : UserLoginRecyclerViewAdapter? = null
 
@@ -40,11 +41,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun signIn(view: View){
-        val userName = userNameText.text.toString()
-        val password = passwordText.text.toString()
 
-        loadData(userName)
+        loginModel.addProperty("username",userNameText.text.toString())
+        loginModel.addProperty("password",passwordText.text.toString())
 
+        loadData()
     }
 
     fun onLoginClick(view:View){
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun loadData(userName:String){
+    private fun loadData(){
 
         val retrofit = Retrofit.Builder()
             .baseUrl(GlobalVariables.globalBASEURL)
@@ -62,33 +63,29 @@ class MainActivity : AppCompatActivity() {
             .build().create(CustomerAPI::class.java)
 
 
-        compositeDisposable?.add(retrofit.getCustomerByUsername(userName)
+        compositeDisposable?.add(retrofit.customerLogin(loginModel)
             .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
             .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
             .subscribe(this::handleResponse))
 
-        //println(userLoginModel)
+
     }
 
     private fun handleResponse(userLogin: CustomerModel){
         userLoginModel = userLogin
-        //println(userLoginModel)
-        //println(userNameText.text)
-        //println(userLoginModel!!.customerUsername == userNameText.text.toString())
         //!!!!!!!!!!! kayıt olan username ler bir rakam içerince login olunamıyor
-        if(userLoginModel!!.customerUsername == userNameText.editableText.toString()){//password de kontrol edilecek ama önce api de olması şart
+        if(userLoginModel!!.customerUsername == userNameText.editableText.toString()){
             intent = Intent(this@MainActivity , HousesActivity::class.java)
             intent.putExtra("userId", userLoginModel!!.customerId)
             intent.putExtra("customerOrOwner","Customer")
             startActivity(intent)
-            //finish()
 
             userNameText.text.clear()
             passwordText.text.clear()
 
 
         } else{
-            Toast.makeText(this,"Error Happened", Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"Error Happened in CustomerLogin", Toast.LENGTH_LONG).show()
             val intent = Intent(this@MainActivity , MainActivity::class.java)
             startActivity(intent)
         }
