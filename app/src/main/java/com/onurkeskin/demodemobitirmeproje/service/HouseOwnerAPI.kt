@@ -32,6 +32,11 @@ interface HouseOwnerAPI {
         @Path(value = "houseOwnerId", encoded = true) houseOwnerId: String?
     ): Observable<HouseModel>
 
+    @GET("houseOwners/getOneHouseOwnerByMail/{mail}")
+    fun getOneHouseOwnerByMail(
+        @Path(value = "mail", encoded = true) mail: String?
+    ): Observable<HouseOwnerModel>
+
     @POST("models/getOneModelAttributeByHouseOwnerId")
     fun getOneHouseOwnerProperties(@Body requestBody: JsonObject):Observable<JsonObject>
 
@@ -46,6 +51,9 @@ interface HouseOwnerAPI {
 
     @PUT("houseOwners/updateOneHouseOwner")
     fun updateOneHouseOwner(@Body requestBody: JsonObject):Observable<JsonObject>
+
+    @PUT("houseOwners/updateHouseOwnerPasswordByUsername")
+    fun updateHouseOwnerPasswordByUsername(@Body requestBody: JsonObject):Observable<HouseOwnerModel>
 
 
 

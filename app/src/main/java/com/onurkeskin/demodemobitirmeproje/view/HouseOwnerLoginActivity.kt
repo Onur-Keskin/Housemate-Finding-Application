@@ -52,9 +52,9 @@ class HouseOwnerLoginActivity : AppCompatActivity() {
     }
 
     fun goToResetPasswordPageHouseOwnerEmailPart(view:View){
-        //val intent = Intent(this@HouseOwnerLoginActivity, CheckEmailActivity::class.java)
-        //intent.putExtra("checkEmailFrom","houseOwnerLogin")
-        //startActivity(intent)
+        val intent = Intent(this@HouseOwnerLoginActivity, CheckEmailActivity::class.java)
+        intent.putExtra("checkEmailFrom","houseOwnerResetPassword")
+        startActivity(intent)
     }
 
     private fun loadData(){
