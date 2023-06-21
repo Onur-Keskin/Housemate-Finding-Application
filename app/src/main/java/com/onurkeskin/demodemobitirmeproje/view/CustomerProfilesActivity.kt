@@ -61,12 +61,12 @@ class CustomerProfilesActivity : AppCompatActivity(), CustomerRecyclerViewAdapte
 
         })
         item.setOnActionExpandListener(object: MenuItem.OnActionExpandListener{
-            override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
+            override fun onMenuItemActionExpand(item: MenuItem): Boolean {
                 Toast.makeText(this@CustomerProfilesActivity,"Action Expand", Toast.LENGTH_LONG).show()
                 return true
             }
 
-            override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
+            override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
                 customerRecyclerViewAdapter?.filter?.filter("")
                 Toast.makeText(this@CustomerProfilesActivity,"Action Collapse", Toast.LENGTH_LONG).show()
                 return true
