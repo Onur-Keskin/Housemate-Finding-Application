@@ -87,6 +87,7 @@ class MainPageActivity : AppCompatActivity(){
 
     fun bringHouseOwnersHouse(view: View){
         val houseOwnerId = intent.getIntExtra("ownerId",0)
+        //println("HouseOwnerId in MainPageActivity : $houseOwnerId")
         val intent = Intent(this@MainPageActivity, MyHouseActivity::class.java)
         intent.putExtra("houseOwnerId",houseOwnerId)
         startActivity(intent)

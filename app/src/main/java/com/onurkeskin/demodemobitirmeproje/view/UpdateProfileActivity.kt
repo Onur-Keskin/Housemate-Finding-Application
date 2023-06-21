@@ -14,6 +14,7 @@ import com.onurkeskin.demobitirmeproje.R
 import com.onurkeskin.demobitirmeproje.view.MainPageActivity
 import com.onurkeskin.demodemobitirmeproje.globalvariables.GlobalVariables
 import com.onurkeskin.demodemobitirmeproje.model.CustomerModel
+import com.onurkeskin.demodemobitirmeproje.model.HouseModel
 import com.onurkeskin.demodemobitirmeproje.model.HouseOwnerModel
 import com.onurkeskin.demodemobitirmeproje.service.CustomerAPI
 import com.onurkeskin.demodemobitirmeproje.service.HouseOwnerAPI
@@ -112,7 +113,7 @@ class UpdateProfileActivity : AppCompatActivity() {
             updateEditTextAge.setText(houseOwnerModel!!.ownerAge.toString())
             updateEditTextHomeTown.setText(houseOwnerModel!!.ownerHometown)
             updateEditTextDepartment.setText(houseOwnerModel!!.ownerDepartment)
-            //updateEditTextPassword.hint = houseOwnerModel!!.customerPassword //burayı modelime eklicem
+            updateEditTextPassword.setText(houseOwnerModel!!.ownerPassword)
             updateEditTextGrade.setText(houseOwnerModel!!.ownerGrade.toString())
             updateEditTextPhone.setText(houseOwnerModel!!.ownerPhone)
             updateEditTextEmail.setText(houseOwnerModel!!.ownerMail)
@@ -164,12 +165,11 @@ class UpdateProfileActivity : AppCompatActivity() {
             houseOwnerObject.addProperty("houseOwnerAge",updateEditTextAge.editableText.toString().toInt())
             houseOwnerObject.addProperty("houseOwnerHometown",updateEditTextHomeTown.text.toString())
             houseOwnerObject.addProperty("houseOwnerDepartment",updateEditTextDepartment.text.toString())
-            //houseOwnerObject.addProperty("ownerPassword",updateEditTextPassword.text.toString())
+            houseOwnerObject.addProperty("ownerPassword",houseOwnerModel!!.ownerPassword)
             houseOwnerObject.addProperty("houseOwnerGrade",updateEditTextGrade.editableText.toString().toInt())
             houseOwnerObject.addProperty("houseOwnerPhone",updateEditTextPhone.text.toString())
             houseOwnerObject.addProperty("houseOwnerEmail",updateEditTextEmail.text.toString()) //burası ownermail olabilir
             houseOwnerObject.addProperty("houseOwnerGender",updateEditTextGender.text.toString())
-            houseOwnerObject.addProperty("houseId",1)//burası güncellenecek
 
             val retrofit = Retrofit.Builder()
                 .baseUrl(GlobalVariables.globalBASEURL)
@@ -177,16 +177,32 @@ class UpdateProfileActivity : AppCompatActivity() {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(HouseOwnerAPI::class.java)
 
-            compositeDisposable?.add(retrofit.updateOneHouseOwner(houseOwnerObject)
-                .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
-                .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
-                .subscribe(this::handleHouseOwnerUpdateClickResponse))
+            compositeDisposable?.add(retrofit.getHouseOfHouseOwner(houseOwnerId.toString())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleBringHouseOwnersHouseResponse))
 
 
         }
         else{
             Toast.makeText(this@UpdateProfileActivity,"HATA" , Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun handleBringHouseOwnersHouseResponse(houseModel: HouseModel){
+        //println("hosueId in UpdateProfileActivity handleBringHouseOwnersHouseResponse method : ${houseModel.houseId}")
+        houseOwnerObject.addProperty("houseId",houseModel.houseId)
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(GlobalVariables.globalBASEURL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build().create(HouseOwnerAPI::class.java)
+
+        compositeDisposable?.add(retrofit.updateOneHouseOwner(houseOwnerObject)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(this::handleHouseOwnerUpdateClickResponse))
     }
 
     private fun handleCustomerUpdateClickResponse(userUpdate: JsonObject){

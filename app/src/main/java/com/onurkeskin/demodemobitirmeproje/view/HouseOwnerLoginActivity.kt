@@ -42,8 +42,6 @@ class HouseOwnerLoginActivity : AppCompatActivity() {
         loginModel.addProperty("username",ownerUsernameText.text.toString())
         loginModel.addProperty("password",ownerPasswordText.text.toString())
 
-        println("LoginModel in ownerSignIn : $loginModel")
-
         loadData()
 
     }
@@ -82,6 +80,7 @@ class HouseOwnerLoginActivity : AppCompatActivity() {
         //!!!!!!!!!!! kayıt olan username ler bir rakam içerince login olunamıyor
         if(ownerLoginModel!!.ownerUsername == ownerUsernameText.editableText.toString()){//password de kontrol edilecek ama önce api de olması şart
             intent = Intent(this@HouseOwnerLoginActivity , MainPageActivity::class.java)
+            //println("HouseOwnerId in HouseOwnerLoginActivity : ${ownerLoginModel!!.ownerId}")
             intent.putExtra("ownerId", ownerLoginModel!!.ownerId)
             intent.putExtra("customerOrOwner","houseOwner")
             startActivity(intent)

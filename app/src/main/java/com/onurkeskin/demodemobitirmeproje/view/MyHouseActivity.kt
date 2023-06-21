@@ -43,7 +43,7 @@ class MyHouseActivity : AppCompatActivity() {
         val intent = intent
 
         val houseOwnerId = intent.getIntExtra("houseOwnerId",1)
-
+        //println("HouseOwnerId in MyHouseActivity : $houseOwnerId")
         val retrofit = Retrofit.Builder()
             .baseUrl(GlobalVariables.globalBASEURL)
             .addConverterFactory(GsonConverterFactory.create())
