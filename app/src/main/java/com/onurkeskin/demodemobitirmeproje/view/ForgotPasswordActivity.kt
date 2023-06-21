@@ -35,8 +35,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
     //Parola Resetleme Fonksiyonu
     fun resetPassword(view: View){
         var customerOrHouseOwner = intent.getStringExtra("customerOrHouseOwner")
+        var inSingleProfile:String? = intent.getStringExtra("inSingleProfile")
 
-        if(customerOrHouseOwner == "customer"){
+        if(customerOrHouseOwner == "customer" && inSingleProfile == null){
+
             val customerUserName = intent.getStringExtra("customerUsername")
             customerResetPasswordModel.addProperty("username",customerUserName)
 
@@ -59,7 +61,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
 
         }
-        else if(customerOrHouseOwner == "houseOwner"){
+        else if(customerOrHouseOwner == "houseOwner" && inSingleProfile == null){
             val houseOwnerUserName = intent.getStringExtra("houseOwnerUsername")
 
             HouseOwnerResetPasswordModel.addProperty("username",houseOwnerUserName)
@@ -80,7 +82,52 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleHouseOwnerWithNewPasswordResponse))
-        }else{
+        }
+        else if(customerOrHouseOwner == "customer" && inSingleProfile == "inCustomerProfile"){ //Profil İçerisinden Şifre Yenileme Talebi Geldiyse
+            val customerUsername = intent.getStringExtra("customerUsername")
+
+            customerResetPasswordModel.addProperty("username",customerUsername)
+
+            if(editTextNewPassword.text.toString() == editTextNewPasswordConfirm.text.toString()){
+                println("Parolalar Eşleşiyor in ForgotPasswordActivity Customer")
+                customerResetPasswordModel.addProperty("password",editTextNewPassword.text.toString())
+            }
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl(GlobalVariables.globalBASEURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build().create(CustomerAPI::class.java)
+
+
+            compositeDisposable?.add(retrofit.updateCustomerPasswordByUsername(customerResetPasswordModel)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleCustomerWithNewPasswordResponseInProfile))
+        }
+        else if(customerOrHouseOwner == "houseOwner" && inSingleProfile == "inHouseOwnerProfile"){
+            val houseOwnerUserName = intent.getStringExtra("houseOwnerUsername")
+
+            HouseOwnerResetPasswordModel.addProperty("username",houseOwnerUserName)
+
+            if(editTextNewPassword.text.toString() == editTextNewPasswordConfirm.text.toString()){
+                println("Parolalar Eşleşiyor in ForgotPasswordActivity HouseOwner")
+                HouseOwnerResetPasswordModel.addProperty("password",editTextNewPassword.text.toString())
+            }
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl(GlobalVariables.globalBASEURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build().create(HouseOwnerAPI::class.java)
+
+
+            compositeDisposable?.add(retrofit.updateHouseOwnerPasswordByUsername(HouseOwnerResetPasswordModel)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleHouseOwnerWithNewPasswordResponseinProfile))
+        }
+        else{
             Toast.makeText(this@ForgotPasswordActivity,"Error in ForgotPasswordActivity", Toast.LENGTH_LONG).show()
         }
     }
@@ -95,6 +142,22 @@ class ForgotPasswordActivity : AppCompatActivity() {
     private fun handleHouseOwnerWithNewPasswordResponse(houseOwnerModel: HouseOwnerModel){
         Toast.makeText(this@ForgotPasswordActivity,"New Password Setted HouseOwner", Toast.LENGTH_LONG).show()
         val intent = Intent(this@ForgotPasswordActivity, HouseOwnerLoginActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun handleCustomerWithNewPasswordResponseInProfile(customerModel: CustomerModel){
+        Toast.makeText(this@ForgotPasswordActivity,"New Password Setted HouseOwner", Toast.LENGTH_LONG).show()
+        val intent = Intent(this@ForgotPasswordActivity, SingleProfileActivity::class.java)
+        intent.putExtra("fromMainPageCustomer","customerLoginProfile")
+        intent.putExtra("customerLoginId",customerModel.customerId)
+        startActivity(intent)
+    }
+
+    private fun handleHouseOwnerWithNewPasswordResponseinProfile(houseOwnerModel: HouseOwnerModel){
+        Toast.makeText(this@ForgotPasswordActivity,"New Password Setted HouseOwner", Toast.LENGTH_LONG).show()
+        val intent = Intent(this@ForgotPasswordActivity, SingleProfileActivity::class.java)
+        intent.putExtra("fromMainPageHouseOwner","houseOwnerLoginProfile")
+        intent.putExtra("houseOwnerLoginId",houseOwnerModel.ownerId)
         startActivity(intent)
     }
 }

@@ -126,8 +126,8 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
             if (customerId != null){
 
                 compositeDisposable?.add(retrofit.getCustomerById(customerId)
-                    .subscribeOn(Schedulers.io())//asenkron bir şekilde ana thread'i bloklamadan işlem yapılacak
-                    .observeOn(AndroidSchedulers.mainThread())//fakat veri main thread'de işlenecek
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(this::handleResponse))
             }
         }
@@ -364,7 +364,7 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         //inflater xml ilemkodu bağlama
         val menuInflater = menuInflater
-        menuInflater.inflate(R.menu.category_menu,menu)
+        menuInflater.inflate(R.menu.singleprofile_menu,menu)
 
 
         return super.onCreateOptionsMenu(menu)
@@ -379,7 +379,23 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
             startActivity(intent)
             //onDestroy()
         }
-        else{
+        else if(item.itemId == R.id.resetPassword){
+            val customerOrHouseOwner = singleProfileCustomerOrHouseOwner.text.toString()
+            if(customerOrHouseOwner == "Customer"){
+                val intent = Intent(this@SingleProfileActivity,ForgotPasswordActivity::class.java)
+                intent.putExtra("customerOrHouseOwner","customer")
+                intent.putExtra("inSingleProfile","inCustomerProfile")
+                intent.putExtra("customerUsername", customerModel?.customerUsername)
+                startActivity(intent)
+            }else{
+                val intent = Intent(this@SingleProfileActivity,ForgotPasswordActivity::class.java)
+                intent.putExtra("customerOrHouseOwner","houseOwner")
+                intent.putExtra("inSingleProfile","inHouseOwnerProfile")
+                intent.putExtra("houseOwnerUsername", houseOwnerModel?.ownerUsername)
+                startActivity(intent)
+            }
+
+        } else{
             Toast.makeText(this@SingleProfileActivity,"Some Errors Happened", Toast.LENGTH_LONG).show()
         }
 

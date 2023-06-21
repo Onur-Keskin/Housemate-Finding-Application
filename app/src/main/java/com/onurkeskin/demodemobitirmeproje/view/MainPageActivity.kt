@@ -7,23 +7,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.isInvisible
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.onurkeskin.demobitirmeproje.R
-import com.onurkeskin.demodemobitirmeproje.adapter.HousesRecyclerViewAdapter
-import com.onurkeskin.demodemobitirmeproje.model.HouseModel
-import com.onurkeskin.demodemobitirmeproje.service.HouseAPI
 import com.onurkeskin.demodemobitirmeproje.view.*
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_houses.*
-import kotlinx.android.synthetic.main.activity_main_page.*
-import kotlinx.android.synthetic.main.activity_main_page.view.*
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 
 class MainPageActivity : AppCompatActivity(){
 
@@ -38,7 +23,7 @@ class MainPageActivity : AppCompatActivity(){
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         //inflater xml ilemkodu bağlama
         val menuInflater = menuInflater
-        menuInflater.inflate(R.menu.category_menu,menu)
+        menuInflater.inflate(R.menu.singleprofile_menu,menu)
 
 
         return super.onCreateOptionsMenu(menu)
@@ -56,7 +41,7 @@ class MainPageActivity : AppCompatActivity(){
         }
         else if(item.itemId == R.id.profile){
             val customerOrOwner = intent.getStringExtra("customerOrOwner")
-            println("customerOrOwner : $customerOrOwner")
+            //println("customerOrOwner : $customerOrOwner")
             if(customerOrOwner == "houseOwner"){//houseOwner giriş yapmışsa
                 val houseOwnerId = intent.getIntExtra("ownerId",0)
                 //println("houseOwnerId : $houseOwnerId")
@@ -77,7 +62,7 @@ class MainPageActivity : AppCompatActivity(){
             //onDestroy()
         }
         else{
-            Toast.makeText(this@MainPageActivity,"Some Errors Happened", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@MainPageActivity,"Some Errors Happened in MainPageActivity HouseOwner Menu", Toast.LENGTH_LONG).show()
         }
 
         return super.onOptionsItemSelected(item)
