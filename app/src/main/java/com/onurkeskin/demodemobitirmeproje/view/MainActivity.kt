@@ -98,10 +98,10 @@ class MainActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_right,R.anim.stay)
     }
 
-    fun goToResetPasswordPageCustomerEmailPart(view:View){
-        //val intent = Intent(this@MainActivity, CheckEmailActivity::class.java)
-        //intent.putExtra("checkEmailFrom","customerLogin")
-        //startActivity(intent)
+    fun goToCheckEmailPart(view:View){
+        val intent = Intent(this@MainActivity, CheckEmailActivity::class.java)
+        intent.putExtra("checkEmailFrom","customerResetPassword")
+        startActivity(intent)
     }
 
     override fun onDestroy() {

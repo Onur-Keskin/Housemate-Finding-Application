@@ -23,6 +23,11 @@ interface CustomerAPI {
         @Path(value = "userName", encoded = true) userName: String?
     ): Observable<CustomerModel>
 
+    @GET("customers/getOneCustomerByMail/{mail}")
+    fun getOneCustomerByMail(
+        @Path(value = "mail", encoded = true) mail: String?
+    ): Observable<CustomerModel>
+
     @POST("models/getOneModelAttributeByCustomerId")
     fun getOneCustomerProperties(@Body requestBody: JsonObject):Observable<JsonObject>
 
@@ -40,6 +45,9 @@ interface CustomerAPI {
 
     @PUT("customers/updateOneCustomer")
     fun updateOneCustomer(@Body requestBody: JsonObject):Observable<JsonObject>
+
+    @PUT("customers/updateCustomerPasswordByUsername")
+    fun updateCustomerPasswordByUsername(@Body requestBody: JsonObject):Observable<CustomerModel>
 
 
 
