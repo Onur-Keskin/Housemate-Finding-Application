@@ -26,6 +26,9 @@ interface CustomerAPI {
     @POST("models/getOneModelAttributeByCustomerId")
     fun getOneCustomerProperties(@Body requestBody: JsonObject):Observable<JsonObject>
 
+    @POST("customers/customerLogin")
+    fun customerLogin(@Body requestBody: JsonObject):Observable<CustomerModel>
+
     @POST("customers/saveOneCustomer")
     fun saveOneCustomer(@Body requestBody: JsonObject):Observable<JsonObject>
 
