@@ -75,7 +75,8 @@
                 android:layout_marginTop="10dp"
                 android:text="Forgot Password?"
                 android:textColor="@color/primaryTextColor"
-                android:textSize="@dimen/newsMoreTextSize" />
+                android:textSize="@dimen/newsMoreTextSize"
+                android:onClick="goToResetPasswordPageHouseOwnerEmailPart"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/circularLoginButton"

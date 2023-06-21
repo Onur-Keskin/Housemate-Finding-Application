@@ -101,6 +101,12 @@ class MainActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_right,R.anim.stay)
     }
 
+    fun goToResetPasswordPageCustomerEmailPart(view:View){
+        //val intent = Intent(this@MainActivity, CheckEmailActivity::class.java)
+        //intent.putExtra("checkEmailFrom","customerLogin")
+        //startActivity(intent)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         compositeDisposable?.clear()

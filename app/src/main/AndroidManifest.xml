@@ -20,6 +20,20 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name="com.onurkeskin.demodemobitirmeproje.view.CheckEmailActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="com.onurkeskin.demodemobitirmeproje.view.ForgotPasswordActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name="com.onurkeskin.demodemobitirmeproje.view.UpdateHouseActivity"
             android:exported="false">
             <meta-data

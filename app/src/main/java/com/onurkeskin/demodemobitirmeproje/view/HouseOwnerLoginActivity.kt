@@ -50,6 +50,12 @@ class HouseOwnerLoginActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_right,R.anim.stay)
     }
 
+    fun goToResetPasswordPageHouseOwnerEmailPart(view:View){
+        //val intent = Intent(this@HouseOwnerLoginActivity, CheckEmailActivity::class.java)
+        //intent.putExtra("checkEmailFrom","houseOwnerLogin")
+        //startActivity(intent)
+    }
+
     private fun loadData(houseOwnerUsername:String){
 
         val retrofit = Retrofit.Builder()
