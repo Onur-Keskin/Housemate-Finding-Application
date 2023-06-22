@@ -29,7 +29,7 @@
             android:layout_marginStart="14dp"
             android:layout_marginTop="19dp"
             android:layout_marginEnd="200dp"
-            android:text="Evde Oturanlar"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
