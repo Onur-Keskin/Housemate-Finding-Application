@@ -165,8 +165,9 @@ class HousesActivity : AppCompatActivity(),HousesRecyclerViewAdapter.Listener {
             val xD = "Ayalarlar sayfasına gider"
         }
         else if(item.itemId == R.id.logout){
-            val intent = Intent(this@HousesActivity,finish()::class.java)
+            val intent = Intent(this@HousesActivity,MainActivity::class.java)
             startActivity(intent)
+            finish()
             //onDestroy()
         }
         else if(item.itemId == R.id.profile){

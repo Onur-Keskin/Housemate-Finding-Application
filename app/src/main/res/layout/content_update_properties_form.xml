@@ -52,7 +52,7 @@
                     android:id="@+id/updateSleepTime"
                     style="@style/modifiedUpdateEditText"
                     android:ems="10"
-                    android:hint="Genelde Kaçta Uyursun? (22.00 gibi)"
+                    android:hint="Genelde Kaçta Uyursun? (22:00 gibi)"
                     android:inputType="textEmailAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
