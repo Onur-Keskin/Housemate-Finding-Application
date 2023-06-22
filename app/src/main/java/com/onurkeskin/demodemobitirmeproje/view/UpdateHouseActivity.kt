@@ -78,7 +78,7 @@ class UpdateHouseActivity : AppCompatActivity() {
         bringInternetPavedRadioButtonChoices() //Evin mevcut internet dahil  olma durumunun radio button seçimlerini getirir
 
 
-        updateHouseOwnersTitle.text = "${house!!.owners[0].get("ownerName")} + ${house!!.owners[0].get("ownerSurname")}"
+        //updateHouseOwnersTitle.text = "${house!!.owners[0].get("ownerName")} + ${house!!.owners[0].get("ownerSurname")}"
 
 
 

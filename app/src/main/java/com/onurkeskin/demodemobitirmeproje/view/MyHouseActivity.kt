@@ -109,6 +109,7 @@ class MyHouseActivity : AppCompatActivity() {
         val intent = Intent(this@MyHouseActivity, MainPageActivity::class.java)
         intent.putExtra("fromMyHouse","myHouse")
         intent.putExtra("houseOwnerId",house!!.owners[0].get("ownerId").asInt)
+        intent.putExtra("ownerId",house!!.owners[0].get("ownerId").asInt)
         startActivity(intent)
 
     }

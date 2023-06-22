@@ -51,6 +51,10 @@ class MainPageActivity : AppCompatActivity(){
                     intent.putExtra("houseOwnerLoginId",houseOwnerId)
                     startActivity(intent)
                 }
+                intent = Intent(this@MainPageActivity, SingleProfileActivity::class.java)
+                intent.putExtra("fromMainPageHouseOwner","houseOwnerLoginProfile")
+                intent.putExtra("houseOwnerLoginId",houseOwnerId)
+                startActivity(intent)
 
             }else{ //customer giriş yapmışsa
                 val userId = intent.getIntExtra("userId",1)
