@@ -38,19 +38,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/updateHouseRentLayout" />
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="1dp"
-            android:layout_marginBottom="64dp"
+            android:layout_marginBottom="90dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/updateHouseOwnersInfo"
-            app:layout_constraintVertical_bias="0.192">
+            app:layout_constraintTop_toBottomOf="@+id/updateHouseRentLayout"
+            app:layout_constraintVertical_bias="0.485">
 
             <ImageView
                 android:id="@+id/updateHouseDisableImageButtonWhite"
@@ -104,7 +105,6 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/updateHouseTypeLayout"
@@ -382,32 +382,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <LinearLayout
-            android:id="@+id/updateHouseOwnersInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="9dp"
-            android:layout_marginEnd="280dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/updateHouseOwnersTitle">
-
-            <TextView
-                android:id="@+id/singleHouseOwner1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:background="@color/colorAccent2"
-                android:onClick="goToOwnerProfile1"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-        </LinearLayout>
 
 
         <LinearLayout

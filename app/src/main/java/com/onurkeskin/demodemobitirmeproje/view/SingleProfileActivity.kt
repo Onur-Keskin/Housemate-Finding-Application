@@ -375,9 +375,16 @@ class SingleProfileActivity : AppCompatActivity() /*, CustomerSingleProfileRecyc
             val xD = "Ayalarlar sayfasına gider"
         }
         else if(item.itemId == R.id.logout){
-            val intent = Intent(this@SingleProfileActivity,finish()::class.java)
-            startActivity(intent)
-            //onDestroy()
+            val customerOrHouseOwner = singleProfileCustomerOrHouseOwner.text.toString()
+            if(customerOrHouseOwner == "Customer"){
+                val intent = Intent(this@SingleProfileActivity,MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }else{
+                val intent = Intent(this@SingleProfileActivity,HouseOwnerLoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
         else if(item.itemId == R.id.resetPassword){
             val customerOrHouseOwner = singleProfileCustomerOrHouseOwner.text.toString()

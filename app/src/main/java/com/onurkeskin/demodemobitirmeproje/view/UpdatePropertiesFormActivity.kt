@@ -302,16 +302,12 @@ class UpdatePropertiesFormActivity : AppCompatActivity() {
         val customerId = customerUpdatePropertiesResponseObject!!.getAsJsonObject("customer").get("customerId").asInt
         if(customerId != 0 ){//password de kontrol edilecek ama önce api de olması şart
             val intent = Intent(this@UpdatePropertiesFormActivity , SingleProfileActivity::class.java)
-            intent.putExtra("userId", customerId)
-            //intent.putExtra("customerOrOwner","customer")
-            intent.putExtra("fromCustomer","customerProfile")
+            intent.putExtra("customerLoginId", customerId)
+            intent.putExtra("fromMainPageCustomer","customerLoginProfile")
             startActivity(intent)
-            //finish()
 
         } else{
-            Toast.makeText(this,"Error Happened", Toast.LENGTH_LONG).show()
-            val intent = Intent(this@UpdatePropertiesFormActivity , SingleProfileActivity::class.java)
-            startActivity(intent)
+            Toast.makeText(this,"Error Happened in UpdatePropertiesFormActivity Customer Side", Toast.LENGTH_LONG).show()
         }
 
     }
@@ -322,15 +318,15 @@ class UpdatePropertiesFormActivity : AppCompatActivity() {
         val houseOwnerId = houseOwnerUpdatePropertiesResponseObject!!.getAsJsonObject("houseOwner").get("ownerId").asInt
 
         if(houseOwnerId != null ){//password de kontrol edilecek ama önce api de olması şart
-            val intent = Intent(this@UpdatePropertiesFormActivity , MainPageActivity::class.java)
-            intent.putExtra("ownerId",houseOwnerId)
-            intent.putExtra("customerOrOwner","houseOwner")
+            val intent = Intent(this@UpdatePropertiesFormActivity , SingleProfileActivity::class.java)
+            intent.putExtra("houseOwnerLoginId",houseOwnerId)
+            intent.putExtra("fromMainPageHouseOwner","houseOwnerLoginProfile")
             startActivity(intent)
             //finish()
 
         } else{
             Toast.makeText(this,"Error Happened", Toast.LENGTH_LONG).show()
-            val intent = Intent(this@UpdatePropertiesFormActivity , SingleProfileActivity::class.java)
+            val intent = Intent(this@UpdatePropertiesFormActivity , MainPageActivity::class.java)
             startActivity(intent)
         }
 

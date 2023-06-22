@@ -35,9 +35,9 @@ class MainPageActivity : AppCompatActivity(){
             val xD = "Ayalarlar sayfasına gider"
         }
         else if(item.itemId == R.id.logout){
-            val intent = Intent(this@MainPageActivity,finish()::class.java)
+            val intent = Intent(this@MainPageActivity,HouseOwnerLoginActivity::class.java)
             startActivity(intent)
-            //onDestroy()
+            finish()
         }
         else if(item.itemId == R.id.profile){
             val customerOrOwner = intent.getStringExtra("customerOrOwner")
@@ -56,7 +56,8 @@ class MainPageActivity : AppCompatActivity(){
                 intent.putExtra("houseOwnerLoginId",houseOwnerId)
                 startActivity(intent)
 
-            }else{ //customer giriş yapmışsa
+            }
+            else{ //customer giriş yapmışsa
                 val userId = intent.getIntExtra("userId",1)
                 intent = Intent(this@MainPageActivity, SingleProfileActivity::class.java)//Şuanlık boş safyaya gider. username e göre unique kullanıcıyı alacak olan bir endpoint lazım
                 intent.putExtra("fromMainPageCustomer","customerLoginProfile")
