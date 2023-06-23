@@ -3,6 +3,8 @@ package com.onurkeskin.demodemobitirmeproje.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +21,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_houses.*
 import kotlinx.android.synthetic.main.activity_liked_houses.*
+import kotlinx.android.synthetic.main.activity_single_profile.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -27,6 +30,7 @@ class LikedHousesActivity : AppCompatActivity() ,LikedHousesRecyclerViewAdapter.
 
     private var likedHousesRecyclerViewAdapter : LikedHousesRecyclerViewAdapter? = null
     private lateinit var likedHouses : ArrayList<HouseModel>
+    private var customerId : Int = 0
 
     //Disposable -> Tek kullanımlık-Kullan At
     private var compositeDisposable : CompositeDisposable? = null
@@ -45,7 +49,7 @@ class LikedHousesActivity : AppCompatActivity() ,LikedHousesRecyclerViewAdapter.
     }
 
     private fun loadData(){
-        val customerId = intent.getIntExtra("customerId",0)
+        customerId = intent.getIntExtra("customerId",0)
 
         if(customerId != 0){
             val retrofit = Retrofit.Builder()
@@ -77,7 +81,38 @@ class LikedHousesActivity : AppCompatActivity() ,LikedHousesRecyclerViewAdapter.
         val intent = Intent(this@LikedHousesActivity,HouseSingleProfileActivity::class.java) //Evin detay bilgilerinin görüntüleneceği sayfaya yönlenecek.
         intent.putExtra("houseId",houseModel.houseId)
         intent.putExtra("fromLikedHouse","liked")
+        intent.putExtra("customerId",customerId)
         startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable?.clear()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        //inflater xml ilemkodu bağlama
+        val menuInflater = menuInflater
+        menuInflater.inflate(R.menu.liked_houses_menu,menu)
+
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.settings){
+            val xD = "Ayalarlar sayfasına gider"
+        }
+        else if(item.itemId == R.id.logout){
+            val intent = Intent(this@LikedHousesActivity,MainActivity::class.java)
+            startActivity(intent)
+            finish()
+
+        } else{
+            Toast.makeText(this@LikedHousesActivity,"Some Errors Happened in LikedHouseActivity", Toast.LENGTH_LONG).show()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 }
