@@ -3,6 +3,8 @@ package com.onurkeskin.demodemobitirmeproje.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -98,6 +100,35 @@ class CustomerWhoLikeHouseActivity : AppCompatActivity() ,CustomerWhoLikeHouseRe
         intent.putExtra("customerId",customerModel.customerId)
         intent.putExtra("fromCustomerWhoLikeHouse","customerWhoLikesHouse")
         startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable?.clear()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val menuInflater = menuInflater
+        menuInflater.inflate(R.menu.liked_houses_menu,menu)
+
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.settings){
+            val xD = "Ayalarlar sayfasına gider"
+        }
+        else if(item.itemId == R.id.logout){
+            val intent = Intent(this@CustomerWhoLikeHouseActivity,HouseOwnerLoginActivity::class.java)
+            startActivity(intent)
+            finish()
+
+        } else{
+            Toast.makeText(this@CustomerWhoLikeHouseActivity,"Some Errors Happened in CustomerWhoLikeHouseActivity", Toast.LENGTH_LONG).show()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 

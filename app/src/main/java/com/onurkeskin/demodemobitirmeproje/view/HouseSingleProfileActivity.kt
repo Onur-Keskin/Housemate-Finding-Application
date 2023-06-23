@@ -318,7 +318,7 @@ class HouseSingleProfileActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         //inflater xml ilemkodu bağlama
         val menuInflater = menuInflater
-        menuInflater.inflate(R.menu.category_menu,menu)
+        menuInflater.inflate(R.menu.myhouse_menu,menu)
 
 
         return super.onCreateOptionsMenu(menu)
@@ -329,9 +329,9 @@ class HouseSingleProfileActivity : AppCompatActivity() {
             val xD = "Ayalarlar sayfasına gider"
         }
         else if(item.itemId == R.id.logout){
-            val intent = Intent(this@HouseSingleProfileActivity,finish()::class.java)
+            val intent = Intent(this@HouseSingleProfileActivity,MainActivity::class.java)
             startActivity(intent)
-            //onDestroy()
+            finish()
         }
         else{
             Toast.makeText(this@HouseSingleProfileActivity,"Some Errors Happened", Toast.LENGTH_LONG).show()

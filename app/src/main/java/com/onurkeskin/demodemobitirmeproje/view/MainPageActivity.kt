@@ -23,7 +23,7 @@ class MainPageActivity : AppCompatActivity(){
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         //inflater xml ilemkodu bağlama
         val menuInflater = menuInflater
-        menuInflater.inflate(R.menu.singleprofile_menu,menu)
+        menuInflater.inflate(R.menu.houseowner_mainpage_menu,menu)
 
 
         return super.onCreateOptionsMenu(menu)
